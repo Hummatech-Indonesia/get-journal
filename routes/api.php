@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Classrooms\ClassroomController;
-use App\Http\Controllers\Api\TestingController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\Lesson\LessonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +29,6 @@ Route::prefix('auth')->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResources([
         'classrooms' => ClassroomController::class,
+        'lessons' => LessonController::class,
     ]);
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });

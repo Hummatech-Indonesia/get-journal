@@ -50,6 +50,12 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
      */
     public function delete(mixed $id): mixed
     {
-        return $this->model->find($id)->delete();
+        try {
+            $this->model->find($id)->delete();
+
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }

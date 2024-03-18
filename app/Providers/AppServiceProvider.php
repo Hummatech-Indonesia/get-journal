@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Contracts\Interfaces\AuthInterface;
 use App\Contracts\Interfaces\ClassroomInterface;
+use App\Contracts\Interfaces\LessonInterface;
 use App\Contracts\Repositories\AuthRepository;
 use App\Contracts\Repositories\ClassroomRepository;
+use App\Contracts\Repositories\LessonRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     private array $register = [
         AuthInterface::class => AuthRepository::class,
         ClassroomInterface::class => ClassroomRepository::class,
+        LessonInterface::class => LessonRepository::class,
     ];
 
     /**

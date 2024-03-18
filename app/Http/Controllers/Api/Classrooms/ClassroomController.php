@@ -68,7 +68,7 @@ class ClassroomController extends Controller
         $delete = $this->classroom->delete($id);
 
         if (!$delete) {
-            return DefaultResource::make(['code' => 400, 'message' => 'Gagal menghapus kelas'])->response()->setStatusCode(400);
+            return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus kelas'])->response()->setStatusCode(500);
         }
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus kelas'])->response()->setStatusCode(200);

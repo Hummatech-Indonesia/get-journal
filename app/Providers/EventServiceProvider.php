@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Classroom;
+use App\Models\Lesson;
 use App\Models\Profile;
 use App\Models\User;
 use App\Observers\ClassroomObserver;
+use App\Observers\LessonObserver;
 use App\Observers\ProfileObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -34,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Profile::observe(ProfileObserver::class);
         Classroom::observe(ClassroomObserver::class);
+        Lesson::observe(LessonObserver::class);
     }
 
     /**

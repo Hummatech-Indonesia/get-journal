@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Classroom;
+namespace App\Http\Requests\Lesson;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +22,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'classroom_id' => 'required|exists:classrooms,id',
             'name' => 'required|string',
-            'code' => ['required', 'string', Rule::unique('lessons')->ignore($this->id)],
-            'limit' => 'required|integer',
         ];
     }
 
@@ -37,13 +35,10 @@ class UpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'classroom_id.required' => 'Kelas tidak boleh kosong',
+            'classroom_id.exists' => 'Kelas tidak ditemukan',
             'name.required' => 'Nama tidak boleh kosong',
             'name.string' => 'Nama harus berupa string',
-            'code.required' => 'Kode tidak boleh kosong',
-            'code.string' => 'Kode harus berupa string',
-            'code.unique' => 'Kode sudah terdaftar',
-            'limit.required' => 'Batas peserta tidak boleh kosong',
-            'limit.integer' => 'Batas peserta harus berupa angka',
         ];
     }
 }
