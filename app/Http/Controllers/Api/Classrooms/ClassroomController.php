@@ -8,14 +8,17 @@ use App\Http\Requests\Classroom\StoreRequest;
 use App\Http\Requests\Classroom\UpdateRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Http\Resources\DefaultResource;
+use App\Services\ClassroomService;
 
 class ClassroomController extends Controller
 {
     private ClassroomInterface $classroom;
+    private ClassroomService $service;
 
-    public function __construct(ClassroomInterface $classroom)
+    public function __construct(ClassroomInterface $classroom, ClassroomService $service)
     {
         $this->classroom = $classroom;
+        $this->service = $service;
     }
 
     /**
@@ -34,6 +37,7 @@ class ClassroomController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
+        $data['code'] = $this->service->generateCode();
         $classroom = $this->classroom->store($data);
 
         return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan kelas'])->response()->setStatusCode(201);
@@ -72,5 +76,17 @@ class ClassroomController extends Controller
         }
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus kelas'])->response()->setStatusCode(200);
+    }
+
+    /**
+     * Generate code for classroom
+     */
+    public function generateCode(mixed $id)
+    {
+        $code = $this->service->generateCode();
+        $this->classroom->generateCode($code, $id);
+        $classroom = $this->classroom->show($id);
+
+        return ClassroomResource::make($classroom)->response()->setStatusCode(200);
     }
 }

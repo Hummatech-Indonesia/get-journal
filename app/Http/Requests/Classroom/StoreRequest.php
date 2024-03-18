@@ -23,7 +23,6 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'code' => 'required|string|unique:classrooms,code',
             'limit' => 'required|integer',
         ];
     }
@@ -38,9 +37,6 @@ class StoreRequest extends FormRequest
         return [
             'name.required' => 'Nama tidak boleh kosong',
             'name.string' => 'Nama harus berupa string',
-            'code.required' => 'Kode tidak boleh kosong',
-            'code.string' => 'Kode harus berupa string',
-            'code.unique' => 'Kode sudah terdaftar',
             'limit.required' => 'Batas peserta tidak boleh kosong',
             'limit.integer' => 'Batas peserta harus berupa angka',
         ];

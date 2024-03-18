@@ -58,4 +58,12 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
             return false;
         }
     }
+
+    /**
+     * Generate code
+     */
+    public function generateCode(String $code, mixed $id): mixed
+    {
+        return $this->model->find($id)->update(['code' => $code]);
+    }
 }

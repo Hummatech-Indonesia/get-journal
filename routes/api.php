@@ -27,6 +27,9 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('classrooms')->group(function () {
+        Route::get('{id}/generate-code', [ClassroomController::class, 'generateCode']);
+    });
     Route::apiResources([
         'classrooms' => ClassroomController::class,
         'lessons' => LessonController::class,
