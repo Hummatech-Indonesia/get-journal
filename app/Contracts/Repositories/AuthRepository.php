@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Resources\Auth\LoginResource;
 use App\Http\Resources\Auth\ProfileResource;
+use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -34,7 +35,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
             $user = $this->model->with('profile')->find(auth()->user()->id);
             $user->token = $token;
 
-            return (LoginResource::make($user))->response()->setStatusCode(200);
+            return (UserResource::make($user))->response()->setStatusCode(200);
         }
 
         return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Classrooms\ClassroomController;
 use App\Http\Controllers\Api\Lesson\LessonController;
+use App\Http\Controllers\Api\Student\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,8 +31,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('classrooms')->group(function () {
         Route::get('{id}/generate-code', [ClassroomController::class, 'generateCode']);
     });
+    Route::prefix('students')->group(function () {
+        Route::get('{id}', [StudentController::class, 'index']);
+    });
+
     Route::apiResources([
         'classrooms' => ClassroomController::class,
         'lessons' => LessonController::class,
+        'students' => StudentController::class,
     ]);
 });

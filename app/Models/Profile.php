@@ -20,6 +20,7 @@ class Profile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'identity_number',
         'name',
         'birthdate',
