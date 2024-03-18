@@ -24,6 +24,19 @@ use Illuminate\Routing\Controller as BaseController;
  *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
  * )
+ * 
+ * 
+ * @OA\SecurityScheme(
+
+ * type="http",
+
+ * securityScheme="bearerAuth",
+
+ * scheme="bearer",
+
+ * bearerFormat="JWT"
+
+ * )
  */
 class Controller extends BaseController
 {

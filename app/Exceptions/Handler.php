@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -18,11 +19,20 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+
     /**
      * Register the exception handling callbacks for the application.
      */
     public function register(): void
     {
+        $this->renderable(function (ValidationException $exception, $request) {
+            if (!$request->wantsJson()) {
+                return null; // Laravel handles as usual
+            }
+
+            throw new CustomValidationException($exception->validator->getMessageBag()->getMessages(), 422);
+        });
+
         $this->reportable(function (Throwable $e) {
             //
         });
