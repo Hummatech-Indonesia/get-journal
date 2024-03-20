@@ -6,11 +6,13 @@ use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Lesson;
 use App\Models\Profile;
+use App\Models\Reminder;
 use App\Models\User;
 use App\Observers\AssignmentObserver;
 use App\Observers\ClassroomObserver;
 use App\Observers\LessonObserver;
 use App\Observers\ProfileObserver;
+use App\Observers\ReminderObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -40,6 +42,7 @@ class EventServiceProvider extends ServiceProvider
         Classroom::observe(ClassroomObserver::class);
         Lesson::observe(LessonObserver::class);
         Assignment::observe(AssignmentObserver::class);
+        Reminder::observe(ReminderObserver::class);
     }
 
     /**

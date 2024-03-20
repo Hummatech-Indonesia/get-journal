@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\AuthInterface;
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\LessonInterface;
+use App\Contracts\Interfaces\ReminderInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
@@ -15,6 +16,7 @@ use App\Contracts\Repositories\AuthRepository;
 use App\Contracts\Repositories\ClassroomRepository;
 use App\Contracts\Repositories\LessonRepository;
 use App\Contracts\Repositories\MarkRepository;
+use App\Contracts\Repositories\ReminderRepository;
 use App\Contracts\Repositories\StudentRepository;
 use App\Contracts\Repositories\User\ProfileRepository;
 use App\Contracts\Repositories\User\UserRepository;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         StudentInterface::class => StudentRepository::class,
         AssignmentInterface::class => AssignmentRepository::class,
         MarkAssignmentInterface::class => MarkRepository::class,
+        ReminderInterface::class => ReminderRepository::class,
     ];
 
     /**
