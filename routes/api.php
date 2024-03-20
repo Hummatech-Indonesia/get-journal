@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Classrooms\ClassroomController;
 use App\Http\Controllers\Api\Lesson\LessonController;
 use App\Http\Controllers\Api\Reminder\ReminderController;
 use App\Http\Controllers\Api\Student\StudentController;
+use App\Http\Controllers\Journal\JournalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,5 +54,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         'assignments' => AssignmentController::class,
         'marks' => MarkController::class,
         'reminders' => ReminderController::class,
+        'journals' => JournalController::class,
     ]);
 });
