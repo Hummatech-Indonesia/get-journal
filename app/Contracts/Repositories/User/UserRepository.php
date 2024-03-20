@@ -24,4 +24,17 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->create($data);
     }
+
+    /**
+     * Update user
+     *
+     * @param mixed $id
+     * @param array $data
+     * @return mixed
+     */
+    public function updatePassword(mixed $id, array $data): mixed
+    {
+        // dd($this->model->find($id)->update($data));
+        return $this->model->find($id)->update(['password' => bcrypt($data['new_password'])]);
+    }
 }

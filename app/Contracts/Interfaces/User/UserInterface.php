@@ -4,6 +4,6 @@ namespace App\Contracts\Interfaces\User;
 
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 
-interface UserInterface extends StoreInterface
+interface UserInterface extends StoreInterface, UpdatePasswordInterface
 {
 }

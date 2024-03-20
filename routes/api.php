@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Classrooms\ClassroomController;
 use App\Http\Controllers\Api\Lesson\LessonController;
 use App\Http\Controllers\Api\Reminder\ReminderController;
 use App\Http\Controllers\Api\Student\StudentController;
+use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Journal\JournalController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::prefix('auth')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::post('update-password', [UserController::class, 'updatePassword']);
     });
 });
 
