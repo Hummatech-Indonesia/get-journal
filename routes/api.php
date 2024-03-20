@@ -30,6 +30,7 @@ Route::prefix('auth')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('update-password', [UserController::class, 'updatePassword']);
+        Route::post('update-profile', [UserController::class, 'updateProfile']);
     });
 });
 

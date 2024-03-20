@@ -50,6 +50,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
     public function register(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
+        $data['is_register'] = 1;
 
         $user = $this->model->create([
             'email' => $data['email'],

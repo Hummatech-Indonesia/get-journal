@@ -52,4 +52,16 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     {
         return $this->model->where('identity_number', $identityNumber)->first();
     }
+
+    /**
+     * Update user
+     *
+     * @param mixed $id
+     * @param array $data
+     * @return mixed
+     */
+    public function update(mixed $id, array $data): mixed
+    {
+        return $this->model->find($id)->update($data);
+    }
 }
