@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentInterface;
 use App\Models\ClassroomStudent;
+use Illuminate\Support\Facades\DB;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
@@ -48,5 +49,18 @@ class StudentRepository extends BaseRepository implements StudentInterface
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Get classroom student by assignment
+     *
+     * @param string $assignmentId
+     * @return mixed
+     */
+    public function getClassroomStudentByAssignment(string $assignmentId): mixed
+    {
+        $query = DB::select("SELECT * FROM classroom_students INNER JOIN profiles ON classroom_students.student_id = profiles.id LEFT JOIN marks ON classroom_students.id = marks.classroom_student_id WHERE marks.assignment_id = ? OR marks.assignment_id is null", [$assignmentId]);
+
+        return $this->model->hydrate($query);
     }
 }

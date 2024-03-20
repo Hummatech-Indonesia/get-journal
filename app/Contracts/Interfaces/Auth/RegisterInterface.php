@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Interfaces\Auth;
 
-use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 
 interface RegisterInterface

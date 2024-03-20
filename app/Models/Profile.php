@@ -27,5 +27,6 @@ class Profile extends Model
         'address',
         'gender',
         'photo',
+        'is_register',
     ];
 }

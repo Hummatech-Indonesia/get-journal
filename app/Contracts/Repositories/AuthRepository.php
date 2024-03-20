@@ -3,9 +3,8 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AuthInterface;
-use App\Http\Requests\Api\Auth\LoginRequest;
-use App\Http\Requests\Api\Auth\RegisterRequest;
-use App\Http\Resources\Auth\LoginResource;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\Auth\ProfileResource;
 use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
@@ -22,7 +21,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
     /**
      * Handle a login request to the application.
      *
-     * @param \App\Http\Requests\Api\Auth\LoginRequest $request
+     * @param \App\Http\Requests\Auth\LoginRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -44,7 +43,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
     /**
      * Handle a profile request to the application.
      *
-     * @param \App\Http\Requests\Api\Auth\RegisterRequest $request
+     * @param \App\Http\Requests\Auth\RegisterRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */

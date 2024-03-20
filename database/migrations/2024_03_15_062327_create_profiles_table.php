@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->text('address')->nullable();
             $table->string('photo')->nullable();
+            $table->enum('is_register', [0, 1])->default(0);
             $table->timestamps();
         });
     }

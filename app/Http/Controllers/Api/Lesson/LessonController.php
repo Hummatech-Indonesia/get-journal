@@ -23,9 +23,9 @@ class LessonController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(String $classroom_id)
     {
-        return (LessonResource::make($this->lesson->get()))->response()->setStatusCode(200);
+        return (LessonResource::make($this->lesson->get($classroom_id)))->response()->setStatusCode(200);
     }
 
     /**

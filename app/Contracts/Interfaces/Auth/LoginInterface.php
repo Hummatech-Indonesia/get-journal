@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Interfaces\Auth;
 
-use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
 
 interface LoginInterface
@@ -10,7 +10,7 @@ interface LoginInterface
     /**
      * Handle a login request to the application.
      *
-     * @param \App\Http\Requests\Api\Auth\LoginRequest $request
+     * @param \App\Http\Requests\Auth\LoginRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */

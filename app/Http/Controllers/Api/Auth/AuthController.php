@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Contracts\Interfaces\AuthInterface;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\LoginRequest;
-use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -20,7 +20,7 @@ class AuthController extends Controller
     /**
      * Handle a login request to the application.
      *
-     * @param \App\Http\Requests\Api\Auth\LoginRequest $request
+     * @param \App\Http\Requests\Auth\LoginRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -32,7 +32,7 @@ class AuthController extends Controller
     /**
      * Handle a register request to the application.
      *
-     * @param \App\Http\Requests\Api\Auth\RegisterRequest $request
+     * @param \App\Http\Requests\Auth\RegisterRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */

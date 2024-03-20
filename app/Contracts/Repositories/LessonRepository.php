@@ -15,9 +15,9 @@ class LessonRepository extends BaseRepository implements LessonInterface
     /**
      * Get all lessons
      */
-    public function get(): mixed
+    public function get(mixed $classroom_id): mixed
     {
-        return $this->model->get();
+        return $this->model->where('classroom_id', $classroom_id)->get();
     }
 
     /**

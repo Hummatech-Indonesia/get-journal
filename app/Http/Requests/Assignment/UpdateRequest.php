@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Assignment;
 
-use App\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +22,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'due_date' => 'required|date',
         ];
     }
 
@@ -36,10 +36,12 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Email tidak valid',
-            'password.required' => 'Password harus diisi',
-            'password.string' => 'Password harus berupa string',
+            'name.required' => 'Judul wajib diisi',
+            'name.string' => 'Judul harus berupa teks',
+            'description.required' => 'Deskripsi wajib diisi',
+            'description.string' => 'Deskripsi harus berupa teks',
+            'due_date.required' => 'Tanggal jatuh tempo wajib diisi',
+            'due_date.date' => 'Tanggal jatuh tempo harus berupa tanggal',
         ];
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Lesson;
 use App\Models\Profile;
 use App\Models\User;
+use App\Observers\AssignmentObserver;
 use App\Observers\ClassroomObserver;
 use App\Observers\LessonObserver;
 use App\Observers\ProfileObserver;
@@ -37,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         Profile::observe(ProfileObserver::class);
         Classroom::observe(ClassroomObserver::class);
         Lesson::observe(LessonObserver::class);
+        Assignment::observe(AssignmentObserver::class);
     }
 
     /**
