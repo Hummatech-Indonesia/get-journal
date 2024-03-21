@@ -81,7 +81,10 @@ class AuthRepository extends BaseRepository implements AuthInterface
      */
     public function getUser(): JsonResponse
     {
-        return (ProfileResource::make(auth()->user()->profile))->additional(['email' => auth()->user()->email])->response()->setStatusCode(200);
+        $profile = auth()->user()->profile;
+        $profile['email'] = auth()->user()->email;
+
+        return (ProfileResource::make($profile)->response())->setStatusCode(200);
     }
 } {
 }
