@@ -26,7 +26,7 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
      */
     public function show(mixed $id): mixed
     {
-        return $this->model->with('countStudents')->find($id);
+        return $this->model->withCount('countStudents')->find($id);
     }
 
     /**
