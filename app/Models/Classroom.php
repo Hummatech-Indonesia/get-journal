@@ -25,7 +25,7 @@ class Classroom extends Model
     /**
      * Get the profile that owns the classroom.
      */
-    public function countStudents(): int
+    public function countStudents(): mixed
     {
         return $this->hasMany(ClassroomStudent::class, 'student_id')->count();
     }
