@@ -49,7 +49,7 @@ class ClassroomController extends Controller
     public function show(string $id)
     {
         $classroom = $this->classroom->show($id);
-
+        dd($classroom);
         return (ClassroomResource::make($classroom))->response()->setStatusCode(200);
     }
 
