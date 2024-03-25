@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'code' => ['required', 'string', Rule::unique('lessons')->ignore($this->id)],
+            'code' => ['string', Rule::unique('lessons')->ignore($this->id)],
             'limit' => 'required|integer',
         ];
     }
