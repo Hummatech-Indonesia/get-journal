@@ -27,6 +27,6 @@ class Classroom extends Model
      */
     public function students(): mixed
     {
-        return $this->hasMany(ClassroomStudent::class, 'student_id');
+        return $this->hasMany(ClassroomStudent::class, 'classroom_id');
     }
 }
