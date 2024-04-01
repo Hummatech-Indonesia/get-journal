@@ -59,7 +59,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      */
     public function getClassroomStudentByAssignment(string $assignmentId): mixed
     {
-        $query = DB::select("SELECT *, classroom_students.id as id_classroom_student FROM classroom_students INNER JOIN profiles ON classroom_students.student_id = profiles.id LEFT JOIN marks ON classroom_students.id = marks.classroom_student_id WHERE marks.assignment_id = ? OR marks.assignment_id is null", [$assignmentId]);
+        $query = DB::select("SELECT *, classroom_students.id as classroom_student_id FROM classroom_students INNER JOIN profiles ON classroom_students.student_id = profiles.id LEFT JOIN marks ON classroom_students.id = marks.classroom_student_id WHERE marks.assignment_id = ? OR marks.assignment_id is null", [$assignmentId]);
 
         return $this->model->hydrate($query);
     }
