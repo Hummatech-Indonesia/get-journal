@@ -21,6 +21,14 @@ class LessonRepository extends BaseRepository implements LessonInterface
     }
 
     /**
+     * Get lesson by id
+     */
+    public function show($id): mixed
+    {
+        return $this->model->find($id);
+    }
+
+    /**
      * Insert lesson
      */
     public function store($data): mixed

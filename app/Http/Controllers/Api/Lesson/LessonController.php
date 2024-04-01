@@ -43,7 +43,7 @@ class LessonController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return LessonResource::make($this->lesson->show($id))->response()->setStatusCode(200);
     }
 
     /**
