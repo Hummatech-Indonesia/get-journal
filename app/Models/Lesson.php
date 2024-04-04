@@ -18,4 +18,9 @@ class Lesson extends Model
         'name',
         'classroom_id',
     ];
+
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
 }

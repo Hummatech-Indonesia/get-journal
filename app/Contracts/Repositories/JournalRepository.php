@@ -31,7 +31,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     */
     public function show(mixed $id): mixed
     {
-        return $this->model->with('sick.profile', 'permit.profile', 'alpha.profile')->find($id);
+        return $this->model->with('sick.profile', 'permit.profile', 'alpha.profile', 'lesson.classsroom')->find($id);
     }
 
     /*
