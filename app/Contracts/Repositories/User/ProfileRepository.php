@@ -15,6 +15,19 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     }
 
     /**
+     * Get user info
+     *
+     * @param mixed $profileId
+     * @return mixed
+     */
+    public function getUserInfo(mixed $profileId): mixed
+    {
+        return $this->model
+            ->withCount('classrooms', 'lessons')
+            ->where('id', $profileId)->first();
+    }
+
+    /**
      * Store a new user
      *
      * @param array $data

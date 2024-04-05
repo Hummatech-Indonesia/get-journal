@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\User\UserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdatePasswordRequest;
 use App\Http\Requests\User\UpdateProfileRequest;
+use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,18 @@ class UserController extends Controller
         $this->userInterface = $userInterface;
         $this->profileInterface = $profileInterface;
         $this->userService = $userService;
+    }
+
+    /**
+     * Get user info
+     *
+     * @return mixed
+     */
+    public function getUserInfo(): mixed
+    {
+        $profile = $this->profileInterface->getUserInfo(auth()->user()->profile->id);
+
+        return DefaultResource::make($profile)->response()->setStatusCode(200);
     }
 
     /**

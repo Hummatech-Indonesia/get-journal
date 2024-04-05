@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Interfaces\Classrooms;
 
-interface GetClassroomByUser
+interface GetClassroomByUserInterface
 {
     public function getClassroomByUser(mixed $profileId): mixed;
 }

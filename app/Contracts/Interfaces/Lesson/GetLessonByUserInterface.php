@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Interfaces\Lesson;
 
-interface GetLessonByUser
+interface GetLessonByUserInterface
 {
     public function getLessonByUser(mixed $profileId): mixed;
 }
