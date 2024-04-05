@@ -26,7 +26,7 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $classrooms = $this->classroom->get();
+        $classrooms = $this->classroom->getClassroomByUser(auth()->user()->profile->id);
 
         return (ClassroomResource::make($classrooms))->response()->setStatusCode(200);
     }
