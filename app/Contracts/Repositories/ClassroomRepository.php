@@ -18,7 +18,7 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
      */
     public function get(): mixed
     {
-        return $this->model->all();
+        return $this->model->withCount('students')->get();
     }
 
     /**
