@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('lessons')->group(function () {
         Route::get('{id}/get-all', [LessonController::class, 'index']);
+        Route::get('get-lesson-by-user', [LessonController::class, 'getLessonByUser']);
     });
     Route::prefix('assignments')->group(function () {
         Route::get('{id}/get-all', [AssignmentController::class, 'index']);

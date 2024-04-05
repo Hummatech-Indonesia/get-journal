@@ -21,6 +21,16 @@ class LessonRepository extends BaseRepository implements LessonInterface
     }
 
     /**
+     * Get lesson by classroom
+     */
+    public function getLessonByUser(mixed $profileId): mixed
+    {
+        return $this->model
+            ->whereRelation('classroom', 'profile_id', $profileId)
+            ->get();
+    }
+
+    /**
      * Get lesson by id
      */
     public function show($id): mixed

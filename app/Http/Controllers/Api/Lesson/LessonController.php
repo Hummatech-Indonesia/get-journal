@@ -29,6 +29,14 @@ class LessonController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function getLessonByUser()
+    {
+        return (LessonResource::make($this->lesson->getLessonByUser(auth()->user()->profile->id)))->response()->setStatusCode(200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreRequest $request)
