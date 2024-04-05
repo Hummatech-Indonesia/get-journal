@@ -23,7 +23,7 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     public function getUserInfo(mixed $profileId): mixed
     {
         return $this->model
-            ->withCount('classrooms', 'lessons')
+            ->withCount('classrooms', 'lessons', 'reminders')
             ->where('id', $profileId)->first();
     }
 

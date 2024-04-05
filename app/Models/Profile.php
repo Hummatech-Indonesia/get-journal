@@ -47,4 +47,12 @@ class Profile extends Model
     {
         return $this->hasManyThrough(Lesson::class, Classroom::class, 'profile_id', 'classroom_id', 'id', 'id');
     }
+
+    /**
+     * Get the reminders for the profile.
+     */
+    public function reminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class, 'profile_id');
+    }
 }
