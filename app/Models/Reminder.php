@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
-    public $incrementing = false;
-    protected $keyType = 'string';
+    // public $incrementing = false;
+    // protected $keyType = 'string';
     protected $primaryKey = 'id';
 
     protected $fillable = [
