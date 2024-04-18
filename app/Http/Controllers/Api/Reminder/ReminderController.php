@@ -59,7 +59,8 @@ class ReminderController extends Controller
     {
         $data = $request->validated();
 
-        $reminder = $this->reminder->update($id, $data);
+        $this->reminder->update($id, $data);
+        $reminder = $this->reminder->show($id);
 
         // return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengubah pengingat'])->response()->setStatusCode(200);
         return ReminderResource::make($reminder)->response()->setStatusCode(200);
