@@ -70,9 +70,10 @@ class ReminderController extends Controller
      */
     public function destroy(string $id)
     {
-        $reminder = $this->reminder->delete($id);
+        $reminder = $this->reminder->show($id);
+        $delete = $this->reminder->delete($id);
 
-        if ($reminder != null) {
+        if ($delete) {
             // return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus pengingat'])->response()->setStatusCode(200);
 
             return ReminderResource::make($reminder)->response()->setStatusCode(200);
