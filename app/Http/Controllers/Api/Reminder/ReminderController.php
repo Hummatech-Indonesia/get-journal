@@ -36,9 +36,10 @@ class ReminderController extends Controller
     {
         $data = $request->validated();
 
-        $this->reminder->store($data);
+        $reminder = $this->reminder->store($data);
 
-        return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan pengingat'])->response()->setStatusCode(201);
+        // return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan pengingat'])->response()->setStatusCode(201);\
+        return ReminderResource::make($reminder)->response()->setStatusCode(200);
     }
 
     /**
@@ -58,9 +59,10 @@ class ReminderController extends Controller
     {
         $data = $request->validated();
 
-        $this->reminder->update($id, $data);
+        $reminder = $this->reminder->update($id, $data);
 
-        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengubah pengingat'])->response()->setStatusCode(200);
+        // return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengubah pengingat'])->response()->setStatusCode(200);
+        return ReminderResource::make($reminder)->response()->setStatusCode(200);
     }
 
     /**
@@ -68,10 +70,12 @@ class ReminderController extends Controller
      */
     public function destroy(string $id)
     {
-        $delete = $this->reminder->delete($id);
+        $reminder = $this->reminder->delete($id);
 
-        if ($delete) {
-            return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus pengingat'])->response()->setStatusCode(200);
+        if ($reminder != null) {
+            // return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus pengingat'])->response()->setStatusCode(200);
+
+            return ReminderResource::make($reminder)->response()->setStatusCode(200);
         }
 
         return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus pengingat'])->response()->setStatusCode(500);

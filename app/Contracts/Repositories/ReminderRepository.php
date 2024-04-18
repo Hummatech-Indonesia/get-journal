@@ -67,10 +67,10 @@ class ReminderRepository extends BaseRepository implements ReminderInterface
     public function delete(mixed $id): mixed
     {
         try {
-            $this->model->where('id', $id)->delete();
-            return true;
+            return $this->model->where('id', $id)->delete();
+            // return true;
         } catch (\Throwable $th) {
-            return false;
+            return null;
         }
     }
 }
