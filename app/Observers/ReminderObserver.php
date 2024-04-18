@@ -9,7 +9,7 @@ class ReminderObserver
 {
     public function creating(Reminder $reminder): void
     {
-        $reminder->id = Str::uuid();
+        // $reminder->id = Str::uuid();
         $reminder->profile_id = auth()->user()->profile->id;
     }
 

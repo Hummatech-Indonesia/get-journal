@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reminders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            // $table->uuid('id')->primary();
+            $table->id();
             $table->foreignUuid('profile_id')->constrained('profiles')->restrictOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->text('content');
