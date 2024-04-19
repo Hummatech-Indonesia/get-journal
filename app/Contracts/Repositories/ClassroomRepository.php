@@ -18,7 +18,7 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
      */
     public function getClassroomByUser(mixed $profileId): mixed
     {
-        return $this->model->withCount('students')->where('profile_id', $profileId)->get();
+        return $this->model->with('background')->withCount('students')->where('profile_id', $profileId)->get();
     }
 
     /**
