@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('classroom_id')->constrained('classrooms')->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('student_id')->constrained('profiles')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignId('background_id')->constrained('backgrounds')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
