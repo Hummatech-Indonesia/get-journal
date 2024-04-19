@@ -14,9 +14,9 @@ class UserService
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('photo');
 
-            if (Storage::exists(auth()->user()->photo) && !is_null(auth()->user()->photo)) {
-                Storage::delete(auth()->user()->photo);
-            }
+            // if (Storage::exists(auth()->user()->photo) && !is_null(auth()->user()->photo)) {
+            //     Storage::delete(auth()->user()->photo);
+            // }
         }
 
         return $data;
