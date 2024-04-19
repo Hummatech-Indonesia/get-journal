@@ -23,6 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'is_premium' => 'required',
         ];
     }
 
@@ -38,6 +39,7 @@ class StoreRequest extends FormRequest
             'image.image' => 'Image must be an image',
             'image.mimes' => 'Image must be a file of type: jpeg, png, jpg',
             'image.max' => 'Image may not be greater than 2048 kilobytes',
+            'is_premium.required' => 'Is premium wajib diisi',
         ];
     }
 }

@@ -51,6 +51,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('assignments')->group(function () {
         Route::get('{id}/get-all', [AssignmentController::class, 'index']);
     });
+    Route::prefix('backgrounds')->group(function () {
+        Route::get('get-premium', [BackgroundController::class, 'getPremium']);
+        Route::get('get-free', [BackgroundController::class, 'getFree']);
+    });
 
     Route::apiResources([
         'backgrounds' => BackgroundController::class,

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('backgrounds', function (Blueprint $table) {
             $table->id();
+            $table->enum('is_premium', ['0', '1'])->default('0');
             $table->string('image');
             $table->timestamps();
         });

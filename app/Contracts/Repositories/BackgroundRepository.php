@@ -13,11 +13,11 @@ class BackgroundRepository extends BaseRepository implements BackgroundInterface
     }
 
     /**
-     * Get all backgrounds
+     * Get backgrounds by status
      */
-    public function get(): mixed
+    public function getByStatus(bool $is_premium): mixed
     {
-        return $this->model->get();
+        return $this->model->where('is_premium', $is_premium ? 1 : 0)->get();
     }
 
     /**

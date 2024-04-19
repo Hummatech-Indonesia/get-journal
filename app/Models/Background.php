@@ -11,5 +11,6 @@ class Background extends Model
 
     protected $fillable = [
         'image',
+        'is_premium',
     ];
 }

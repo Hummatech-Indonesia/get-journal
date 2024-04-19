@@ -25,9 +25,19 @@ class BackgroundController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getPremium()
     {
-        $backgrounds = $this->background->get();
+        $backgrounds = $this->background->getByStatus(true);
+
+        return BackgroundResource::collection($backgrounds)->response()->setStatusCode(200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getFree()
+    {
+        $backgrounds = $this->background->getByStatus(false);
 
         return BackgroundResource::collection($backgrounds)->response()->setStatusCode(200);
     }

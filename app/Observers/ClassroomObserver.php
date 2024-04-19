@@ -14,6 +14,7 @@ class ClassroomObserver
     {
         $classroom->id = Str::uuid();
         $classroom->profile_id = auth()->user()->profile->id;
+        $classroom->background_id = 1;
     }
 
     /**
