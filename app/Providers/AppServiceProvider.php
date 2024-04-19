@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\AuthInterface;
+use App\Contracts\Interfaces\BackgroundInterface;
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\LessonInterface;
@@ -14,6 +15,7 @@ use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
 use App\Contracts\Repositories\AssignmentRepository;
 use App\Contracts\Repositories\AuthRepository;
+use App\Contracts\Repositories\BackgroundRepository;
 use App\Contracts\Repositories\ClassroomRepository;
 use App\Contracts\Repositories\JournalRepository;
 use App\Contracts\Repositories\LessonRepository;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         MarkAssignmentInterface::class => MarkRepository::class,
         ReminderInterface::class => ReminderRepository::class,
         JournalInterface::class => JournalRepository::class,
+        BackgroundInterface::class => BackgroundRepository::class,
     ];
 
     /**

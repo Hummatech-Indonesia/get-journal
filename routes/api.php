@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Assignment\AssignmentController;
 use App\Http\Controllers\Api\Assignment\MarkController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Background\BackgroundController;
 use App\Http\Controllers\Api\Classrooms\ClassroomController;
 use App\Http\Controllers\Api\Lesson\LessonController;
 use App\Http\Controllers\Api\Reminder\ReminderController;
@@ -52,6 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::apiResources([
+        'backgrounds' => BackgroundController::class,
         'classrooms' => ClassroomController::class,
         'lessons' => LessonController::class,
         'students' => StudentController::class,
