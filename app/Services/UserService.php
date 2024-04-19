@@ -12,7 +12,7 @@ class UserService
         $data = $request->validated();
 
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('public/photo');
+            $data['photo'] = $request->file('photo')->store('photo');
 
             if (Storage::exists(auth()->user()->photo)) {
                 Storage::delete(auth()->user()->photo);
