@@ -66,4 +66,12 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
     {
         return $this->model->find($id)->update(['code' => $code]);
     }
+
+    /**
+     * Change Background Classroom
+     */
+    public function changeBackground(mixed $id, mixed $background): mixed
+    {
+        return $this->model->find($id)->update(['background_id' => $background]);
+    }
 }

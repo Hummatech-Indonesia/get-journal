@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Background\StoreRequest;
 use App\Http\Resources\BackgroundResource;
 use App\Http\Resources\DefaultResource;
+use App\Models\Background;
 use App\Services\BackgroundService;
 use Illuminate\Http\Request;
 
@@ -48,16 +49,35 @@ class BackgroundController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreRequest $request, Background $background)
     {
-        //
+        $data = $this->service->handleUpdateBackground($request);
+        $this->background->update($background->id, $data);
+
+        return DefaultResource::make([
+            'code' => 200,
+            'message' => 'Background berhasil diupdate',
+        ])->response()->setStatusCode(200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Background $background)
     {
-        //
+        $delete = $this->background->delete($background->id);
+        if ($delete) {
+            $this->service->handleDeleteBackground($background->image);
+
+            return DefaultResource::make([
+                'code' => 200,
+                'message' => 'Background berhasil dihapus',
+            ])->response()->setStatusCode(200);
+        }
+
+        return DefaultResource::make([
+            'code' => 400,
+            'message' => 'Background gagal dihapus',
+        ], 400)->response()->setStatusCode(400);
     }
 }

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\Classrooms;
 
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Classroom\ChangeBackgroundRequest;
 use App\Http\Requests\Classroom\StoreRequest;
 use App\Http\Requests\Classroom\UpdateRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Http\Resources\DefaultResource;
 use App\Services\ClassroomService;
+use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
@@ -87,5 +89,16 @@ class ClassroomController extends Controller
         $classroom = $this->classroom->show($id);
 
         return ClassroomResource::make($classroom)->response()->setStatusCode(200);
+    }
+
+    /**
+     * Change background classroom
+     */
+    public function changeBackground(ChangeBackgroundRequest $request, mixed $id)
+    {
+        $data = $request->validated();
+        $this->classroom->changeBackground($id, $data['background_id']);
+
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengubah background kelas'])->response()->setStatusCode(200);
     }
 }
