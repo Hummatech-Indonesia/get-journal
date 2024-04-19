@@ -27,7 +27,7 @@ class BackgroundController extends Controller
      */
     public function getPremium()
     {
-        $backgrounds = $this->background->getByStatus(true);
+        $backgrounds = $this->background->getByStatus(1);
 
         return BackgroundResource::collection($backgrounds)->response()->setStatusCode(200);
     }
@@ -37,7 +37,7 @@ class BackgroundController extends Controller
      */
     public function getFree()
     {
-        $backgrounds = $this->background->getByStatus(false);
+        $backgrounds = $this->background->getByStatus(0);
 
         return BackgroundResource::collection($backgrounds)->response()->setStatusCode(200);
     }

@@ -4,5 +4,5 @@ namespace App\Contracts\Interfaces\Background;
 
 interface GetByStatusInterface
 {
-    public function getByStatus(bool $is_premium): mixed;
+    public function getByStatus(mixed $is_premium): mixed;
 }
