@@ -87,7 +87,7 @@ class StudentController extends Controller
         $delete = $this->student->delete($student->id);
 
         if ($delete) {
-            $this->attendance->deleteAttendanceByStudent($classroomStudent->student_id, $classroomStudent->classroom_id);
+            $this->attendance->deleteAttendanceByStudent($student->student_id, $student->classroom_id);
             return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus siswa'])->response()->setStatusCode(200);
         }
 
