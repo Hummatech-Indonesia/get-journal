@@ -81,10 +81,10 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClassroomStudent $classroomStudent)
+    public function destroy(ClassroomStudent $student)
     {
-        dd($classroomStudent);
-        $delete = $this->student->delete($classroomStudent->id);
+        dd($student);
+        $delete = $this->student->delete($student->id);
 
         if ($delete) {
             $this->attendance->deleteAttendanceByStudent($classroomStudent->student_id, $classroomStudent->classroom_id);
