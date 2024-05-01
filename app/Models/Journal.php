@@ -16,6 +16,7 @@ class Journal extends Model
 
     protected $fillable = [
         'profile_id',
+        'classroom_id',
         'lesson_id',
         'title',
         'description',
