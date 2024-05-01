@@ -85,5 +85,4 @@ class JournalRepository extends BaseRepository implements JournalInterface
             return false;
         }
     }
-} {
 }

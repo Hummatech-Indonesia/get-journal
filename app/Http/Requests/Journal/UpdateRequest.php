@@ -22,6 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'classroom_id' => 'required|exists:classrooms,id',
             'lesson_id' => 'required|exists:lessons,id',
             'date' => 'required|date',
             'title' => 'required|string',
@@ -46,6 +47,8 @@ class UpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'classroom_id.required' => 'ID Kelas wajib diisi',
+            'classroom_id.exists' => 'ID Kelas tidak valid',
             'lesson_id.required' => 'ID Pelajaran wajib diisi',
             'lesson_id.exists' => 'ID Pelajaran tidak valid',
             'date.required' => 'Tanggal wajib diisi',

@@ -22,4 +22,12 @@ class Attendance extends Model
     {
         return $this->belongsTo(Profile::class);
     }
+
+    /**
+     * Get the journal that owns the attendance.
+     */
+    public function journal()
+    {
+        return $this->belongsTo(Journal::class);
+    }
 }

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('classroom_student_id')->constrained('classroom_students')->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('assignment_id')->constrained('assignments')->restrictOnDelete()->cascadeOnUpdate();
             $table->decimal('score')->nullable();
-            $table->enum('char', ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'])->nullable();
             $table->timestamps();
         });
     }

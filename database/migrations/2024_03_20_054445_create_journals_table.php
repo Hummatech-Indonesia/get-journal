@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('journals', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('profile_id')->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('classroom_id')->constrained('classrooms')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('lesson_id')->constrained('lessons')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->text('description');

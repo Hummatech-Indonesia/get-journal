@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Student;
 
+use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
@@ -9,18 +10,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\StoreRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\StudentResource;
+use App\Models\ClassroomStudent;
 
 class StudentController extends Controller
 {
     private StudentInterface $student;
     private UserInterface $user;
     private ProfileInterface $profile;
+    private AttendanceInterface $attendance;
 
-    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile)
+    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance)
     {
         $this->student = $student;
         $this->user = $user;
         $this->profile = $profile;
+        $this->attendance = $attendance;
     }
 
     /**
@@ -77,11 +81,12 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ClassroomStudent $classroomStudent)
     {
-        $delete = $this->student->delete($id);
+        $delete = $this->student->delete($classroomStudent->id);
 
         if ($delete) {
+            $this->attendance->deleteAttendanceByStudent($classroomStudent->student_id, $classroomStudent->classroom_id);
             return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus siswa'])->response()->setStatusCode(200);
         }
 
