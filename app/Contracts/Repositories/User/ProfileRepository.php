@@ -38,14 +38,16 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     }
 
     /**
-     * check available student by identity number
+     * check available student by email
      * 
-     * @param mixed $identityNumber
+     * @param mixed $data
      * @return mixed
      */
-    public function checkAvailableStudent(mixed $identityNumber): mixed
+    public function checkAvailableStudent(mixed $data): mixed
     {
-        $student = $this->model->where('identity_number', $identityNumber)->count();
+        $student = $this->model
+            ->whereRelation('user', 'email', $data)
+            ->count();
 
         if ($student > 0) {
             return true;

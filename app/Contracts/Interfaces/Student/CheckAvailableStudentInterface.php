@@ -4,5 +4,5 @@ namespace App\Contracts\Interfaces\Student;
 
 interface CheckAvailableStudentInterface
 {
-    public function checkAvailableStudent(mixed $identityNumber): mixed;
+    public function checkAvailableStudent(mixed $data): mixed;
 }
