@@ -8,6 +8,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Student\GetClassroomStudentByAssignmentInterface;
 use App\Contracts\Interfaces\Student\GetStudentByClassroomInterface;
 
-interface StudentInterface extends GetStudentByClassroomInterface, StoreInterface, DeleteInterface, GetClassroomStudentByAssignmentInterface
+interface StudentInterface extends GetStudentByClassroomInterface, StoreInterface, DeleteInterface
 {
 }

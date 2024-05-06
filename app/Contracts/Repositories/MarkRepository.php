@@ -31,4 +31,14 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
     {
         return $this->model->create($data);
     }
+
+    /**
+     * Get all students by assignment
+     * @param string $assignmentId
+     * @return mixed
+     */
+    public function getClassroomStudentByAssignment(string $assignmentId): mixed
+    {
+        return $this->model->where('assignment_id', $assignmentId)->get();
+    }
 }

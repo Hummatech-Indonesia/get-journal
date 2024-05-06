@@ -14,12 +14,10 @@ use Illuminate\Http\Request;
 
 class MarkController extends Controller
 {
-    private StudentInterface $student;
     private MarkAssignmentInterface $mark;
 
-    public function __construct(StudentInterface $student, MarkAssignmentInterface $mark)
+    public function __construct(MarkAssignmentInterface $mark)
     {
-        $this->student = $student;
         $this->mark = $mark;
     }
 
@@ -28,7 +26,7 @@ class MarkController extends Controller
      */
     public function index(String $assignmentId)
     {
-        $student_marks = $this->student->getClassroomStudentByAssignment($assignmentId);
+        $student_marks = $this->mark->getClassroomStudentByAssignment($assignmentId);
         return MarkResource::make($student_marks)->response()->setStatusCode(200);
     }
 
