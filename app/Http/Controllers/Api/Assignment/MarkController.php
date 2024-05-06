@@ -25,9 +25,9 @@ class MarkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(String $assignmentId)
+    public function index(String $assignmentId, String $classroomId)
     {
-        $student_marks = $this->student->getClassroomStudentByAssignment($assignmentId);
+        $student_marks = $this->student->getClassroomStudentByAssignment($assignmentId, $classroomId);
         return MarkResource::make($student_marks)->response()->setStatusCode(200);
     }
 
