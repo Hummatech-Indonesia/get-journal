@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Models\Mark;
+use Illuminate\Support\Facades\DB;
 
 class MarkRepository extends BaseRepository implements MarkAssignmentInterface
 {
@@ -39,6 +40,11 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
      */
     public function getClassroomStudentByAssignment(string $assignmentId): mixed
     {
-        return $this->model->where('assignment_id', $assignmentId)->get();
+        return $this->model
+            ->select(DB::raw('classroom_students.id as classroom_student_id, *'))
+            ->join('classroom_students', 'marks.classroom_student_id', '=', 'classroom_students.id')
+            ->join('profiles', 'classroom_students.student_id', '=', 'profiles.id')
+            ->where('assignment_id', $assignmentId)
+            ->get();
     }
 }
