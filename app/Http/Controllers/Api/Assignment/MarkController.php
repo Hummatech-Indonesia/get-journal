@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Assignment;
 
 use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Repositories\StudentRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Assignment\MarkRequest;
@@ -13,10 +14,10 @@ use Illuminate\Http\Request;
 
 class MarkController extends Controller
 {
-    private StudentRepository $student;
+    private StudentInterface $student;
     private MarkAssignmentInterface $mark;
 
-    public function __construct(StudentRepository $student, MarkAssignmentInterface $mark)
+    public function __construct(StudentInterface $student, MarkAssignmentInterface $mark)
     {
         $this->student = $student;
         $this->mark = $mark;
@@ -25,9 +26,9 @@ class MarkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(String $assignmentId, String $classroomId)
+    public function index(String $assignmentId)
     {
-        $student_marks = $this->student->getClassroomStudentByAssignment($assignmentId, $classroomId);
+        $student_marks = $this->student->getClassroomStudentByAssignment($assignmentId);
         return MarkResource::make($student_marks)->response()->setStatusCode(200);
     }
 

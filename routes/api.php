@@ -43,7 +43,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('students')->group(function () {
         Route::get('{id}', [StudentController::class, 'index']);
-        Route::get('get-student-marks/{id}/{classroomId}', [MarkController::class, 'index']);
+        Route::get('get-student-marks/{id}', [MarkController::class, 'index']);
     });
     Route::prefix('lessons')->group(function () {
         Route::get('{id}/get-all', [LessonController::class, 'index']);
