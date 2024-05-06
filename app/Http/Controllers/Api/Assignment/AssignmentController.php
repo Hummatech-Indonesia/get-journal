@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\Assignment;
 
+use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Contracts\Interfaces\AssignmentInterface;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Assignment\StoreRequest;
 use App\Http\Requests\Assignment\UpdateRequest;
@@ -12,10 +14,14 @@ use App\Http\Resources\DefaultResource;
 class AssignmentController extends Controller
 {
     private AssignmentInterface $assignment;
+    private MarkAssignmentInterface $markAssignment;
+    private StudentInterface $student;
 
-    public function __construct(AssignmentInterface $assignment)
+    public function __construct(AssignmentInterface $assignment, MarkAssignmentInterface $markAssignment, StudentInterface $student)
     {
         $this->assignment = $assignment;
+        $this->markAssignment = $markAssignment;
+        $this->student = $student;
     }
 
     /**
@@ -35,7 +41,14 @@ class AssignmentController extends Controller
     {
         $data = $request->validated();
 
-        $this->assignment->store($data);
+        $assignment = $this->assignment->store($data);
+        $students = $this->student->getStudentByClassroom($assignment->lesson->classroom_id);
+        foreach ($students as $student) {
+            $data['classroom_student_id'] = $student->id;
+            $data['assignment_id'] = $assignment->id;
+            $this->markAssignment->store($data);
+        }
+
 
         return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan tugas'])->response()->setStatusCode(201);
     }

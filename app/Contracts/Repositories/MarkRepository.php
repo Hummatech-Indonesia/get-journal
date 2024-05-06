@@ -21,4 +21,14 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
             $this->model->updateOrCreate(['assignment_id' => $data['assignment_id'], 'classroom_student_id' => $data['classroom_student_id']], $data);
         }
     }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param array $data
+     * @return mixed
+     */
+    public function store(array $data): mixed
+    {
+        return $this->model->create($data);
+    }
 }

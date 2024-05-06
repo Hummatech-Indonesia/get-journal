@@ -2,7 +2,9 @@
 
 namespace App\Contracts\Interfaces\Assignment;
 
-interface MarkAssignmentInterface
+use App\Contracts\Interfaces\Eloquent\StoreInterface;
+
+interface MarkAssignmentInterface extends StoreInterface
 {
     public function mark(array $data): void;
 }
