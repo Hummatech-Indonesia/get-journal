@@ -41,7 +41,7 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
     public function getClassroomStudentByAssignment(string $assignmentId): mixed
     {
         return $this->model
-            ->select(DB::raw('classroom_students.id as classroom_student_id, *'))
+            ->select('marks.*', 'profiles.name as student_name')
             ->join('classroom_students', 'marks.classroom_student_id', '=', 'classroom_students.id')
             ->join('profiles', 'classroom_students.student_id', '=', 'profiles.id')
             ->where('assignment_id', $assignmentId)
