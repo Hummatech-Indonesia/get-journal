@@ -92,6 +92,6 @@ class JournalController extends Controller
         $path = 'journals/' . date('His') . '-' . $data['filename'] . '.xlsx';
         $url =  Excel::store(new JournalExport($journals), $path, null, ExcelExcel::XLSX);
 
-        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => storage_path($path)])->response()->setStatusCode(200);
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $path])->response()->setStatusCode(200);
     }
 }
