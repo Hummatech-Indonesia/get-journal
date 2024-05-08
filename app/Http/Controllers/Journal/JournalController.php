@@ -91,7 +91,7 @@ class JournalController extends Controller
         // $url = Excel::download(new JournalExport($journals),  $data['filename'] . 'xlsx', ExcelExcel::XLSX);
 
         // $url = Excel::store(new JournalExport($journals), $data['filename'] . 'xlsx', ExcelExcel::XLSX);
-        $url = (new JournalExport($journals))->store($data['filename'] . 'xlsx', 'public');
+        $url =  Excel::store(new JournalExport($journals), 'invoices.xlsx', null, ExcelExcel::XLSX);
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $url])->response()->setStatusCode(200);
     }
