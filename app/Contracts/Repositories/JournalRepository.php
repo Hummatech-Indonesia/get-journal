@@ -85,4 +85,17 @@ class JournalRepository extends BaseRepository implements JournalInterface
             return false;
         }
     }
+
+    /**
+     * Export journal
+     * 
+     * @param mixed $startSate
+     * @param mixed $endDate
+     * 
+     * @return mixed
+     */
+    public function exportJournal(mixed $startSate, mixed $endDate, mixed $lessonId): mixed
+    {
+        return $this->model->with('classroom', 'lesson', 'sick.profile', 'permit.profile', 'alpha.profile')->whereBetween('date', [$startSate, $endDate])->where('lesson_id', $lessonId)->get();
+    }
 }

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Journal;
 
 use App\Contracts\Interfaces\JournalInterface;
+use App\Exports\JournalExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Journal\ExportRequest;
 use App\Http\Requests\Journal\StoreRequest;
 use App\Http\Requests\Journal\UpdateRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\JournalResource;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JournalController extends Controller
 {
@@ -75,5 +78,17 @@ class JournalController extends Controller
         }
 
         return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus jurnal'])->response()->setStatusCode(500);
+    }
+
+    /**
+     * Export journal
+     */
+    public function export(ExportRequest $request)
+    {
+        $data = $request->validated();
+        $journals = $this->journal->exportJournal($data['start_date'], $data['end_date'], $data['lesson_id']);
+        $url = Excel::download(new JournalExport($journals),  $data['filename'] . 'xlsx');
+
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $url])->response()->setStatusCode(200);
     }
 }

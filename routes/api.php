@@ -56,6 +56,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('get-premium', [BackgroundController::class, 'getPremium']);
         Route::get('get-free', [BackgroundController::class, 'getFree']);
     });
+    Route::prefix('journals')->group(function () {
+        Route::post('export', [JournalController::class, 'export']);
+    });
 
     Route::apiResources([
         'backgrounds' => BackgroundController::class,

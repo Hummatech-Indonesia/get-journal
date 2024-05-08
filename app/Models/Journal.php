@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Journal extends Model
 {
@@ -30,7 +32,7 @@ class Journal extends Model
     /**
      * Get the profile that owns the journal.
      */
-    public function profile()
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class);
     }
@@ -38,15 +40,23 @@ class Journal extends Model
     /**
      * Get the lesson that owns the journal.
      */
-    public function lesson()
+    public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class);
     }
 
     /**
+     * Get the classroom that owns the journal.
+     */
+    public function classroom(): BelongsTo
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+
+    /**
      * Get the attendances for the journal.
      */
-    public function attendances()
+    public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
     }
@@ -54,7 +64,7 @@ class Journal extends Model
     /**
      * Get the attendances for the journal.
      */
-    public function sick()
+    public function sick(): HasMany
     {
         return $this->hasMany(Attendance::class)->where('status', 'sick');
     }
@@ -62,7 +72,7 @@ class Journal extends Model
     /**
      * Get the attendances for the journal.
      */
-    public function permit()
+    public function permit(): HasMany
     {
         return $this->hasMany(Attendance::class)->where('status', 'permit');
     }
@@ -70,7 +80,7 @@ class Journal extends Model
     /**
      * Get the attendances for the journal.
      */
-    public function alpha()
+    public function alpha(): HasMany
     {
         return $this->hasMany(Attendance::class)->where('status', 'alpha');
     }
