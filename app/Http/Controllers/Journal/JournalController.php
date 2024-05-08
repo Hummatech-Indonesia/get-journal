@@ -90,7 +90,7 @@ class JournalController extends Controller
         $journals = $this->journal->exportJournal($data['start_date'], $data['end_date'], $data['lesson_id']);
         // $url = Excel::download(new JournalExport($journals),  $data['filename'] . 'xlsx', ExcelExcel::XLSX);
 
-        $url = Excel::store(new JournalExport($journals), $data['filename'] . 'xlsx');
+        $url = Excel::store(new JournalExport($journals), $data['filename'] . 'xlsx', ExcelExcel::XLSX);
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $url])->response()->setStatusCode(200);
     }
