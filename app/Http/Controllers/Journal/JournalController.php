@@ -88,11 +88,10 @@ class JournalController extends Controller
     {
         $data = $request->validated();
         $journals = $this->journal->exportJournal($data['start_date'], $data['end_date'], $data['lesson_id']);
-        // $url = Excel::download(new JournalExport($journals),  $data['filename'] . 'xlsx', ExcelExcel::XLSX);
 
-        // $url = Excel::store(new JournalExport($journals), $data['filename'] . 'xlsx', ExcelExcel::XLSX);
-        $url =  Excel::store(new JournalExport($journals), 'invoices.xlsx', null, ExcelExcel::XLSX);
+        $path = 'journals/' . date('His') . '-' . $data['filename'] . '.xlsx';
+        $url =  Excel::store(new JournalExport($journals), $path, null, ExcelExcel::XLSX);
 
-        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $url])->response()->setStatusCode(200);
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $path])->response()->setStatusCode(200);
     }
 }
