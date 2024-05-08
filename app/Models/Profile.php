@@ -64,4 +64,12 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Get the journals for the profile.
+     */
+    public function journals(): HasMany
+    {
+        return $this->hasMany(Journal::class, 'profile_id');
+    }
 }
