@@ -25,7 +25,7 @@ class ExportRequest extends FormRequest
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
             'filename' => ['required', 'string'],
-            'lesson_id' => ['required', 'string', 'exists:lessons,id'],
+            'classroom_id' => ['required', 'string', 'exists:classrooms,id'],
         ];
     }
 
@@ -43,9 +43,9 @@ class ExportRequest extends FormRequest
             'end_date.date' => 'Tanggal selesai harus berupa tanggal',
             'filename.required' => 'Nama file tidak boleh kosong',
             'filename.string' => 'Nama file harus berupa string',
-            'lesson_id.required' => 'ID pelajaran tidak boleh kosong',
-            'lesson_id.string' => 'ID pelajaran harus berupa string',
-            'lesson_id.exists' => 'ID pelajaran tidak ditemukan',
+            'classroom_id.required' => 'ID kelas tidak boleh kosong',
+            'classroom_id.string' => 'ID kelas harus berupa string',
+            'classroom_id.exists' => 'ID kelas tidak ditemukan',
         ];
     }
 }
