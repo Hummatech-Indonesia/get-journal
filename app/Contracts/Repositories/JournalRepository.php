@@ -33,6 +33,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     public function getJournalByClassroom(mixed $classroom_id): mixed
     {
         return $this->model
+            ->with('classsroom')
             ->where('classroom_id', $classroom_id)
             ->get();
     }

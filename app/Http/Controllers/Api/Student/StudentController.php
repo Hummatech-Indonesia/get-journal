@@ -7,11 +7,14 @@ use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
+use App\Exports\AttendanceExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\StoreRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\StudentResource;
 use App\Models\ClassroomStudent;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class StudentController extends Controller
 {
@@ -103,9 +106,11 @@ class StudentController extends Controller
     {
         $students = $this->student->exportAttendance($classroom_id);
         $journals = $this->journal->getJournalByClassroom($classroom_id);
-        dd($students, $journals);
 
-        return StudentResource::make($students)->response()->setStatusCode(200);
+        $path = 'attendances/' . date('His') . '-absensi' . '.xlsx';
+        $url =  Excel::store(new AttendanceExport($students, $journals), $path, null, ExcelExcel::XLSX);
+
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor absensi', 'url' => $path])->response()->setStatusCode(200);
     }
 
     /**

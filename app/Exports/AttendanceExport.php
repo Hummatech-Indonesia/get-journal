@@ -8,17 +8,20 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class AttendanceExport implements FromView
 {
-    private $data;
+    private $classroomStudents;
+    private $journals;
 
-    public function __construct($data)
+    public function __construct($classroomStudents, $journals)
     {
-        $this->data = $data;
+        $this->classroomStudents = $classroomStudents;
+        $this->journals = $journals;
     }
 
     public function view(): View
     {
         return view('exports.attendance', [
-            'classroomStudents' => $this->data
+            'classroomStudents' => $this->classroomStudents,
+            'journals' => $this->journals,
         ]);
     }
 }

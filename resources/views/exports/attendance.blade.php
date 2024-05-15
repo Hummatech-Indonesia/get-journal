@@ -6,7 +6,7 @@
         <title>Export Journals</title>
     </head>
     <body>
-        <h4>Data Absensi</h4>
+        <h4>Data Absensi Kelas {{ $journal[0]->classroom->name }}</h4>
         <table>
             <thead>
                 <tr>
@@ -23,7 +23,9 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $classroomStudent->student->name }}</td>
-                    <td>{{ $mark->score }}</td>
+                    <td>
+                        {{ count($journals) - (count($classroomStudent->student->permit) + count($classroomStudent->student->sick) + count($classroomStudent->student->alpha) ) }}
+                    </td>
                     <td>{{ count($classroomStudent->student->permit) }}</td>
                     <td>{{ count($classroomStudent->student->sick) }}</td>
                     <td>{{ count($classroomStudent->student->alpha) }}</td>
