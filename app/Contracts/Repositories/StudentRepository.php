@@ -61,7 +61,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function exportAttendance(mixed $classroom_id): mixed
     {
         return $this->model
-            ->withCount('student.attendances')
+            ->with('student.attendances')
             ->where('classroom_id', $classroom_id)
             ->get();
     }
