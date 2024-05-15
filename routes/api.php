@@ -40,8 +40,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('classrooms')->group(function () {
         Route::get('{id}/generate-code', [ClassroomController::class, 'generateCode']);
         Route::post('{id}/change-background', [ClassroomController::class, 'changeBackground']);
-        Route::get('export-attendances/{classroomId}', [StudentController::class, 'exportAttendances']);
-        Route::post('delete-attendances', [StudentController::class, 'deleteExportAttendances']);
+        Route::get('export-attendances/{classroomId}', [StudentController::class, 'exportAttendance']);
+        Route::post('delete-attendances', [StudentController::class, 'deleteExportedAttendance']);
     });
     Route::prefix('students')->group(function () {
         Route::get('{id}', [StudentController::class, 'index']);
