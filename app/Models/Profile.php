@@ -82,4 +82,28 @@ class Profile extends Model
     {
         return $this->hasMany(Attendance::class, 'profile_id');
     }
+
+    /**
+     * Get the attendances for the journal.
+     */
+    public function sick(): HasMany
+    {
+        return $this->hasMany(Attendance::class)->where('status', 'sick');
+    }
+
+    /**
+     * Get the attendances for the journal.
+     */
+    public function permit(): HasMany
+    {
+        return $this->hasMany(Attendance::class)->where('status', 'permit');
+    }
+
+    /**
+     * Get the attendances for the journal.
+     */
+    public function alpha(): HasMany
+    {
+        return $this->hasMany(Attendance::class)->where('status', 'alpha');
+    }
 }
