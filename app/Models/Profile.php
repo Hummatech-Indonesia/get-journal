@@ -31,6 +31,8 @@ class Profile extends Model
         'gender',
         'photo',
         'is_register',
+        'is_premium',
+        'premium_expired_at',
     ];
 
     /**

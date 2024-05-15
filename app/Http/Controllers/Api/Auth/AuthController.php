@@ -24,9 +24,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function loginTeacher(LoginRequest $request): JsonResponse
     {
-        return $this->auth->login($request);
+        return $this->auth->loginTeacher($request);
     }
 
     /**
@@ -36,9 +36,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(RegisterRequest $request): JsonResponse
+    public function registerTeacher(RegisterRequest $request): JsonResponse
     {
-        return $this->auth->register($request);
+        return $this->auth->registerTeacher($request);
     }
 
     /**

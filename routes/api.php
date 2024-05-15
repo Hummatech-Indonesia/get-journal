@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('auth')->group(function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login-teacher', [AuthController::class, 'loginTeacher']);
+    Route::post('register-teacher', [AuthController::class, 'registerTeacher']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('logout', [AuthController::class, 'logout']);

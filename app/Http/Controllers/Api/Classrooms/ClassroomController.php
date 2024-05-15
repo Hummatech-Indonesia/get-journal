@@ -40,6 +40,13 @@ class ClassroomController extends Controller
     {
         $data = $request->validated();
         $data['code'] = $this->service->generateCode();
+
+        $classrooms = $this->classroom->getClassroomByUser(auth()->user()->profile->id);
+
+        if ($classrooms->count() == 2 && auth()->user()->profile->is_premium == 0) {
+            return DefaultResource::make(['code' => 400, 'message' => 'Anda sudah mencapai batas maksimal kelas'])->response()->setStatusCode(400);
+        }
+
         $classroom = $this->classroom->store($data);
 
         return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan kelas'])->response()->setStatusCode(201);

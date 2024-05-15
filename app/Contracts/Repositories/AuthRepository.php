@@ -25,7 +25,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request): JsonResponse
+    public function loginTeacher(LoginRequest $request): JsonResponse
     {
         $credentials = $request->validated();
 
@@ -33,6 +33,10 @@ class AuthRepository extends BaseRepository implements AuthInterface
             $token = auth()->user()->createToken('authToken')->plainTextToken;
             $user = $this->model->with('profile')->find(auth()->user()->id);
             $user->token = $token;
+
+            if ($user->roles->pluck('name')[0] != 'teacher') {
+                return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
+            }
 
             return (UserResource::make($user))->response()->setStatusCode(200);
         }
@@ -47,7 +51,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(RegisterRequest $request): JsonResponse
+    public function registerTeacher(RegisterRequest $request): JsonResponse
     {
         $data = $request->validated();
         $data['is_register'] = 1;
@@ -58,6 +62,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
         ]);
         $data['user_id'] = $user->id;
         $profile = $user->profile()->create($data);
+        $user->assignRole('teacher');
 
         return (DefaultResource::make(['code' => 200, 'message' => 'Berhasil mendaftarkan pengguna', 'profile' => $profile]))->response()->setStatusCode(200);
     }

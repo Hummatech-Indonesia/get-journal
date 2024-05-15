@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('photo')->nullable();
             $table->enum('is_register', [0, 1])->default(0);
+            $table->enum('is_premium', [0, 1])->default(0);
+            $table->date('premium_expired_at')->nullable();
             $table->timestamps();
         });
     }
