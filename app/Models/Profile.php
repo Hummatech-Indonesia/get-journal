@@ -74,4 +74,12 @@ class Profile extends Model
     {
         return $this->hasMany(Journal::class, 'profile_id');
     }
+
+    /**
+     * Get the attendances for the profile.
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'profile_id');
+    }
 }

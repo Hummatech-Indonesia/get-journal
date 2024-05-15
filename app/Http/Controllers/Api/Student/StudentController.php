@@ -92,4 +92,29 @@ class StudentController extends Controller
 
         return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus siswa'])->response()->setStatusCode(500);
     }
+
+    /**
+     * Export attendance
+     */
+    public function exportAttendance(mixed $classroom_id)
+    {
+        $students = $this->student->exportAttendance($classroom_id);
+        dd($students);
+
+        return StudentResource::make($students)->response()->setStatusCode(200);
+    }
+
+    /**
+     * Delete exported attendance
+     */
+    public function deleteExportedAttendance(string $path)
+    {
+        $delete = $this->student->deleteExportedAttendance($path);
+
+        if ($delete) {
+            return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus data'])->response()->setStatusCode(200);
+        }
+
+        return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus data'])->response()->setStatusCode(500);
+    }
 }

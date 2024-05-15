@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Models\ClassroomStudent;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
@@ -49,5 +50,35 @@ class StudentRepository extends BaseRepository implements StudentInterface
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Export attendance
+     *
+     * @param mixed $classroom_id
+     * @return mixed
+     */
+    public function exportAttendance(mixed $classroom_id): mixed
+    {
+        return $this->model
+            ->withCount('student.attendances')
+            ->where('classroom_id', $classroom_id)
+            ->get();
+    }
+
+    /**
+     * Delete exported attendance
+     *
+     * @param string $path
+     * @return mixed
+     */
+    public function deleteExportedAttendance(string $path): mixed
+    {
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            return true;
+        }
+
+        return false;
     }
 }
