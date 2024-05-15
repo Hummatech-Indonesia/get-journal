@@ -27,7 +27,7 @@
                     <td>{{ $journal->title }}</td>
                     <td>{{ $journal->description }}</td>
                     <td>
-                        {{ \Carbon\Carbon::parse($journal->date)->format(d-m-Y) }}
+                        {{ \Carbon\Carbon::parse($journal->date)->format('d-m-Y') }}
                     </td>
                     <td>{{ $journal->lesson->name }}</td>
                     <td>
