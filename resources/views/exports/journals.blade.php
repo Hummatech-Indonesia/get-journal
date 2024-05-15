@@ -32,18 +32,15 @@
                     <td>{{ $journal->lesson->name }}</td>
                     <td>
                         @forelse($journal->sick as $sick)
-                        {{ $sick->profile->name }}
-                        @empty - @endforelse
+                        {{ $sick->profile->name }}, @empty - @endforelse
                     </td>
                     <td>
                         @forelse($journal->permit as $permit)
-                        {{ $permit->profile->name }}
-                        @empty - @endforelse
+                        {{ $permit->profile->name }}, @empty - @endforelse
                     </td>
                     <td>
                         @forelse($journal->alpha as $alpha)
-                        {{ $alpha->profile->name }}
-                        @empty - @endforelse
+                        {{ $alpha->profile->name }}, @empty - @endforelse
                     </td>
                 </tr>
                 @endforeach
