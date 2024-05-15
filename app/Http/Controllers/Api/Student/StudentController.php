@@ -13,6 +13,7 @@ use App\Http\Requests\Student\StoreRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\StudentResource;
 use App\Models\ClassroomStudent;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
@@ -116,9 +117,9 @@ class StudentController extends Controller
     /**
      * Delete exported attendance
      */
-    public function deleteExportedAttendance(string $path)
+    public function deleteExportedAttendance(Request $request)
     {
-        $delete = $this->student->deleteExportedAttendance($path);
+        $delete = $this->student->deleteExportedAttendance($request->path);
 
         if ($delete) {
             return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus data'])->response()->setStatusCode(200);
