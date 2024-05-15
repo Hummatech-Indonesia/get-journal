@@ -24,7 +24,9 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $classroomStudent->student->name }}</td>
                     <td>{{ $mark->score }}</td>
-                    <td></td>
+                    <td>{{ count($classroomStudent->student->permit) }}</td>
+                    <td>{{ count($classroomStudent->student->sick) }}</td>
+                    <td>{{ count($classroomStudent->student->alpha) }}</td>
                 </tr>
                 @endforeach
             </tbody>

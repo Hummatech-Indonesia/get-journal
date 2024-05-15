@@ -25,6 +25,19 @@ class JournalRepository extends BaseRepository implements JournalInterface
     }
 
     /*
+    * Get journal by classroom
+    *
+    * @param mixed $classroom_id
+    * @return mixed
+    */
+    public function getJournalByClassroom(mixed $classroom_id): mixed
+    {
+        return $this->model
+            ->where('classroom_id', $classroom_id)
+            ->get();
+    }
+
+    /*
     * Show journal
     *
     * @param mixed $id

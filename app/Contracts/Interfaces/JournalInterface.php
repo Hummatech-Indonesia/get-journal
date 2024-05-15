@@ -8,8 +8,9 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Journal\DeleteAttendanceByStudentInterface;
 use App\Contracts\Interfaces\Journal\ExportJournalInterface;
+use App\Contracts\Interfaces\Journal\GetJournalByClassroomInterface;
 use App\Contracts\Interfaces\Journal\GetJournalByUserInterface;
 
-interface JournalInterface extends GetJournalByUserInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface, ExportJournalInterface
+interface JournalInterface extends GetJournalByUserInterface, GetJournalByClassroomInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface, ExportJournalInterface
 {
 }

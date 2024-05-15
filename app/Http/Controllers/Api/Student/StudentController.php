@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Student;
 
 use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
@@ -18,13 +19,15 @@ class StudentController extends Controller
     private UserInterface $user;
     private ProfileInterface $profile;
     private AttendanceInterface $attendance;
+    private JournalInterface $journal;
 
-    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance)
+    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance, JournalInterface $journal)
     {
         $this->student = $student;
         $this->user = $user;
         $this->profile = $profile;
         $this->attendance = $attendance;
+        $this->journal = $journal;
     }
 
     /**
@@ -99,7 +102,8 @@ class StudentController extends Controller
     public function exportAttendance(mixed $classroom_id)
     {
         $students = $this->student->exportAttendance($classroom_id);
-        dd($students);
+        $journals = $this->journal->getJournalByClassroom($classroom_id);
+        dd($students, $journals);
 
         return StudentResource::make($students)->response()->setStatusCode(200);
     }
