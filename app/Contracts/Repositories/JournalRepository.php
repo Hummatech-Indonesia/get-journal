@@ -100,7 +100,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
             ->with('classroom', 'lesson', 'sick.profile', 'permit.profile', 'alpha.profile')
             ->whereBetween('date', [$startSate, $endDate])
             ->where('classroom_id', $classroomId)
-            ->orderBy('lesson', 'asc')
+            ->orderBy('lesson_id', 'asc')
             ->get();
     }
 }
