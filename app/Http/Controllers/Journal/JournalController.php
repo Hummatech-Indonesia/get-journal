@@ -87,7 +87,7 @@ class JournalController extends Controller
     public function export(ExportRequest $request)
     {
         $data = $request->validated();
-        $journals = $this->journal->exportJournal($data['start_date'], $data['end_date'], $data['lesson_id']);
+        $journals = $this->journal->exportJournal($data['start_date'], $data['end_date'], $data['classroom_id']);
 
         $path = 'journals/' . date('His') . '-' . $data['filename'] . '.xlsx';
         $url =  Excel::store(new JournalExport($journals), $path, null, ExcelExcel::XLSX);
