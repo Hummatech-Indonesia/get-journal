@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('journals')->group(function () {
         Route::post('export', [JournalController::class, 'export']);
+        Route::post('delete-export', [JournalController::class, 'deleteExport']);
     });
 
     Route::apiResources([

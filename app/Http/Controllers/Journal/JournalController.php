@@ -94,4 +94,19 @@ class JournalController extends Controller
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor jurnal', 'url' => $path])->response()->setStatusCode(200);
     }
+
+    /**
+     * Delete export journal
+     */
+    public function deleteExport(Request $request)
+    {
+        $path = $request->path;
+        $delete = $this->journal->deleteExportJournal($path);
+
+        if ($delete) {
+            return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus file'])->response()->setStatusCode(200);
+        }
+
+        return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus file'])->response()->setStatusCode(500);
+    }
 }

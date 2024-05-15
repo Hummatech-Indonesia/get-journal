@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\JournalInterface;
 use App\Models\Journal;
+use Illuminate\Support\Facades\Storage;
 
 class JournalRepository extends BaseRepository implements JournalInterface
 {
@@ -102,5 +103,20 @@ class JournalRepository extends BaseRepository implements JournalInterface
             ->where('classroom_id', $classroomId)
             ->orderBy('lesson_id', 'asc')
             ->get();
+    }
+
+    /**
+     * Delete export journal
+     * 
+     * @param mixed $path
+     * 
+     * @return mixed
+     */
+    public function deleteExportJournal(mixed $path): mixed
+    {
+        if (Storage::exists($path))
+            return Storage::delete($path);
+
+        return null;
     }
 }
