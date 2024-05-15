@@ -5,11 +5,16 @@ namespace App\Http\Controllers\Api\Assignment;
 use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Exports\MarkExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Assignment\StoreRequest;
 use App\Http\Requests\Assignment\UpdateRequest;
 use App\Http\Resources\AssignmentResource;
 use App\Http\Resources\DefaultResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class AssignmentController extends Controller
 {
@@ -87,5 +92,32 @@ class AssignmentController extends Controller
         }
 
         return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus tugas'])->response()->setStatusCode(500);
+    }
+
+    /**
+     * Export marks
+     */
+    public function exportMarks(string $assignmentId): JsonResponse
+    {
+        $marks = $this->assignment->exportMarks($assignmentId);
+
+        $path = 'marks/' . date('His') . '-nilai' . '.xlsx';
+        $url =  Excel::store(new MarkExport($marks), $path, null, ExcelExcel::XLSX);
+
+        return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengekspor nilai', 'path' => $path])->response()->setStatusCode(200);
+    }
+
+    /**
+     * Delete export marks
+     */
+    public function deleteExportMarks(Request $request): JsonResponse
+    {
+        $delete = $this->assignment->deleteExportMarks($request->path);
+
+        if ($delete) {
+            return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus file'])->response()->setStatusCode(200);
+        }
+
+        return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus file'])->response()->setStatusCode(500);
     }
 }

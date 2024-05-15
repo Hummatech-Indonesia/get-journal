@@ -51,6 +51,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('assignments')->group(function () {
         Route::get('{id}/get-all', [AssignmentController::class, 'index']);
+        Route::get('export-marks/{assignmentId}', [AssignmentController::class, 'exportMarks']);
+        Route::post('delete-marks', [AssignmentController::class, 'deleteExportMarks']);
     });
     Route::prefix('backgrounds')->group(function () {
         Route::get('get-premium', [BackgroundController::class, 'getPremium']);

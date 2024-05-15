@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AssignmentInterface;
 use App\Models\Assignment;
+use Illuminate\Support\Facades\Storage;
 
 class AssignmentRepository extends BaseRepository implements AssignmentInterface
 {
@@ -66,5 +67,33 @@ class AssignmentRepository extends BaseRepository implements AssignmentInterface
         } catch (\Throwable $th) {
             return false;
         }
+    }
+
+    /**
+     * Export marks
+     * @param mixed $assignmentId
+     * @return mixed
+     */
+    public function exportMarks(mixed $assignmentId): mixed
+    {
+        return $this->model
+            ->with('marks.classroomStudent.student', 'lesson.classroom')
+            ->where('id', $assignmentId)
+            ->first();
+    }
+
+    /**
+     * Delete export marks
+     * @param string $path
+     * @return mixed
+     */
+    public function deleteExportMarks(string $path): mixed
+    {
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            return true;
+        }
+
+        return false;
     }
 }
