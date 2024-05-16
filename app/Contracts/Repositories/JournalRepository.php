@@ -21,7 +21,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     */
     public function getJournalByUser(mixed $id): mixed
     {
-        return $this->model->with('sick.profile', 'permit.profile', 'alpha.profile')->where('profile_id', $id)->get();
+        return $this->model->with('sick.profile', 'permit.profile', 'alpha.profile', 'classroom')->where('profile_id', $id)->get();
     }
 
     /*
