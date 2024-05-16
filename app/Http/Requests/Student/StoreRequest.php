@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'identity_number' => 'required|string',
+            'identity_number' => 'string',
             'gender' => 'required|string',
             'classroom_id' => 'required|exists:classrooms,id',
         ];
@@ -41,7 +41,6 @@ class StoreRequest extends FormRequest
             'name.required' => 'Nama tidak boleh kosong',
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email tidak valid',
-            'identity_number.required' => 'Nomor identitas tidak boleh kosong',
             'identity_number.string' => 'Nomor identitas harus berupa string',
             'gender.required' => 'Jenis kelamin tidak boleh kosong',
             'gemder.string' => 'Jenis kelamin harus berupa string',

@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
             'password' => 'required|string|min:6',
             'confirm_password' => 'required|same:password',
             'name' => 'required|string',
-            'identity_number' => 'required|string|unique:profiles,identity_number',
+            'identity_number' => 'string|unique:profiles,identity_number',
             'gender' => 'required|string',
         ];
     }
@@ -42,7 +42,6 @@ class RegisterRequest extends FormRequest
             'confirm_password.required' => 'Konfirmasi password tidak boleh kosong',
             'confirm_password.same' => 'Konfirmasi password tidak sama dengan password',
             'name.required' => 'Nama tidak boleh kosong',
-            'identity_number.required' => 'Nomor identitas tidak boleh kosong',
             'identity_number.unique' => 'Nomor identitas sudah terdaftar',
             'identity_number.string' => 'Nomor identitas harus berupa string',
             'gender.required' => 'Jenis kelamin tidak boleh kosong',
