@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Student;
 
+use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\JournalInterface;
@@ -14,6 +15,7 @@ use App\Http\Requests\Student\StoreRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\StudentResource;
 use App\Models\ClassroomStudent;
+use App\Models\Mark;
 use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -28,8 +30,9 @@ class StudentController extends Controller
     private JournalInterface $journal;
     private ClassroomInterface $classroom;
     private StudentService $studentService;
+    private MarkAssignmentInterface $markAssignment;
 
-    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance, JournalInterface $journal, ClassroomInterface $classroom, StudentService $studentService)
+    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance, JournalInterface $journal, ClassroomInterface $classroom, StudentService $studentService, MarkAssignmentInterface $markAssignment)
     {
         $this->student = $student;
         $this->user = $user;
@@ -38,6 +41,7 @@ class StudentController extends Controller
         $this->journal = $journal;
         $this->classroom = $classroom;
         $this->studentService = $studentService;
+        $this->markAssignment = $markAssignment;
     }
 
     /**
@@ -104,6 +108,8 @@ class StudentController extends Controller
 
         if ($delete) {
             $this->attendance->deleteAttendanceByStudent($student->student_id, $student->classroom_id);
+            $this->markAssignment->deleteMarkByStudent($student->id);
+
             return DefaultResource::make(['code' => 200, 'message' => 'Berhasil menghapus siswa'])->response()->setStatusCode(200);
         }
 

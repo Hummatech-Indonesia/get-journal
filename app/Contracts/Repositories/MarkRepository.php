@@ -47,4 +47,19 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
             ->where('assignment_id', $assignmentId)
             ->get();
     }
+
+    /**
+     * Delete mark by student
+     * @param mixed $classroomStudentId
+     * @return mixed
+     */
+    public function deleteMarkByStudent(mixed $classroomStudentId): mixed
+    {
+        try {
+            $this->model->where('classroom_student_id', $classroomStudentId)->delete();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
 }

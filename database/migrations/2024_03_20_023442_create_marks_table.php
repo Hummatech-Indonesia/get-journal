@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations.bb 
      */
     public function up(): void
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_student_id')->constrained('classroom_students')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('assignment_id')->constrained('assignments')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('assignment_id')->constrained('assignments')->cascadeOnDelete()->cascadeOnUpdate();
             $table->decimal('score')->nullable();
             $table->timestamps();
         });
