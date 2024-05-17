@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classroom_student_id')->constrained('classroom_students')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('classroom_student_id')->constrained('classroom_students')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('assignment_id')->constrained('assignments')->cascadeOnDelete()->cascadeOnUpdate();
             $table->decimal('score')->nullable();
             $table->timestamps();

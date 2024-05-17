@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('lesson_id')->constrained('lessons')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('lesson_id')->constrained('lessons')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->text('description');
             $table->date('due_date');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('reminders', function (Blueprint $table) {
             // $table->uuid('id')->primary();
             $table->id();
-            $table->foreignUuid('profile_id')->constrained('profiles')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('profile_id')->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->text('content');
             $table->dateTime('reminder_at');

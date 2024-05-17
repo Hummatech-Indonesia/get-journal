@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('background_id')->constrained('backgrounds')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('profile_id')->constrained('profiles')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('profile_id')->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('code')->unique();
             $table->string('name');
             $table->integer('limit')->nullable();
