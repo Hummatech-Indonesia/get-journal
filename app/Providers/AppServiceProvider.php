@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         JournalInterface::class => JournalRepository::class,
         BackgroundInterface::class => BackgroundRepository::class,
         AttendanceInterface::class => AttendanceRepository::class,
+        UserInterface::class => UserRepository::class,
     ];
 
     /**

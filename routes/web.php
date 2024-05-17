@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/terms-conditions', function () {
     return view('pages.terms-condition');
 })->name('terms-conditions');
+Route::get('/delete-account', [UserController::class, 'deleteAccount']);
+Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])->name('processDeleteAccount');
