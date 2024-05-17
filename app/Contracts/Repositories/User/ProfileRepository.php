@@ -62,11 +62,10 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
      * @param mixed $id
      * @return mixed
      */
-    public function getProfileByIdentityNumber(mixed $identityNumber): mixed
+    public function getProfileByEmail(mixed $email): mixed
     {
-        return $this->model->where('identity_number', $identityNumber)->first();
+        return $this->model->whereRelation('user', 'email', $email)->first();
     }
-
     /**
      * Update user
      *

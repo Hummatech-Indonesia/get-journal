@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Classroom extends Model
 {
@@ -38,5 +39,13 @@ class Classroom extends Model
     public function background(): BelongsTo
     {
         return $this->belongsTo(Background::class, 'background_id');
+    }
+
+    /**
+     * Get the profile that owns the classroom.
+     */
+    public function assignments(): HasManyThrough
+    {
+        return $this->hasManyThrough(Assignment::class, Lesson::class, 'classroom_id', 'lesson_id');
     }
 }

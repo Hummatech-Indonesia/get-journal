@@ -7,6 +7,6 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Student\CheckAvailableStudentInterface;
 
-interface ProfileInterface extends GetUserInfoInterface, GetProfileByIdentityNumberInterface, StoreInterface, CheckAvailableStudentInterface, UpdateInterface
+interface ProfileInterface extends GetUserInfoInterface, GetProfileByEmailInterface, StoreInterface, CheckAvailableStudentInterface, UpdateInterface
 {
 }

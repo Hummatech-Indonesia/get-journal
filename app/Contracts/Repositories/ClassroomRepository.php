@@ -22,6 +22,14 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
     }
 
     /**
+     * Get all the assignments by classroom id
+     */
+    public function getAssignmentByClassroom(mixed $id): mixed
+    {
+        return $this->model->with('assignments')->where('id', $id)->first();
+    }
+
+    /**
      * Get a specific classroom
      */
     public function show(mixed $id): mixed

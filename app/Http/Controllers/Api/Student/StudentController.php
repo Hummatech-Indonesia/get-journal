@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Student;
 
 use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
@@ -13,6 +14,7 @@ use App\Http\Requests\Student\StoreRequest;
 use App\Http\Resources\DefaultResource;
 use App\Http\Resources\StudentResource;
 use App\Models\ClassroomStudent;
+use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
@@ -24,14 +26,18 @@ class StudentController extends Controller
     private ProfileInterface $profile;
     private AttendanceInterface $attendance;
     private JournalInterface $journal;
+    private ClassroomInterface $classroom;
+    private StudentService $studentService;
 
-    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance, JournalInterface $journal)
+    public function __construct(StudentInterface $student, UserInterface $user, ProfileInterface $profile, AttendanceInterface $attendance, JournalInterface $journal, ClassroomInterface $classroom, StudentService $studentService)
     {
         $this->student = $student;
         $this->user = $user;
         $this->profile = $profile;
         $this->attendance = $attendance;
         $this->journal = $journal;
+        $this->classroom = $classroom;
+        $this->studentService = $studentService;
     }
 
     /**
@@ -50,11 +56,12 @@ class StudentController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
+        $classroomStudent = 0;
 
-        if ($this->profile->checkAvailableStudent($data['identity_number'])) {
-            $profile = $this->profile->getProfileByIdentityNumber($data['identity_number']);
+        if ($this->profile->checkAvailableStudent($data['email'])) {
+            $profile = $this->profile->getProfileByEmail($data['email']);
 
-            $this->student->store([
+            $classroomStudent = $this->student->store([
                 'student_id' => $profile->id,
                 'classroom_id' => $data['classroom_id'],
             ]);
@@ -68,11 +75,14 @@ class StudentController extends Controller
 
             $profile = $this->profile->store($data);
 
-            $this->student->store([
+            $classroomStudent = $this->student->store([
                 'student_id' => $profile->id->serialize(),
                 'classroom_id' => $data['classroom_id'],
             ]);
         }
+
+        $assignments = $this->classroom->getAssignmentByClassroom($data['classroom_id']);
+        $this->studentService->createMarkNewStudent($classroomStudent->id, $assignments->assignments);
 
         return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan siswa'])->response()->setStatusCode(201);
     }
