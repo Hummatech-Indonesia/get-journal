@@ -20,7 +20,7 @@ class StudentService
      * @param mixed $assignments
      * @return mixed
      */
-    public function createMarkNewStudent(int $classroomStudentId, mixed $assignments): mixed
+    public function createMarkNewStudent(int $classroomStudentId, mixed $assignments): void
     {
         foreach ($assignments as $assignment) {
             $data = [
