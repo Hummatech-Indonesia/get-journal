@@ -61,6 +61,9 @@ class AuthRepository extends BaseRepository implements AuthInterface
             'password' => bcrypt($data['password']),
         ]);
         $data['user_id'] = $user->id;
+        if ($data['identity_number'] == null) {
+            $data['identity_number'] = '0';
+        }
         $profile = $user->profile()->create($data);
         $user->assignRole('teacher');
 
