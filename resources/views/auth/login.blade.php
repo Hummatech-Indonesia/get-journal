@@ -1,73 +1,57 @@
-@extends('layouts.app')
+@extends('layouts.no-auth')
 
+@section('title', 'Login')
+
+@section('top-text')
+
+    <span class="text-gray-500 fw-bold fs-5 me-2">Belum memiliki akun?
+        <a href="/register" class="link-primary fw-bold fs-5">Daftar</a>
+        sekarang
+    </span>
+
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
+    <!--begin::Body-->
+    <div class="card-body">
+        <!--begin::Heading-->
+        <div class="text-start mb-10">
+            <!--begin::Title-->
+            <h1 class="text-gray-900 mb-3 fs-3x">Masuk</h1>
+            <!--end::Title-->
         </div>
+        <!--begin::Heading-->
+        <!--begin::Input group=-->
+        <div class="fv-row mb-8">
+            <!--begin::Email-->
+            <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control form-control-solid" />
+            <!--end::Email-->
+        </div>
+        <!--end::Input group=-->
+        <div class="fv-row mb-7">
+            <!--begin::Password-->
+            <input type="text" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid" />
+            <!--end::Password-->
+        </div>
+        <!--end::Input group=-->
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
+            <div></div>
+            <!--begin::Link-->
+            {{-- <a href="#" class="link-primary">Lupa Password?</a> --}}
+            <!--end::Link-->
+        </div>
+        <!--end::Wrapper-->
+        <!--begin::Actions-->
+        <div class="d-flex flex-stack">
+            <!--begin::Submit-->
+            <button type="submit" class="btn btn-primary me-2 flex-shrink-0">Masuk</button>
+            <!--end::Submit-->
+        </div>
+        <!--end::Actions-->
     </div>
-</div>
+    <!--begin::Body-->
+</form>
+
 @endsection
