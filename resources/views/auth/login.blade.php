@@ -12,46 +12,36 @@
 @endsection
 @section('content')
 
-<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
-    <!--begin::Body-->
+@include('components.swal')
+
+<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}" method="POST">
+    @csrf
     <div class="card-body">
-        <!--begin::Heading-->
         <div class="text-start mb-10">
-            <!--begin::Title-->
             <h1 class="text-gray-900 mb-3 fs-3x">Masuk</h1>
-            <!--end::Title-->
         </div>
-        <!--begin::Heading-->
-        <!--begin::Input group=-->
         <div class="fv-row mb-8">
-            <!--begin::Email-->
-            <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control form-control-solid" />
-            <!--end::Email-->
+            <input type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="off" class="form-control form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
-        <!--end::Input group=-->
         <div class="fv-row mb-7">
-            <!--begin::Password-->
-            <input type="text" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid" />
-            <!--end::Password-->
+            <input type="text" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            @error('password')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
         </div>
-        <!--end::Input group=-->
-        <!--begin::Wrapper-->
         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
             <div></div>
-            <!--begin::Link-->
             {{-- <a href="#" class="link-primary">Lupa Password?</a> --}}
-            <!--end::Link-->
         </div>
-        <!--end::Wrapper-->
-        <!--begin::Actions-->
         <div class="d-flex flex-stack">
-            <!--begin::Submit-->
             <button type="submit" class="btn btn-primary me-2 flex-shrink-0">Masuk</button>
-            <!--end::Submit-->
         </div>
-        <!--end::Actions-->
     </div>
-    <!--begin::Body-->
 </form>
 
 @endsection
