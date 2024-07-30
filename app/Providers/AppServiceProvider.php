@@ -10,8 +10,10 @@ use App\Contracts\Interfaces\BackgroundInterface;
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\LessonInterface;
+use App\Contracts\Interfaces\PaymentChannelInterface;
 use App\Contracts\Interfaces\ReminderInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\User\AssignTeacherToSchoolInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
@@ -23,8 +25,10 @@ use App\Contracts\Repositories\ClassroomRepository;
 use App\Contracts\Repositories\JournalRepository;
 use App\Contracts\Repositories\LessonRepository;
 use App\Contracts\Repositories\MarkRepository;
+use App\Contracts\Repositories\PaymentChannelRepository;
 use App\Contracts\Repositories\ReminderRepository;
 use App\Contracts\Repositories\StudentRepository;
+use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\User\ProfileRepository;
 use App\Contracts\Repositories\User\TeacherSchoolRepository;
 use App\Contracts\Repositories\User\UserRepository;
@@ -50,7 +54,9 @@ class AppServiceProvider extends ServiceProvider
         BackgroundInterface::class => BackgroundRepository::class,
         AttendanceInterface::class => AttendanceRepository::class,
         UserInterface::class => UserRepository::class,
-        AssignTeacherToSchoolInterface::class => TeacherSchoolRepository::class
+        AssignTeacherToSchoolInterface::class => TeacherSchoolRepository::class,
+        TransactionInterface::class => TransactionRepository::class,
+        PaymentChannelInterface::class => PaymentChannelRepository::class,
     ];
 
     /**

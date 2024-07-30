@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RoleSeederV2::class,
             UserSeeder::class,
             ProfileSeeder::class,
+            PaymentChannelSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
