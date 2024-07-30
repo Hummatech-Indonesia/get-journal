@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex align-items-stretch justify-content-between">
         <!--begin::Aside mobile toggle-->
         <div class="d-flex align-items-center d-lg-none ms-n1 me-2" title="Show aside menu">
-            <div class="btn btn-icon btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" id="kt_aside_mobile_toggle">
+            <div class="btn btn-icon btn-active-color-danger w-30px h-30px w-md-40px h-md-40px" id="kt_aside_mobile_toggle">
                 <i class="ki-outline ki-abstract-14 fs-1"></i>
             </div>
             <a href="index.html" class="d-lg-none">
