@@ -38,7 +38,8 @@ class AuthController extends Controller
      */
     public function registerTeacher(RegisterRequest $request): JsonResponse
     {
-        return $this->auth->registerTeacher($request);
+        if($request->type == "school") return $this->auth->registerSchool($request);
+        else return $this->auth->registerTeacher($request);
     }
 
     /**

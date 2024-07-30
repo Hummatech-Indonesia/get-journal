@@ -34,7 +34,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
             $user = $this->model->with('profile')->find(auth()->user()->id);
             $user->token = $token;
 
-            if ($user->roles->pluck('name')[0] != 'teacher') {
+            if ($user->roles->pluck('name')[0] != 'teacher' && $user->roles->pluck('name')[0] != 'school' && $user->roles->pluck('name')[0] != 'admin') {
                 return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
             }
 
@@ -42,6 +42,32 @@ class AuthRepository extends BaseRepository implements AuthInterface
         }
 
         return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
+    }
+
+    /**
+     * Handle a profile request to the application.
+     *
+     * @param \App\Http\Requests\Auth\RegisterRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerSchool(RegisterRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+        $data['is_register'] = 1;
+
+        $user = $this->model->create([
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+        $data['user_id'] = $user->id;
+        if ($data['identity_number'] == null) {
+            $data['identity_number'] = '0';
+        }
+        $profile = $user->profile()->create($data);
+        $user->assignRole('school');
+
+        return (DefaultResource::make(['code' => 200, 'message' => 'Berhasil mendaftarkan pengguna', 'profile' => $profile]))->response()->setStatusCode(200);
     }
 
     /**

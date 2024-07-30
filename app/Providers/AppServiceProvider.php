@@ -12,6 +12,7 @@ use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\LessonInterface;
 use App\Contracts\Interfaces\ReminderInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\User\AssignTeacherToSchoolInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
 use App\Contracts\Repositories\AssignmentRepository;
@@ -25,6 +26,7 @@ use App\Contracts\Repositories\MarkRepository;
 use App\Contracts\Repositories\ReminderRepository;
 use App\Contracts\Repositories\StudentRepository;
 use App\Contracts\Repositories\User\ProfileRepository;
+use App\Contracts\Repositories\User\TeacherSchoolRepository;
 use App\Contracts\Repositories\User\UserRepository;
 use App\Models\Journal;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -48,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
         BackgroundInterface::class => BackgroundRepository::class,
         AttendanceInterface::class => AttendanceRepository::class,
         UserInterface::class => UserRepository::class,
+        AssignTeacherToSchoolInterface::class => TeacherSchoolRepository::class
     ];
 
     /**
