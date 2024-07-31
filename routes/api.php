@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Reminder\ReminderController;
 use App\Http\Controllers\Api\Student\StudentController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Journal\JournalController;
+use App\Http\Resources\DefaultResource;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
+// callback route response
+Route::get('unauthorized', function(){
+    return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
+})->name('unauthorized');
 
 
 Route::prefix('auth')->group(function () {
