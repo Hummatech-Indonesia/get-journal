@@ -28,3 +28,9 @@ Route::get('/terms-conditions', function () {
 })->name('terms-conditions');
 Route::get('/delete-account', [UserController::class, 'deleteAccount']);
 Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])->name('processDeleteAccount');
+
+Route::name('user.')->group(function() {
+    Route::get('dashboard', function() {
+        return view('pages.users.dashboard');
+    });
+});
