@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\User;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AssignTeacherRequest extends FormRequest
 {
@@ -39,5 +41,14 @@ class AssignTeacherRequest extends FormRequest
     public function prepareForValidation()
     {
         if(!$this->user_id) $this->merge(["user_id" => "-"]); 
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Invalid request, please check again',
+            'data'    => $validator->errors()
+        ], 422));
     }
 }

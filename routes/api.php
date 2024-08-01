@@ -72,7 +72,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('delete-export', [JournalController::class, 'deleteExport']);
     });
     Route::prefix('teachers')->group(function () {
-        Route::post('assign-teacher/{user}', [UserController::class, 'assignTeacher']);
+        Route::post('assign-teacher', [UserController::class, 'assignTeacher']);
     });
 
     Route::apiResources([

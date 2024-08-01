@@ -99,18 +99,36 @@ class UserController extends Controller
      * @param UpdateProfileRequest $request
      * @return mixed
      */
-    public function assignTeacher(AssignTeacherRequest $request, User $user): mixed
+    public function assignTeacher(AssignTeacherRequest $request): mixed
     {
+        $user = $this->userInterface->show($request->user_id);
+        
+        if(!$user) {
+            return (DefaultResource::make([
+                'code' => 404,
+                'message' => 'User tidak ditemukan',
+            ]))->response()->setStatusCode(404);
+        }
+
         $data = $request->validated();
         $data['related_code'] = $data["code"];
         if($data["user_id"] == "-") $data['user_id'] = $user->id;
         unset($data["code"]);
+        
+        $check = $this->assignTeacher->getWhere(["user_id" => $user->id, "related_code" => $data["related_code"]]);
+        
+        if($check){
+            return (DefaultResource::make([
+                'code' => 201,
+                'message' => 'Guru telah masuk ke dalam sekolah ini',
+            ]))->response()->setStatusCode(201);
+        }
 
         $this->assignTeacher->store($data);
 
-        return DefaultResource::make([
+        return (DefaultResource::make([
             'code' => 200,
-            'message' => 'Profile berhasil diubah',
-        ]);
+            'message' => 'Berhasil menugaskan guru ke sekolah',
+        ]))->response()->setStatusCode(200);
     }
 }

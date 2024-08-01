@@ -59,4 +59,15 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->find($id)->delete();
     }
+
+    /**
+     * get detail user
+     *
+     * @param mixed $id
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->find($id);
+    }
 }

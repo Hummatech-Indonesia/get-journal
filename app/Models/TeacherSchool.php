@@ -12,7 +12,7 @@ class TeacherSchool extends Model
     public $incrementing = false;
     
     protected $primaryKey = 'id';
-    protected $filable = ['code','user_id'];
+    protected $fillable = ['user_id', 'related_code'];
 
     public function teacher()
     {
