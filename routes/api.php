@@ -41,6 +41,11 @@ Route::prefix('auth')->group(function () {
         Route::post('update-password', [UserController::class, 'updatePassword']);
         Route::post('update-profile', [UserController::class, 'updateProfile']);
     });
+
+    // datatable web
+    Route::prefix('data-table')->name('data-table.')->group(function() {
+        Route::get('list-users', [UserController::class, 'list-student']);
+    });
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

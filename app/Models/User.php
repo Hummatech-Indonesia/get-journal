@@ -54,4 +54,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function isPremium(): bool
+    {
+        if(auth()->user()->profile->is_premium == 1 && auth()->user()->profile->premium_expired_at > now()){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

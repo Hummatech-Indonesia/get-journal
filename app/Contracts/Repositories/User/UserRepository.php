@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\User\UserInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Models\User;
 use Faker\Provider\Base;
+use Illuminate\Http\Request;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -69,5 +70,28 @@ class UserRepository extends BaseRepository implements UserInterface
     public function show(mixed $id): mixed
     {
         return $this->model->find($id);
+    }
+
+    public function customQuery(Request $request): mixed
+    {
+        return $this->model->query()
+        ->with("profile","roles")
+        ->when(count($request->all()) > 1, function ($query) use ($request){
+            $count_role = 0;
+            try{ 
+                $count_role = count($request->role);
+            }catch(\Throwable $th){
+                $check_role = ['admin','teacher','school','student'];
+                if(in_array($request->role, $check_role)){
+                    $request->merge(["role" => [$request->role]]);
+                }
+            }
+
+            if($count_role > 0){
+                $query->whereHas("roles", function($q) use ($request) {
+                    $q->whereIn("name", $request->role);
+                });
+            }
+        });
     }
 }

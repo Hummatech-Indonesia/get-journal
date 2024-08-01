@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Contracts\Interfaces\User\AssignTeacherToSchoolInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
+use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\AssignTeacherRequest;
 use App\Http\Requests\User\UpdatePasswordRequest;
@@ -138,5 +139,12 @@ class UserController extends Controller
                 'message' => $th->getMessage(),
             ]))->response()->setStatusCode(500);
         }
+    }
+
+    public function dataUser(Request $request)
+    {
+        $data = $this->userInterface->customQuery($request);
+
+        return BaseDatatable::Table($data);
     }
 }
