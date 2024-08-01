@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function isPremium(): bool
     {
-        if(auth()->user()->profile->is_premium == 1 && auth()->user()->profile->premium_expired_at > now()){
+        if(auth()->user()?->profile?->is_premium == 1 && auth()->user()?->profile?->premium_expired_at > now()){
             return true;
         }else {
             return false;
