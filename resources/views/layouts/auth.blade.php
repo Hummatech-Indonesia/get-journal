@@ -597,8 +597,8 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 		<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script src="{{ asset('assets/plugins/custom/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/custom/jquery/jquery-3.7.1.min.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
         <!--begin::Custom script-->
         @stack('script')
