@@ -45,4 +45,9 @@ class RegisterRequest extends FormRequest
             'gender.required' => 'Jenis kelamin tidak boleh kosong',
         ];
     }
+
+    public function prepareForValidation()
+    {
+        if(!$this->confirm_password) $this->merge(["confirm_password" => $this->password_confirmation]);
+    }
 }

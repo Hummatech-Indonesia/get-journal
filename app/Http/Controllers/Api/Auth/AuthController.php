@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -36,9 +38,12 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function registerTeacher(RegisterRequest $request): JsonResponse
+    public function registerTeacher(RegisterRequest $request): JsonResponse|RedirectResponse
     {
-        if($request->type == "school") return $this->auth->registerSchool($request);
+        if($request->type == "school") {
+            $this->auth->registerSchool($request);
+            return redirect('login')->with('success','Berhasil membuat akun sekolah');
+        }
         else return $this->auth->registerTeacher($request);
     }
 
@@ -59,8 +64,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse|RedirectResponse
     {
-        return $this->auth->logout();
+        if($request->type == "web"){
+            auth()->logout();
+            return redirect('login')->with('success','Berhasil logout');
+        }else return $this->auth->logout();
     }
 }

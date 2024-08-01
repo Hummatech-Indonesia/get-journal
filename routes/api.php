@@ -33,7 +33,7 @@ Route::get('unauthorized', function(){
 
 Route::prefix('auth')->group(function () {
     Route::post('login-teacher', [AuthController::class, 'loginTeacher']);
-    Route::post('register-teacher', [AuthController::class, 'registerTeacher']);
+    Route::post('register-teacher', [AuthController::class, 'registerTeacher'])->name('api-register');
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('logout', [AuthController::class, 'logout']);

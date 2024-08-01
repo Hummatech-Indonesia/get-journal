@@ -10,6 +10,7 @@ use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class AuthRepository extends BaseRepository implements AuthInterface
 {
@@ -51,23 +52,34 @@ class AuthRepository extends BaseRepository implements AuthInterface
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function registerSchool(RegisterRequest $request): JsonResponse
+    public function registerSchool(RegisterRequest $request): mixed
     {
         $data = $request->validated();
         $data['is_register'] = 1;
 
-        $user = $this->model->create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-        $data['user_id'] = $user->id;
-        if ($data['identity_number'] == null) {
-            $data['identity_number'] = '0';
+        DB::beginTransaction();
+        try{
+            $user = $this->model->create([
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+            $data['user_id'] = $user->id;
+            
+            $identity = null;
+            try{ $identity = $data['identity_number'] ?? "0"; } catch(\Throwable $th){ }
+            if ($identity == null) {
+                $data['identity_number'] = '0';
+            }
+            $profile = $user->profile()->create($data);
+            
+            DB::commit();
+            $user->assignRole('school');
+            return redirect('login')->with('success',"berhasil mendaftarkan akun sekolah");
+        }catch(\Throwable $th){
+            DB::rollBack();
+            return redirect()->back()->with("error", $th->getMessage());
         }
-        $profile = $user->profile()->create($data);
-        $user->assignRole('school');
 
-        return (DefaultResource::make(['code' => 200, 'message' => 'Berhasil mendaftarkan pengguna', 'profile' => $profile]))->response()->setStatusCode(200);
     }
 
     /**

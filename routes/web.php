@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
-})->middleware('guest');
+    return redirect()->route('user.dashboard');
+})->middleware('auth');
 
 Auth::routes();
 
@@ -29,8 +31,10 @@ Route::get('/terms-conditions', function () {
 Route::get('/delete-account', [UserController::class, 'deleteAccount']);
 Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])->name('processDeleteAccount');
 
-Route::name('user.')->group(function() {
-    Route::get('dashboard', function() {
-        return view('pages.users.dashboard');
+Route::middleware('auth')->group(function() {
+    Route::get('check-logout', [AuthController::class, 'logout'])->name('web.logout');
+
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
     });
 });

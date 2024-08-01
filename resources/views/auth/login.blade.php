@@ -29,7 +29,7 @@
             @enderror
         </div>
         <div class="fv-row mb-7">
-            <input type="text" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
             @error('password')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
