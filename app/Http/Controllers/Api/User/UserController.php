@@ -111,24 +111,32 @@ class UserController extends Controller
         }
 
         $data = $request->validated();
-        $data['related_code'] = $data["code"];
-        if($data["user_id"] == "-") $data['user_id'] = $user->id;
-        unset($data["code"]);
         
-        $check = $this->assignTeacher->getWhere(["user_id" => $user->id, "related_code" => $data["related_code"]]);
-        
-        if($check){
+        try{
+            $data['related_code'] = $data["code"];
+            if($data["user_id"] == "-") $data['user_id'] = $user->id;
+            unset($data["code"]);
+            
+            $check = $this->assignTeacher->getWhere(["user_id" => $user->id, "related_code" => $data["related_code"]]);
+            
+            if($check){
+                return (DefaultResource::make([
+                    'code' => 201,
+                    'message' => 'Guru telah masuk ke dalam sekolah ini',
+                ]))->response()->setStatusCode(201);
+            }
+    
+            $this->assignTeacher->store($data);
+    
             return (DefaultResource::make([
-                'code' => 201,
-                'message' => 'Guru telah masuk ke dalam sekolah ini',
-            ]))->response()->setStatusCode(201);
+                'code' => 200,
+                'message' => 'Berhasil menugaskan guru ke sekolah',
+            ]))->response()->setStatusCode(200);
+        }catch(\Throwable $th){
+            return (DefaultResource::make([
+                'code' => 500,
+                'message' => $th->getMessage(),
+            ]))->response()->setStatusCode(500);
         }
-
-        $this->assignTeacher->store($data);
-
-        return (DefaultResource::make([
-            'code' => 200,
-            'message' => 'Berhasil menugaskan guru ke sekolah',
-        ]))->response()->setStatusCode(200);
     }
 }
