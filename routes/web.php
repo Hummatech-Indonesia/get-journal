@@ -32,9 +32,9 @@ Route::get('/delete-account', [UserController::class, 'deleteAccount']);
 Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])->name('processDeleteAccount');
 
 Route::middleware('auth')->group(function() {
-    Route::get('check-logout', [AuthController::class, 'logout'])->name('web.logout');
+    Route::post('check-logout', [AuthController::class, 'logout'])->name('web.logout');
 
-    Route::prefix('user')->name('user.')->group(function() {
+    Route::name('user.')->group(function() {
         Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
     });
 });
