@@ -2,8 +2,8 @@
     <!--begin::Brand-->
     <div class="aside-logo py-8" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="index.html" class="d-flex align-items-center">
-            <img alt="Logo" src="assets/media/logos/demo6.svg" class="h-45px logo" />
+        <a href="{{ url('/') }}" class="d-flex align-items-center">
+            <img alt="Logo" src="{{asset('assets/logo/logo.png')}}" class="h-45px logo" />
         </a>
         <!--end::Logo-->
     </div>
