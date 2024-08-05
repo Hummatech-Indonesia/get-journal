@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('user.dashboard');
+    return redirect()->route('dashboard');
 })->middleware('auth');
 
 Auth::routes();
@@ -34,7 +34,16 @@ Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])-
 Route::middleware('auth')->group(function() {
     Route::post('check-logout', [AuthController::class, 'logout'])->name('web.logout');
 
-    Route::name('user.')->group(function() {
-        Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::name('teacher.')->prefix('teacher')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.teacher.index');
+        })->name('index');
     });
+    Route::name('premium.')->prefix('premium')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.premium.index');
+        })->name('index');
+    });
+
 });
