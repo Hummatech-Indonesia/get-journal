@@ -36,7 +36,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/payment/instruction', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function getPaymentChannel()
@@ -45,7 +45,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/merchant/payment-channel');
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     /**
@@ -63,7 +63,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/merchant/transactions', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function closedTransaction(array $payload)
@@ -72,7 +72,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->post($this->uri. '/transaction/create', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function closedTransactionDetail(string $reference)
@@ -83,7 +83,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/transaction/detail', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function closedTransactionCheckStatus(string $reference)
@@ -94,7 +94,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/transaction/check-status', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function openTransaction(array $payload)
@@ -104,7 +104,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->post($this->uri. '/open-payment/create', $payload);
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
     
     public function openTransactionDetail(string $uuid)
@@ -114,7 +114,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/open-payment/'.$uuid.'/detail');
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function openTransactionCheckStatus(string $uuid)
@@ -124,7 +124,7 @@ class TripayService
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->get($this->uri. '/open-payment/'.$uuid.'/transactions');
 
-        return $response->body(); 
+        return json_decode($response->body(), true); 
     }
 
     public function callback(Request $request)

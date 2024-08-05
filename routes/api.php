@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Reminder\ReminderController;
 use App\Http\Controllers\Api\Student\StudentController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Journal\JournalController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Resources\DefaultResource;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,11 @@ Route::prefix('auth')->group(function () {
     Route::prefix('list')->name('data-table.')->group(function() {
         Route::get('users', [UserController::class, 'listUser'])->name('list-user');
     });
+
+});
+
+Route::prefix('payment')->name('payment.')->group(function() {
+    Route::get('instruction', [PaymentController::class, 'instruction'])->name('list-user');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
