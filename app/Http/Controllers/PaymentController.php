@@ -77,32 +77,40 @@ class PaymentController extends Controller
 
     public function listTransaction(Request $request)
     {
-        $payload = [
-            "page" => $request->page ?? 1,
-            "per_page" => $request->per_page ?? 10,
-            "sort" => $request->sort ?? "desc"
-        ];
-
-        if($request->reference) $payload["reference"] = $request->reference;
-        if($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
-        if($request->method) $payload["method"] = $request->method;
-        if($request->status) $payload["status"] = $request->status;
-
-        $data = $this->tripayService->getPaymentInstruction($payload);
-        
-        if($data["success"]){
-            return (DefaultResource::make([
-                'code' => 200,
-                'message' => 'Berhasil mengambil instruksi pembayaran',
-                'data' => [
-                    "pagination" => $data["pagination"],
-                    "data" => $data["data"]
-                ]
-            ]))->response()->setStatusCode(200);
-        }else {
+        try{
+            $payload = [
+                "page" => $request->page ?? 1,
+                "per_page" => $request->per_page ?? 10,
+                "sort" => $request->sort ?? "desc"
+            ];
+    
+            if($request->reference) $payload["reference"] = $request->reference;
+            if($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
+            if($request->method) $payload["method"] = $request->method;
+            if($request->status) $payload["status"] = $request->status;
+    
+            $data = $this->tripayService->getPaymentInstruction($payload);
+            
+            if($data["success"]){
+                return (DefaultResource::make([
+                    'code' => 200,
+                    'message' => 'Berhasil mengambil instruksi pembayaran',
+                    'data' => [
+                        "pagination" => $data["pagination"],
+                        "data" => $data["data"]
+                    ]
+                ]))->response()->setStatusCode(200);
+            }else {
+                return (DefaultResource::make([
+                    'code' => 500,
+                    'message' => $data["message"] ?? "Invalid payment instruction",
+                    'data' => null
+                ]))->response()->setStatusCode(500);
+            }
+        }catch(\Throwable $th){
             return (DefaultResource::make([
                 'code' => 500,
-                'message' => $data["message"] ?? "Invalid payment instruction",
+                'message' => $th->getMessage(),
                 'data' => null
             ]))->response()->setStatusCode(500);
         }
