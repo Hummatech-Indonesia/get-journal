@@ -154,6 +154,10 @@ class UserController extends Controller
 
         $data = $this->userInterface->customQuery($request)->get();
 
-        return DefaultResource::make($data)->response()->setStatusCode(200);
+        return DefaultResource::make([
+            "success" => true,
+            "message" => "Berhasil mengambil data",
+            "data" => $data
+        ])->response()->setStatusCode(200);
     }
 }
