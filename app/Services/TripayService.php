@@ -16,10 +16,10 @@ class TripayService
 
     public function __construct()
     {
-        $this->api_key = env('TRIPAY_API_KEY');
-        $this->private_key = env('TRIPAY_PRIVATE_KEY');
-        $this->merchant_code = env('TRIPAY_MERCHANT');
-        $this->uri = env("TRIPAY_BASE_URI");
+        $this->api_key = env('TRIPAY_API_KEY') ?? '';
+        $this->private_key = env('TRIPAY_PRIVATE_KEY') ?? '';
+        $this->merchant_code = env('TRIPAY_MERCHANT') ?? '';
+        $this->uri = env("TRIPAY_BASE_URI") ?? '';
     }
 
     private function generateSignature(string $channel, ?string $merchantRef, ?int $amount)
