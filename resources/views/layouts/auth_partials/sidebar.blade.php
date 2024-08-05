@@ -15,9 +15,9 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold" id="#kt_aside_menu" data-kt-menu="true">
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item here show py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('dashboard') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
-                    <a href="/dashboard" class="menu-link menu-center">
+                    <a href="{{ route('dashboard') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-home-2 fs-2x"></i>
                         </span>
@@ -27,7 +27,7 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('teacher.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
                     <a href="/teacher" class="menu-link menu-center">
                         <span class="menu-icon me-0">
@@ -39,7 +39,7 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2  {{request()->routeIs('student.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
                     <a href="/student" class="menu-link menu-center">
                         <span class="menu-icon me-0">
@@ -51,7 +51,7 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('premium.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
                     <a href="/premium" class="menu-link menu-center">
                         <span class="menu-icon me-0">

@@ -28,15 +28,22 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
-		<!--begin::Vendor Stylesheets(used for this page only)-->
-		<link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-		<!--end::Vendor Stylesheets-->
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
         <!--begin::Custom Style-->
+		<style>
+			th {
+				font-weight: bolder!important
+			}
+			table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
+				text-align: left!important;
+			}
+			.table-responsive>table .dropdown{position:static;}
+			.table-responsive>table .dropdown>.dropdown-menu{left:auto !important;top:auto !important;}
+			.table-responsive>table .selectize-dropdown{position:static;}
+		</style>
         @stack('style')
         <!--end::Custom Style-->
 		<script>
@@ -67,7 +74,7 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Content-->
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 						<!--begin::Container-->
-						<div id="kt_content_container" class="container-xxl">
+						<div id="kt_content_container" class="container-xxl pt-5">
 							@yield('content')
 						</div>
 						<!--end::Container-->
