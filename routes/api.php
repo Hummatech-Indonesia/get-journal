@@ -55,7 +55,8 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('payment')->name('payment.')->group(function() {
-    Route::get('instruction', [PaymentController::class, 'instruction'])->name('list-user');
+    Route::get('instruction', [PaymentController::class, 'instruction'])->name('list-instruction');
+    Route::get('channel', [PaymentController::class, 'paymentChannel'])->name('list-channgel');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
