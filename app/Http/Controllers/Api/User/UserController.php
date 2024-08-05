@@ -147,4 +147,13 @@ class UserController extends Controller
 
         return BaseDatatable::Table($data);
     }
+
+    public function listUser(Request $request)
+    {
+        if(!$request->role) $request->merge(['role' => 'teacher']); 
+
+        $data = $this->userInterface->customQuery($request)->get();
+
+        return DefaultResource::make($data)->response()->setStatusCode(200);
+    }
 }

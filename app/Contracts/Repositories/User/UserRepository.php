@@ -76,7 +76,7 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->query()
         ->with("profile","roles")
-        ->when(count($request->all()) > 1, function ($query) use ($request){
+        ->when(count($request->all()) > 0, function ($query) use ($request){
             $count_role = 0;
             try{ 
                 $count_role = count($request->role);
@@ -84,9 +84,10 @@ class UserRepository extends BaseRepository implements UserInterface
                 $check_role = ['admin','teacher','school','student'];
                 if(in_array($request->role, $check_role)){
                     $request->merge(["role" => [$request->role]]);
+                    $count_role = 1;
                 }
             }
-
+            
             if($count_role > 0){
                 $query->whereHas("roles", function($q) use ($request) {
                     $q->whereIn("name", $request->role);

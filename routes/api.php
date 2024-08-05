@@ -46,6 +46,10 @@ Route::prefix('auth')->group(function () {
     Route::prefix('data-table')->name('data-table.')->group(function() {
         Route::get('list-users', [UserController::class, 'dataUser'])->name('data-user');
     });
+
+    Route::prefix('list')->name('data-table.')->group(function() {
+        Route::get('users', [UserController::class, 'listUser'])->name('list-user');
+    });
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
