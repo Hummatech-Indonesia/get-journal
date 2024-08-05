@@ -48,15 +48,18 @@ Route::prefix('auth')->group(function () {
         Route::get('list-users', [UserController::class, 'dataUser'])->name('data-user');
     });
 
-    Route::prefix('list')->name('data-table.')->group(function() {
-        Route::get('users', [UserController::class, 'listUser'])->name('list-user');
+    Route::prefix('list')->name('list.')->group(function() {
+        Route::get('users', [UserController::class, 'listUser'])->name('user');
     });
 
 });
 
 Route::prefix('payment')->name('payment.')->group(function() {
     Route::get('instruction', [PaymentController::class, 'instruction'])->name('list-instruction');
-    Route::get('channel', [PaymentController::class, 'paymentChannel'])->name('list-channgel');
+    Route::get('channel', [PaymentController::class, 'paymentChannel'])->name('list-channel');
+    Route::get('tripay/transaction', [PaymentController::class, 'listTransaction'])->name('list-transaction');
+    Route::get('web/transaction', [PaymentController::class, 'listTransactionV2'])->name('v2.list-transaction');
+    Route::get('mobile/transaction', [PaymentController::class, 'listTransactionV3'])->name('v3.    list-transaction');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
