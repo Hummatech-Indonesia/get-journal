@@ -3,17 +3,13 @@
 @section('title', 'Premium')
 
 @section('content')
-    <div class="tab-content" id="premium-tab">
-        <div class="tab-pane fade show active" id="select_price_pane" role="tabpanel">
-            @include('pages.users.premium.widgets.index-pricing')
-        </div>
-        <div class="tab-pane fade" id="select_teacher_pane" role="tabpanel">
-            @include('pages.users.premium.widgets.index-teacher')
-        </div>
-    </div>
+    @include('components.swal')
+    @include('pages.users.premium.widgets.index-payment-method-modal')
+    @include('pages.users.premium.widgets.index-pricing')
 @endsection
 
 @push('script')
+    <script src="{{ asset('assets/plugins/custom/number-format/number-format.js') }}"></script>
     <script src="{{asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js')}}"></script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"

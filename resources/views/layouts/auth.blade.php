@@ -37,6 +37,19 @@ License: For each use you must have a valid license purchased only from above li
 			th {
 				font-weight: bolder!important
 			}
+			label.disabled {
+				filter: grayscale(1)
+			}
+			.border-bottom-input {
+				border: 0;
+				border-bottom: 2px solid #ddd;
+				text-align: right
+			}
+			.border-bottom-input:active, .border-bottom-input:focus {
+				border: 0;
+				border-bottom: 2px solid #000;
+				outline: 0;
+			}
 			table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
 				text-align: left!important;
 			}

@@ -71,19 +71,19 @@
                         <!--begin::Heading-->
                         <div class="mb-7 text-center">
                             <!--begin::Title-->
-                            <h1 class="text-gray-900 mb-5 fw-bolder">1 Bulan</h1>
+                            <h1 class="text-gray-900 mb-5 fw-bolder">Kuota 1 Semester</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-gray-600 fw-semibold mb-5">
-                                Cocok untuk pengajar dengan waktu yang tidak pasti
+                                Lorem ipsum, dolor sit amet consectetur adipisicing.
                             </div>
                             <!--end::Description-->
                             <!--begin::Price-->
                             <div class="text-center">
                                 <span class="mb-2 text-primary">Rp</span>
-                                <span class="fs-3x fw-bold text-primary">20.000</span>
+                                <span class="fs-3x fw-bold text-primary">149.999</span>
                                 <span class="fs-7 fw-semibold opacity-50">/
-                                    <span data-kt-element="period">bln</span></span>
+                                    <span data-kt-element="period">smt</span></span>
                             </div>
                             <!--end::Price-->
                         </div>
@@ -119,7 +119,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Bulan" data-price="20000" data-duration="1" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
+                        <button type="button" data-type="1 Bulan" data-price="149999" data-duration="1" data-sku="PREM-SMT" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->
@@ -134,7 +134,7 @@
                         <!--begin::Heading-->
                         <div class="mb-7 text-center">
                             <!--begin::Title-->
-                            <h1 class="text-gray-900 mb-5 fw-bolder">1 Tahun</h1>
+                            <h1 class="text-gray-900 mb-5 fw-bolder">Kuota 1 Tahun</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-gray-600 fw-semibold mb-5">Cocok untuk kebutuhan profesional jangka panjang
@@ -143,7 +143,7 @@
                             <!--begin::Price-->
                             <div class="text-center">
                                 <span class="mb-2 text-primary">Rp</span>
-                                <span class="fs-3x fw-bold text-primary">200.000</span>
+                                <span class="fs-3x fw-bold text-primary">279.999</span>
                                 <span class="fs-7 fw-semibold opacity-50">/
                                     <span data-kt-element="period">Thn</span></span>
                             </div>
@@ -181,7 +181,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Tahun" data-price="200000" data-duration="12" class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
+                        <button type="button" data-type="1 Tahun" data-price="279999" data-duration="12" data-sku='PREM-THN' class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->
@@ -196,8 +196,12 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '.btn-select-premium', function() {
-                $('#select_price_pane').removeClass('show active')
-                $('#select_teacher_pane').addClass('show active')
+                $('[name=premium_type]').val($(this).attr('data-duration'))
+                $('#premium_type_price').val($(this).attr('data-price'))
+                $('[name=sku]').val($(this).attr('data-sku'))
+
+                $('#pay-modal').modal('show')
+                changePrice()
             })
         })
     </script>

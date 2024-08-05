@@ -7,7 +7,7 @@
                 <i class="ki-outline ki-abstract-14 fs-1"></i>
             </div>
             <a href="index.html" class="d-lg-none">
-                <img alt="Logo" src="assets/media/logos/demo6.svg" class="h-25px" />
+                <img alt="Logo" src="{{ asset('assets/logo/logo.png') }}" class="h-25px" />
             </a>
         </div>
         <!--end::Aside mobile toggle-->

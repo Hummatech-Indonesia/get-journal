@@ -19,7 +19,12 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('dashboard') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-home-2 fs-2x"></i>
+                            <i class="ki-duotone ki-element-11 fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
                         </span>
                         <span class="menu-title">Dashboard</span>
                     </a>
@@ -31,7 +36,10 @@
                     <!--begin:Menu link-->
                     <a href="/teacher" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-teacher fs-2x"></i>
+                            <i class="ki-duotone ki-teacher fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
                         </span>
                         <span class="menu-title">Guru</span>
                     </a>
@@ -43,7 +51,10 @@
                     <!--begin:Menu link-->
                     <a href="/student" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-briefcase fs-2x"></i>
+                            <i class="ki-duotone ki-briefcase fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
                         </span>
                         <span class="menu-title">Siswa</span>
                     </a>
@@ -55,7 +66,12 @@
                     <!--begin:Menu link-->
                     <a href="/premium" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-medal-star fs-2x"></i>
+                            <i class="ki-duotone ki-medal-star fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
                         </span>
                         <span class="menu-title">Premium</span>
                     </a>
