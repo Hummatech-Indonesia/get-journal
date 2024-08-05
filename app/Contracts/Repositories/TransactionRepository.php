@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Models\Assignment;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,26 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
      */
     public function getWhere(array $data): mixed
     {
-        return $this->model->get();
+        return $this->model->query()
+        ->with(['user' => function ($query) {
+            $query->with('profile');
+        }])
+        ->when(count($data) > 0, function ($query) use ($data){
+            $reference = null;
+            $merchant_ref = null;
+            $method = null;
+            $status = null;
+            try{ $reference = $data['reference']; } catch (\Throwable $th){ }
+            try{ $merchant_ref = $data['merchant_ref']; } catch (\Throwable $th){ }
+            try{ $method = $data['method']; } catch (\Throwable $th){ }
+            try{ $status = $data['status$status']; } catch (\Throwable $th){ }
+
+            if($reference) $query->where('reference',$reference);
+            if($merchant_ref) $query->where('merchant_ref',$merchant_ref);
+            if($method) $query->where('method',$method);
+            if($status) $query->where('status',$status);
+        })
+        ->get();
     }
 
     /**
@@ -41,9 +61,16 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
      * @param array $data
      * @return mixed
      */
-    public function paginate(int $pagination = 10): LengthAwarePaginator
+    public function customPaginate(Request $request, int $pagination = 10): LengthAwarePaginator
     {
-        return $this->model->get();
+        return $this->model->query()
+            ->when(count($request->all()) > 0, function ($query) use ($request){
+                if($request->reference) $query->where('reference',$request->reference);
+                if($request->merchant_ref) $query->where('merchant_ref',$request->merchant_ref);
+                if($request->method) $query->where('method',$request->method);
+                if($request->status) $query->where('status',$request->status);
+            })
+            ->fastPaginate($pagination);
     }
 
     /**

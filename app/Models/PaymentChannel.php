@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentChannel extends Model
 {
     use HasFactory;
+
+    public $incrementing = false;
+    protected $primaryKey = 'id';
+
+    protected $guarded = [];
 }
