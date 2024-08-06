@@ -175,24 +175,36 @@ class PaymentController extends Controller
                 
                 $this->transaction->store($result['data']);
 
-                return (DefaultResource::make([
-                    'code' => 200,
-                    'message' => 'Berhasil membuat pembayaran',
-                    'data' => $result['data']
-                ]))->response()->setStatusCode(200);
+                if($request->app_type == 'web'){
+                    return redirect('dashboard')->with('success','Berhasil memuat payment');
+                } else {
+                    return (DefaultResource::make([
+                        'code' => 200,
+                        'message' => 'Berhasil membuat pembayaran',
+                        'data' => $result['data']
+                    ]))->response()->setStatusCode(200);
+                }
             }else {
+                if($request->app_type == 'web'){
+                    return redirect()->back()->with('error', $result['message']);
+                } else {
+                    return (DefaultResource::make([
+                        'code' => 500,
+                        'message' => $result["message"] ?? "Invalid api",
+                        'data' => null
+                    ]))->response()->setStatusCode(500);
+                }
+            }
+        }catch(\Throwable $th) {
+            if($request->app_type == 'web'){
+                return redirect()->back()->with('error', $th->getMessage());
+            } else {
                 return (DefaultResource::make([
                     'code' => 500,
-                    'message' => $result["message"] ?? "Invalid api",
+                    'message' => $th->getMessage(),
                     'data' => null
                 ]))->response()->setStatusCode(500);
             }
-        }catch(\Throwable $th) {
-            return (DefaultResource::make([
-                'code' => 500,
-                'message' => $th->getMessage(),
-                'data' => null
-            ]))->response()->setStatusCode(500);
         }
     }
 }
