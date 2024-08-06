@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\PaymentChannelInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Contracts\Interfaces\User\UserInterface;
 use App\Helpers\BaseDatatable;
+use App\Http\Requests\Payment\ClosedTransactionRequest;
 use App\Http\Resources\DefaultResource;
 use App\Services\TripayService;
 use Illuminate\Http\Request;
@@ -14,13 +16,15 @@ class PaymentController extends Controller
     private TripayService $tripayService;
     private PaymentChannelInterface $paymentChannel;
     private TransactionInterface $transaction;
+    private UserInterface $user;
 
     public function __construct(TripayService $tripayService, PaymentChannelInterface $paymentChannel,
-    TransactionInterface $transaction)
+    TransactionInterface $transaction, UserInterface $user)
     {
         $this->tripayService = $tripayService;
         $this->paymentChannel = $paymentChannel;
         $this->transaction = $transaction;
+        $this->user = $user;
     }
 
     public function instruction(Request $request)
@@ -140,13 +144,49 @@ class PaymentController extends Controller
     {
         
         try{
-            // $data = $this->transaction->customPaginate($request, 10);
+            $data = $this->transaction->customPaginate($request, 10);
             
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil instruksi pembayaran',
-                'data' => []
+                'data' => $data
             ]))->response()->setStatusCode(200);
+        }catch(\Throwable $th) {
+            return (DefaultResource::make([
+                'code' => 500,
+                'message' => $th->getMessage(),
+                'data' => null
+            ]))->response()->setStatusCode(500);
+        }
+    }
+
+    public function closedTransaction(ClosedTransactionRequest $request)
+    {
+        try{
+            $result = $this->tripayService->closedTransaction($request->all());
+            
+            if($result["success"]){
+                $user = $this->user->getWhere(['email' => $result['data']['customer_email']]);
+
+                $result['data']['user_id'] = auth()->user()->id ?? $user->id;
+                $result['data']['expired_time'] = date('Y-m-d H:m:s', (time()+($result['data']['expired_time']/1000)));
+                $result['data']['order_items'] = json_encode($result['data']['order_items']);
+                $result['data']['instructions'] = json_encode($result['data']['instructions']);
+                
+                $this->transaction->store($result['data']);
+
+                return (DefaultResource::make([
+                    'code' => 200,
+                    'message' => 'Berhasil membuat pembayaran',
+                    'data' => $result['data']
+                ]))->response()->setStatusCode(200);
+            }else {
+                return (DefaultResource::make([
+                    'code' => 500,
+                    'message' => $result["message"] ?? "Invalid api",
+                    'data' => null
+                ]))->response()->setStatusCode(500);
+            }
         }catch(\Throwable $th) {
             return (DefaultResource::make([
                 'code' => 500,

@@ -59,7 +59,8 @@ Route::prefix('payment')->name('payment.')->group(function() {
     Route::get('channel', [PaymentController::class, 'paymentChannel'])->name('list-channel');
     Route::get('tripay/transaction', [PaymentController::class, 'listTransaction'])->name('list-transaction');
     Route::get('web/transaction', [PaymentController::class, 'listTransactionV2'])->name('v2.list-transaction');
-    Route::get('mobile/transaction', [PaymentController::class, 'listTransactionV3'])->name('v3.    list-transaction');
+    Route::get('mobile/transaction', [PaymentController::class, 'listTransactionV3'])->name('v3.list-transaction');
+    Route::post('closed-transaction', [PaymentController::class, 'closedTransaction'])->name('closed-transaction');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

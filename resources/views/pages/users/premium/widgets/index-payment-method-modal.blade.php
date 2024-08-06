@@ -3,7 +3,7 @@
         <form class="modal-content">
             <input type="hidden" id="premium_type_price">
             <input type="hidden" id="premium_type_name" name="premium_name">
-            <input type="hidden" name="order_items[]">
+            <input type="hidden" name="order_items[]" value="-">
             <input type="hidden" name="sku">
             <div class="modal-header py-3">
                 <h5>Pembayaran</h5>

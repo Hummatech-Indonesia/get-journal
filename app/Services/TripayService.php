@@ -13,6 +13,7 @@ class TripayService
     private string $private_key;
     private string $merchant_code;
     private string $uri;
+    private string $merchant_ref;
 
     public function __construct()
     {
@@ -20,12 +21,13 @@ class TripayService
         $this->private_key = env('TRIPAY_PRIVATE_KEY') ?? '';
         $this->merchant_code = env('TRIPAY_MERCHANT') ?? '';
         $this->uri = env("TRIPAY_BASE_URI") ?? '';
+        $this->merchant_ref = 'INV_'.date('Ymdhms').'_JM';
     }
 
-    private function generateSignature(string $channel, ?string $merchantRef, ?int $amount)
+    private function generateSignature(string $channel, ?int $amount)
     {
-        if($merchantRef) $signature = hash_hmac('sha256', $this->merchant_code.$channel.$merchantRef, $this->private_key);
-        else $signature = hash_hmac('sha256', $this->merchant_code.$merchantRef.$amount, $this->private_key);
+        if(!$amount) $signature = hash_hmac('sha256', $this->merchant_code.$channel.$this->merchant_ref, $this->private_key);
+        else $signature = hash_hmac('sha256', $this->merchant_code.$this->merchant_ref.$amount, $this->private_key);
 
         return $signature;
     }
@@ -68,6 +70,9 @@ class TripayService
 
     public function closedTransaction(array $payload)
     {
+        $payload["signature"] = $this->generateSignature($payload["method"], $payload["amount"]);
+        $payload["merchant_ref"] = $this->merchant_ref;
+        // dd($payload);
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->post($this->uri. '/transaction/create', $payload);
