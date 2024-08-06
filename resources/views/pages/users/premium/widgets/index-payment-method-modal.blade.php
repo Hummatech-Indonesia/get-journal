@@ -2,8 +2,9 @@
     <div class="modal-dialog">
         <form class="modal-content">
             <input type="hidden" id="premium_type_price">
+            <input type="hidden" id="premium_type_name" name="premium_name">
+            <input type="hidden" name="order_items[]">
             <input type="hidden" name="sku">
-            <input type="hidden" name="premium_type">
             <div class="modal-header py-3">
                 <h5>Pembayaran</h5>
                 <button class="btn-close" data-bs-dismiss="modal"></button>

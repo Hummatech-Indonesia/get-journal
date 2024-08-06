@@ -71,7 +71,7 @@
                         <!--begin::Heading-->
                         <div class="mb-7 text-center">
                             <!--begin::Title-->
-                            <h1 class="text-gray-900 mb-5 fw-bolder">Kuota 1 Semester</h1>
+                            <h1 class="text-gray-900 mb-5 fw-bolder">Premium 1 Semester</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-gray-600 fw-semibold mb-5">
@@ -119,7 +119,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Bulan" data-price="149999" data-duration="1" data-sku="PREM-SMT" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
+                        <button type="button" data-type="1 Bulan" data-price="149999" data-name="Premium 1 Semester" data-duration="1" data-sku="PREM-SMT" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->
@@ -134,7 +134,7 @@
                         <!--begin::Heading-->
                         <div class="mb-7 text-center">
                             <!--begin::Title-->
-                            <h1 class="text-gray-900 mb-5 fw-bolder">Kuota 1 Tahun</h1>
+                            <h1 class="text-gray-900 mb-5 fw-bolder">Premium 1 Tahun</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-gray-600 fw-semibold mb-5">Cocok untuk kebutuhan profesional jangka panjang
@@ -181,7 +181,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Tahun" data-price="279999" data-duration="12" data-sku='PREM-THN' class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
+                        <button type="button" data-type="1 Tahun" data-name="Premium 1 Tahun" data-price="279999" data-duration="12" data-sku='PREM-THN' class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->
@@ -198,6 +198,7 @@
             $(document).on('click', '.btn-select-premium', function() {
                 $('[name=premium_type]').val($(this).attr('data-duration'))
                 $('#premium_type_price').val($(this).attr('data-price'))
+                $('#premium_type_name').val($(this).attr('data-name'))
                 $('[name=sku]').val($(this).attr('data-sku'))
 
                 $('#pay-modal').modal('show')
