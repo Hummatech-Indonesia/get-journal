@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\Http\Resources\DefaultResource;
+use App\Models\Profile;
+use App\Models\QuotaPremium;
 use App\Models\Transaction;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Response;
@@ -188,7 +192,44 @@ class TripayService
 
             switch ($status) {
                 case 'PAID':
+                    // update status transaction
+                    $json_items = $invoice->order_items ? json_decode($invoice->order_items) : null;
+                    
                     $invoice->update(['status' => 'PAID']);
+                    //update profile 
+                    $profile = Profile::where('user_id', $invoice->user_id)->first();
+                    if($profile && $json_items){
+                        $profile->update([
+                            'quantity_premium' => $profile->quota_premium + $json_items[0]->quantity
+                        ]);
+
+                        $date = new DateTime();
+                        $quantity = $json_items[0]->quantity;
+                        $times = 1; 
+
+                        switch (strtolower($json_items[0]->sku)) {
+                            case 'prem-thn':
+                                $date->add(new DateInterval('P1Y'));
+                                $times = 12;
+                                break;
+                            case 'prem-smt':
+                                $date->add(new DateInterval('P6M'));
+                                $times = 6;
+                                break;
+                            case 'prem-bln':
+                                $date->add(new DateInterval('P' . $json_items[0]->quantity . 'M'));
+                                $quantity = 1;
+                                $times = $json_items[0]->quantity;
+                                break;
+                        }
+
+                        QuotaPremium::create([
+                            'user_id' => $invoice->user_id,
+                            'quantity' => $quantity,
+                            'expired_date' => $date->format('Y-m-d'),
+                            'time' => $times
+                        ]);
+                    }
                     break;
 
                 case 'EXPIRED':

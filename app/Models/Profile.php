@@ -33,6 +33,12 @@ class Profile extends Model
         'is_register',
         'is_premium',
         'premium_expired_at',
+        'is_premium_private',
+        'is_premium_school',
+        'quantity_premium',
+        'used_quantity_premium',
+        'user_premium_private_id',
+        'user_premium_school_id'        
     ];
 
     /**

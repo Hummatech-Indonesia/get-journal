@@ -31,11 +31,6 @@ return new class extends Migration
                 $table->integer('used_quantity_premium');
             });
         }
-        if(!Schema::hasColumn('profiles','used_quantity_premium')){
-            Schema::table('profiles', function (Blueprint $table) {
-                $table->tinyInteger('used_quantity_premium');
-            });
-        }
     }
 
     /**
