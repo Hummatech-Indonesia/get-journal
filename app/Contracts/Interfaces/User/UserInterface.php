@@ -13,4 +13,6 @@ interface UserInterface extends StoreInterface, UpdatePasswordInterface, UpdateI
 {
     // custom query for data
     public function customQuery(Request $request): mixed;
+    
+    public function getWhereData(array $data): mixed;
 }

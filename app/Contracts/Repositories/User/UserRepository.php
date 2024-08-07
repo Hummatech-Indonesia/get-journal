@@ -69,7 +69,7 @@ class UserRepository extends BaseRepository implements UserInterface
      */
     public function show(mixed $id): mixed
     {
-        return $this->model->find($id);
+        return $this->model->with('profile')->find($id);
     }
 
     public function customQuery(Request $request): mixed
@@ -111,5 +111,16 @@ class UserRepository extends BaseRepository implements UserInterface
             }
         })        
         ->first();
+    } 
+    
+    public function getWhereData(array $data): mixed
+    {
+        return $this->model->query()
+        ->when(count($data) > 0, function ($query) use ($data){
+            foreach($data as $index => $value){
+                $query->where($index, $value);
+            }
+        })        
+        ->get();
     } 
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Classroom extends Model
 {
@@ -48,4 +49,13 @@ class Classroom extends Model
     {
         return $this->hasManyThrough(Assignment::class, Lesson::class, 'classroom_id', 'lesson_id');
     }
+
+    /**
+     * Get the profile that owns the classroom.
+     */
+    public function profile(): BelongsTo
+    {
+        return $this->belongsTo(Profile::class);
+    }
+
 }

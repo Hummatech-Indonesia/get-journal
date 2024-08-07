@@ -13,4 +13,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ClassroomInterface extends GetClassroomByUserInterface, GetAssignmentByClassroom, ShowInterface, StoreInterface, UpdateInterface, DeleteInterface, GenerateCodeInterface, ChangeBackgroundInterface
 {
+    public function getClassSchool(array $ids): mixed;
 }

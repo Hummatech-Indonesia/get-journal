@@ -50,6 +50,7 @@ Route::prefix('auth')->group(function () {
 
     Route::prefix('list')->name('list.')->group(function() {
         Route::get('users', [UserController::class, 'listUser'])->name('user');
+        Route::get('class-school', [ClassroomController::class, 'classSchool'])->name('class-school');
     });
 
 });

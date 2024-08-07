@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Classrooms;
 
 use App\Contracts\Interfaces\ClassroomInterface;
+use App\Contracts\Interfaces\User\ProfileInterface;
+use App\Contracts\Interfaces\User\UserInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Classroom\ChangeBackgroundRequest;
 use App\Http\Requests\Classroom\StoreRequest;
@@ -16,11 +18,15 @@ class ClassroomController extends Controller
 {
     private ClassroomInterface $classroom;
     private ClassroomService $service;
+    private UserInterface $user;
+    private ProfileInterface $profile;
 
-    public function __construct(ClassroomInterface $classroom, ClassroomService $service)
+    public function __construct(ClassroomInterface $classroom, ClassroomService $service, UserInterface $user, ProfileInterface $profile)
     {
         $this->classroom = $classroom;
         $this->service = $service;
+        $this->user = $user;
+        $this->profile = $profile;
     }
 
     /**
@@ -107,5 +113,30 @@ class ClassroomController extends Controller
         $this->classroom->changeBackground($id, $data['background_id']);
 
         return DefaultResource::make(['code' => 200, 'message' => 'Berhasil mengubah background kelas'])->response()->setStatusCode(200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function classSchool(Request $request)
+    {
+        if(!$request->user_id) return (DefaultResource::make([
+            'code' => 400,
+            'message' => 'Field "user_id" harus di isi',
+            'data' => null
+        ]))->response()->setStatusCode(400);
+
+        $user = $this->user->show($request->user_id);
+
+        $userSchool = $this->profile->getWhereData(['related_code' => $user->profile->code]);
+        $selectedIds = $userSchool->pluck('id')->toArray();
+        
+        $classrooms = $this->classroom->getClassSchool($selectedIds);
+
+        return (ClassroomResource::make([
+            "success" => true,
+            "message" => "Berhasil mengambil data kelas",
+            "data" => $classrooms
+        ]))->response()->setStatusCode(200);
     }
 }

@@ -33,6 +33,8 @@ class Profile extends Model
         'is_register',
         'is_premium',
         'premium_expired_at',
+        'code',
+        'related_code',
         'is_premium_private',
         'is_premium_school',
         'quantity_premium',

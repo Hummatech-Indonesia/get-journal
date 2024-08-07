@@ -118,6 +118,7 @@ class UserController extends Controller
             if($data["user_id"] == "-") $data['user_id'] = $user->id;
             unset($data["code"]);
             
+            $user->profile->update(["related_code" => $data["related_code"]]);
             $check = $this->assignTeacher->getWhere(["user_id" => $user->id, "related_code" => $data["related_code"]]);
             
             if($check){

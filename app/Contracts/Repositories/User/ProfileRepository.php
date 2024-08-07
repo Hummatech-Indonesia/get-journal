@@ -77,4 +77,15 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     {
         return $this->model->find($id)->update($data);
     }
+
+    public function getWhereData(array $data): mixed
+    {
+        return $this->model->query()
+        ->when(count($data) > 0, function ($query) use ($data){
+            foreach($data as $index => $value){
+                $query->where($index, $value);
+            }
+        })        
+        ->get();
+    } 
 }

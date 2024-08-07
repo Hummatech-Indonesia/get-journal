@@ -82,4 +82,13 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
     {
         return $this->model->find($id)->update(['background_id' => $background]);
     }
+
+    public function getClassSchool(array $ids): mixed
+    {
+        return $this->model->query()
+        ->with('profile','assignments')
+        ->withCount('students','assignments')
+        ->whereIn('profile_id',$ids)
+        ->get();
+    }
 }

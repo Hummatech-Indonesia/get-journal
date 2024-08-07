@@ -9,4 +9,5 @@ use App\Contracts\Interfaces\Student\CheckAvailableStudentInterface;
 
 interface ProfileInterface extends GetUserInfoInterface, GetProfileByEmailInterface, StoreInterface, CheckAvailableStudentInterface, UpdateInterface
 {
+    public function getWhereData(array $data): mixed;
 }
