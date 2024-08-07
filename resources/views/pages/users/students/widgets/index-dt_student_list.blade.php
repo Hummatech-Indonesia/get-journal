@@ -1,14 +1,13 @@
-<form action="#" class="card" method="POST">
-    @csrf
+<div class="card">
     <div class="card-body table-responsive">
-        <table class="table align-middle" id="dt-teachers"></table>
+        <table class="table align-middle" id="dt-students"></table>
     </div>
-</form>
+</div>
 
 @push('script')
     <script>
         $(document).ready(function() {
-            const dt_teachers = $('#dt-teachers').DataTable({
+            const dt_teachers = $('#dt-students').DataTable({
                 language: {
                     processing: 'memuat...'
                 },
@@ -46,23 +45,19 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
-                    $('.custom-container').html('<button type="submit" class="btn btn-sm btn-primary" id="submit-premium">Jadikan Premium</button>')
                     isCanSubmitPremium()
                 },
                 ajax: {
                     url: "{{ route('data-table.data-user') }}",
                     data: {
-                        role: 'teacher',
+                        role: 'student',
                         school_id: "{{ auth()->id() }}"
                     }
                 },
                 columns: [
                     {
-                        data: "id",
-                        title: '<div class="form-check"><input type="checkbox" class="form-check-input" id="check-all-teacher" /></div>',
-                        render: (data, type, row) => {
-                            return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids" /></div>`
-                        },
+                        data: "DT_RowIndex",
+                        title: '#',
                         orderable: false,
                         searchable: false
                     },
@@ -83,14 +78,6 @@
                                     </div>
                                 </div>
                             `
-                        }
-                    },
-                    {
-                        data: 'user_premium',
-                        title: "Premium",
-                        render: (data, type) => {
-                            if(data) return `<span class="badge bg-light-primary text-primary">Premium</span>`
-                            return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
                         }
                     },
                     {

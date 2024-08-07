@@ -34,7 +34,7 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('teacher.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
-                    <a href="/teacher" class="menu-link menu-center">
+                    <a href="{{route('teacher.index')}}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-duotone ki-teacher fs-2x">
                                 <span class="path1"></span>
@@ -47,9 +47,26 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('class.*') ? 'here show' : ''}}">
+                    <!--begin:Menu link-->
+                    <a href="{{route('classes.index')}}" class="menu-link menu-center">
+                        <span class="menu-icon me-0">
+                            <i class="ki-duotone ki-book-open fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Kelas</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2  {{request()->routeIs('student.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
-                    <a href="/student" class="menu-link menu-center">
+                    <a href="{{route('student.index')}}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-duotone ki-briefcase fs-2x">
                                 <span class="path1"></span>
@@ -62,9 +79,26 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('transactions.*') ? 'here show' : ''}}">
+                    <!--begin:Menu link-->
+                    <a href="{{route('transactions.index')}}" class="menu-link menu-center">
+                        <span class="menu-icon me-0">
+                            <i class="ki-duotone ki-chart-simple-2 fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Transaksi</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('premium.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
-                    <a href="/premium" class="menu-link menu-center">
+                    <a href="{{route('premium.index')}}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-duotone ki-medal-star fs-2x">
                                 <span class="path1"></span>

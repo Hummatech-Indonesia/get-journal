@@ -40,10 +40,35 @@ Route::middleware('auth')->group(function() {
             return view('pages.users.teacher.index');
         })->name('index');
     });
+    Route::name('classes.')->prefix('classes')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.classrooms.index');
+        })->name('index');
+        Route::get('detail', function() {
+            return view('pages.users.classrooms.detail');
+        })->name('show');
+    });
+    Route::name('student.')->prefix('student')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.students.index');
+        })->name('index');
+        Route::get('detail', function() {
+            return view('pages.users.students.detail');
+        })->name('show');
+    });
     Route::name('premium.')->prefix('premium')->group(function() {
         Route::get('/', function() {
             return view('pages.users.premium.index');
         })->name('index');
+    });
+
+    Route::name('transactions.')->prefix('transactions')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.transactions.index');
+        })->name('index');
+        Route::get('/detail', function() {
+            return view('pages.users.transactions.detail');
+        })->name('show');
     });
 
 });

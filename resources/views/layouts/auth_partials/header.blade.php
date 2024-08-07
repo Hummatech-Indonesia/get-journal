@@ -82,9 +82,9 @@
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->profile->name }} 
-                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
+                                    <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->profile->name }}</div>
                                     <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
+                                    <div><span class="badge bg-light-warning text-warning">{{ auth()->user()->profile->quantity_premium - auth()->user()->profile->used_quantity_premium }} kuota premium</span></div>
                                 </div>
                                 <!--end::Username-->
                             </div>
