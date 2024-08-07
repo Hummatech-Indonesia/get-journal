@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\DefaultResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -142,26 +143,29 @@ class TripayService
         $signature = hash_hmac('sha256', $json, $this->private_key);
 
         if ($signature !== (string) $callbackSignature) {
-            return Response::json([
-                'success' => false,
+            return (DefaultResource::make([
+                'code' => 500,
                 'message' => 'Invalid signature',
-            ]);
+                'data' => null
+            ]))->response()->setStatusCode(500);
         }
 
         if ('payment_status' !== (string) $request->server('HTTP_X_CALLBACK_EVENT')) {
-            return Response::json([
-                'success' => false,
+            return (DefaultResource::make([
+                'code' => 500,
                 'message' => 'Unrecognized callback event, no action was taken',
-            ]);
+                'data' => null
+            ]))->response()->setStatusCode(500);
         }
 
         $data = json_decode($json);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            return Response::json([
-                'success' => false,
+            return (DefaultResource::make([
+                'code' => 500,
                 'message' => 'Invalid data sent by tripay',
-            ]);
+                'data' => null
+            ]))->response()->setStatusCode(500);
         }
 
         $invoiceId = $data->merchant_ref;
@@ -175,10 +179,11 @@ class TripayService
                 ->first();
 
             if (! $invoice) {
-                return Response::json([
-                    'success' => false,
+                return (DefaultResource::make([
+                    'code' => 500,
                     'message' => 'No invoice found or already paid: ' . $invoiceId,
-                ]);
+                    'data' => null
+                ]))->response()->setStatusCode(500);
             }
 
             switch ($status) {
@@ -195,13 +200,18 @@ class TripayService
                     break;
 
                 default:
-                    return Response::json([
-                        'success' => false,
+                    return (DefaultResource::make([
+                        'code' => 500,
                         'message' => 'Unrecognized payment status',
-                    ]);
+                        'data' => null
+                    ]))->response()->setStatusCode(500);
             }
 
-            return Response::json(['success' => true]);
+            return (DefaultResource::make([
+                'code' => 200,
+                'message' => 'Berhasil melakukan callback pembayaran',
+                'data' => null
+            ]))->response()->setStatusCode(200);
         }
     }
 }

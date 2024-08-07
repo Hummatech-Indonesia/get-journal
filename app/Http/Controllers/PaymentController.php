@@ -206,4 +206,9 @@ class PaymentController extends Controller
             }
         }
     }
+
+    public function callbackTransaction(Request $request)
+    {
+        return $this->tripayService->callback($request);   
+    }
 }

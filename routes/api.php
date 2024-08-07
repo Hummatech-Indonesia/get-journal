@@ -61,6 +61,7 @@ Route::prefix('payment')->name('payment.')->group(function() {
     Route::get('web/transaction', [PaymentController::class, 'listTransactionV2'])->name('v2.list-transaction');
     Route::get('mobile/transaction', [PaymentController::class, 'listTransactionV3'])->name('v3.list-transaction');
     Route::post('closed-transaction', [PaymentController::class, 'closedTransaction'])->name('closed-transaction');
+    Route::post('callback-transaction', [PaymentController::class, 'callbackTransaction'])->name('callback-transaction');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
