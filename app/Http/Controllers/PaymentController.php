@@ -211,4 +211,28 @@ class PaymentController extends Controller
     {
         return $this->tripayService->callback($request);   
     }
+
+    public function checkStatusTransaction(Request $request)
+    {
+        if(!$request->reference) return (DefaultResource::make([
+            'code' => 400,
+            'message' => 'Field "reference" harus di isi',
+            'data' => null
+        ]))->response()->setStatusCode(400);
+
+        $result = $this->tripayService->closedTransactionCheckStatus($request->reference);
+        if($result["success"]){
+            return (DefaultResource::make([
+                'code' => 200,
+                'message' => 'Berhasil mengambil instruksi pembayaran',
+                'data' => $result["data"]
+            ]))->response()->setStatusCode(200);
+        }else {
+            return (DefaultResource::make([
+                'code' => 500,
+                'message' => $result["message"] ?? "Failed check status",
+                'data' => null
+            ]))->response()->setStatusCode(500);
+        }
+    }
 }
