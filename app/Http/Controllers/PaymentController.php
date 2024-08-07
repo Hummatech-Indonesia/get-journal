@@ -142,7 +142,6 @@ class PaymentController extends Controller
 
     public function listTransactionV3(Request $request)
     {
-        
         try{
             $data = $this->transaction->customPaginate($request, 10);
             
@@ -169,7 +168,7 @@ class PaymentController extends Controller
                 $user = $this->user->getWhere(['email' => $result['data']['customer_email']]);
 
                 $result['data']['user_id'] = auth()->user()->id ?? $user->id;
-                $result['data']['expired_time'] = date('Y-m-d H:m:s', (time()+($result['data']['expired_time']/1000)));
+                $result['data']['expired_time'] = date('Y-m-d H:m:s', $result['data']['expired_time']);
                 $result['data']['order_items'] = json_encode($result['data']['order_items']);
                 $result['data']['instructions'] = json_encode($result['data']['instructions']);
                 

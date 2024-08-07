@@ -14,6 +14,7 @@ class TripayService
     private string $merchant_code;
     private string $uri;
     private string $merchant_ref;
+    private int $expired_time;
 
     public function __construct()
     {
@@ -22,6 +23,7 @@ class TripayService
         $this->merchant_code = env('TRIPAY_MERCHANT') ?? '';
         $this->uri = env("TRIPAY_BASE_URI") ?? '';
         $this->merchant_ref = 'INV_'.date('Ymdhms').'_JM';
+        $this->expired_time = env('TRIPAY_EXPIRED_TIME') ?? 1722941158;
     }
 
     private function generateSignature(string $channel, ?int $amount)
@@ -72,7 +74,8 @@ class TripayService
     {
         $payload["signature"] = $this->generateSignature($payload["method"], $payload["amount"]);
         $payload["merchant_ref"] = $this->merchant_ref;
-        // dd($payload);
+        $payload['expired_time'] = $payload['expired_time'] ?? $this->expired_time;
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->api_key,
         ])->post($this->uri. '/transaction/create', $payload);
