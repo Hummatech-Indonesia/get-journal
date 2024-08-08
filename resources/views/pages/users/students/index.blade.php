@@ -3,6 +3,7 @@
 @section('title', 'Siswa')
 
 @section('content')
+    @include('components.swal')
     @include('pages.users.students.widgets.index-dt_student_list')
 @endsection
 

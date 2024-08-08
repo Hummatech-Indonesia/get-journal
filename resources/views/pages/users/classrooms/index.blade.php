@@ -3,6 +3,7 @@
 @section('title', 'Kelas')
 
 @section('content')
+    @include('components.swal')
     <div class="d-flex h-100 flex-column align-self-stretch">
         <div class="row">
             <div class="col-9 col-md-6 col-lg-4 col-xl-3">
