@@ -91,4 +91,20 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         ->whereIn('profile_id',$ids)
         ->get();
     }
+    
+    public function getClassSchoolPaginate(array $ids, ?array $payload): mixed
+    {
+        $page = 1;
+        $per_page = 10;
+        try{
+            $page = $payload["page"];
+            $per_page = $payload["per_page"]; 
+        }catch(\Throwable $th){ }
+
+        return $this->model->query()
+        ->with('profile','assignments','background')
+        ->withCount('students','assignments')
+        ->whereIn('profile_id',$ids)
+        ->paginate($per_page, ['*'], 'page', $page);
+    }
 }
