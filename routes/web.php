@@ -66,9 +66,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/', function() {
             return view('pages.users.transactions.index');
         })->name('index');
-        Route::get('{reference}', function(mixed $reference) {
-            return view('pages.users.transactions.detail');
-        })->name('show');
+        Route::get('{reference}', [PaymentController::class, 'detailClosedTransaction'])->name('show');
     });
 
 });

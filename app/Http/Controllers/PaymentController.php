@@ -235,4 +235,32 @@ class PaymentController extends Controller
             ]))->response()->setStatusCode(500);
         }
     }
+
+    public function detailClosedTransaction(mixed $merchant_reference)
+    {
+        $data = $this->transaction->getWhere(["merchant_ref" => $merchant_reference]);
+        if(count($data) == 0){
+            abort(404);
+        }else {
+            return view('pages.users.transactions.detail',compact(["data" => $data[0]]));
+        }
+    }
+
+    public function detailClosedTransactionMobile(mixed $merchant_reference)
+    {
+        $data = $this->transaction->getWhere(["merchant_ref" => $merchant_reference]);
+        if(count($data) == 0){
+            return (DefaultResource::make([
+                'code' => 404,
+                'message' => "Detail transaksi tidak ditemukan",
+                'data' => null
+            ]))->response()->setStatusCode(404);
+        }else {
+            return (DefaultResource::make([
+                'code' => 200,
+                'message' => 'Berhasil mengambil detail transaksi',
+                'data' => $data[0]
+            ]))->response()->setStatusCode(200);
+        }
+    }
 }
