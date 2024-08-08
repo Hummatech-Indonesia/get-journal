@@ -1,9 +1,13 @@
 <div class="modal modal-lg fade" tabindex="-1" id="pay-modal">
     <div class="modal-dialog">
-        <form class="modal-content">
+        <form class="modal-content" action="{{route('payment.closed-transaction')}}" method="post">
+            @csrf
             <input type="hidden" id="premium_type_price">
             <input type="hidden" id="premium_type_name" name="premium_name">
             <input type="hidden" name="order_items[]" value="-">
+            <input type="hidden" name="customer_email" value="{{auth()->user()->email}}">
+            <input type="hidden" name="customer_name" value="{{auth()->user()->profile->name}}">
+            <input type="hidden" name="app_type" value="web">
             <input type="hidden" name="sku">
             <div class="modal-header py-3">
                 <h5>Pembayaran</h5>
