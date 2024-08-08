@@ -99,7 +99,7 @@
                             return `
                                 <div>
                                     <button class="btn btn-icon btn-sm btn-active-light-primary">
-                                        <i class="ki-duotone ki-eye fs-3">
+                                        <i class="ki-duotone ki-eye fs-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                             <span class="path3"></span>

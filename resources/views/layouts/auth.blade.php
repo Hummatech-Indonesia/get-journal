@@ -619,6 +619,8 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 		<script src="{{ asset('assets/plugins/custom/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/custom/jquery/jquery-3.7.1.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/custom/momentjs/moment.min.js') }}"></script>
+		<script src="{{ asset('assets/plugins/custom/momentjs/moment-with-locales.min.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
         <!--begin::Custom script-->
         @stack('script')
