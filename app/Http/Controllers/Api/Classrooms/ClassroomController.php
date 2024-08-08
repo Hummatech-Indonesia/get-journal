@@ -133,7 +133,7 @@ class ClassroomController extends Controller
         
         $classrooms = $this->classroom->getClassSchoolPaginate($selectedIds,[
             "page" => $request->page ?? 1,
-            "per_page" => 10
+            "per_page" => $request->per_page ?? 10
         ]);
 
         return (ClassroomResource::make([
