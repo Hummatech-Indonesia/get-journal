@@ -175,7 +175,7 @@ class PaymentController extends Controller
                 $this->transaction->store($result['data']);
 
                 if($request->app_type == 'web'){
-                    return redirect('transactions.show',['reference' => $result['data']['merchant_ref']])->with('success','Berhasil memuat payment');
+                    return redirect('tran.show',['reference' => $result['data']['merchant_ref']])->with('success','Berhasil memuat payment');
                 } else {
                     return (DefaultResource::make([
                         'code' => 200,
