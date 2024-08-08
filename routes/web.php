@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/', function() {
             return view('pages.users.transactions.index');
         })->name('index');
-        Route::get('/detail', function() {
+        Route::get('{reference}', function() {
             return view('pages.users.transactions.detail');
         })->name('show');
     });
