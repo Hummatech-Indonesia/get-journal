@@ -161,4 +161,34 @@ class UserController extends Controller
             "data" => $data
         ])->response()->setStatusCode(200);
     }
+
+    public function premium(Request $request)
+    {
+        if(!is_array($request->ids)){
+            return DefaultResource::make([
+                "success" => true,
+                "message" => "Field 'ids' harus terisi",
+                "data" => null
+            ])->response()->setStatusCode(500);
+        }
+
+        $dataUser = auth()->user()->profile;
+
+        // check quantity premium with data
+        if(count($request->ids) > $dataUser->quantity_premium){
+            return DefaultResource::make([
+                "success" => true,
+                "message" => "Jumlah guru yang ingin di premium melebihi batas!",
+                "data" => null
+            ])->response()->setStatusCode(500);
+        }
+
+        foreach($request->ids as $id){
+            $user = $this->profileInterface->getWhereData(["user_id" => $id])->first();
+            $user->is_premium = 1;
+            $user->is_premium_school = 1;
+            $user->used_quantity_premium += 1;
+            // $user->kos=
+        }
+    }
 }
