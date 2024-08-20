@@ -262,28 +262,35 @@ class TripayService
                             $quantity = $json_items[0]->quantity;
                             $times = 1; 
                             $total = 0;
+                            $payload = [];
     
                             switch (strtolower($json_items[0]->sku)) {
                                 case 'prem-thn':
                                     $date->add(new DateInterval('P1Y'));
                                     $times = 12;
                                     $total = $json_items[0]->quantity;
+
+                                    $payload['quantity_premium'] = $profile->quota_premium + $total;
                                     break;
                                 case 'prem-smt':
                                     $date->add(new DateInterval('P6M'));
                                     $times = 6;
                                     $total = $json_items[0]->quantity;
+
+                                    $payload['quantity_premium'] = $profile->quota_premium + $total;
                                     break;
                                 case 'prem-bln':
                                     $date->add(new DateInterval('P' . $json_items[0]->quantity . 'M'));
                                     $quantity = 1;
                                     $times = $json_items[0]->quantity;
+
+                                    $payload['is_premium'] = 1;
+                                    $payload['is_premium_private'] = 1;
                                     break;
                             }
+                            
 
-                            $profile->update([
-                                'quantity_premium' => $profile->quota_premium + $total
-                            ]);
+                            $profile->update($payload);
     
                             QuotaPremium::create([
                                 'user_id' => $invoice->user_id,
