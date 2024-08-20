@@ -1,6 +1,9 @@
 <form action="#" class="card" method="POST">
     @csrf
     <div class="card-body table-responsive">
+        <div class="alert alert-warning" role="alert">
+            Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
+        </div>
         <table class="table align-middle" id="dt-teachers"></table>
     </div>
 </form>
@@ -26,17 +29,23 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         }
                     }, {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         }
                     }, {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         },
                         customize: function(doc) {
                             doc.content[1].table.widths =
@@ -61,7 +70,8 @@
                         data: "id",
                         title: '<div class="form-check"><input type="checkbox" class="form-check-input" id="check-all-teacher" /></div>',
                         render: (data, type, row) => {
-                            return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids" /></div>`
+                            if(!row['user_premium']) return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids" /></div>`
+                            return ''
                         },
                         orderable: false,
                         searchable: false
@@ -70,7 +80,6 @@
                         data: 'name',
                         title: "Guru",
                         render: (data, type, row) => {
-                            console.log(row)
                             const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">
