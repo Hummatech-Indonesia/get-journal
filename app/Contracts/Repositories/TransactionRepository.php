@@ -78,6 +78,23 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
      * @param array $data
      * @return mixed
      */
+    public function customPaginateV2(Request $request, int $pagination = 10, int $page = 1): mixed
+    {
+        return $this->model->query()
+            ->when(count($request->all()) > 0, function ($query) use ($request){
+                if($request->reference) $query->where('reference',$request->reference);
+                if($request->merchant_ref) $query->where('merchant_ref',$request->merchant_ref);
+                if($request->method) $query->where('method',$request->method);
+                if($request->status) $query->where('status',$request->status);
+            })
+            ->paginate($pagination, ['*'], 'page', $page);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param array $data
+     * @return mixed
+     */
     public function store(array $data): mixed
     {
         return $this->model->create($data);

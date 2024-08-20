@@ -143,8 +143,10 @@ class PaymentController extends Controller
     public function listTransactionV3(Request $request)
     {
         try{
+            $per_page = ($requestt->per_page ?? 10);
+            $page = ($requestt->page ?? 1);
 
-            $data = $this->transaction->customPaginate($request, ($requestt->per_page ?? 10));
+            $data = $this->transaction->customPaginateV2($request, $per_page, $page);
             
             return (DefaultResource::make([
                 'code' => 200,

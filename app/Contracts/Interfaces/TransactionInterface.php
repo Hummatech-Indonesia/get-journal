@@ -19,4 +19,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface TransactionInterface extends StoreInterface, GetInterface, GetWhereInterface
 {
     public function customPaginate(Request $request, int $pagination = 10): LengthAwarePaginator;
+
+    public function customPaginateV2(Request $request, int $pagination = 10, int $page = 1): mixed;
 }
