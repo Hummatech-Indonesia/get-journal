@@ -67,11 +67,13 @@ class PaymentController extends Controller
                     'data' => $data["data"]
                 ]))->response()->setStatusCode(200);
             }else {
+                $data = $this->paymentChannel->get();
+
                 return (DefaultResource::make([
-                    'code' => 500,
-                    'message' => $data["message"] ?? "Invalid api",
-                    'data' => null
-                ]))->response()->setStatusCode(500);
+                    'code' => 200,
+                    'message' => 'Berhasil mengambil channel pembayaran',
+                    'data' => $data
+                ]))->response()->setStatusCode(200);
             }
         }catch(\Throwable $th){
             $data = $this->paymentChannel->get();
