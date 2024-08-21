@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-body table-responsive">
+        <div class="alert alert-warning" role="alert">
+            Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
+        </div>
         <table class="table align-middle" id="dt-transactions"></table>
     </div>
 </div>
@@ -64,7 +67,7 @@
                         data: 'created_at',
                         title: "Tanggal",
                         render: (data) => {
-                            return moment(data).format('DD MMMM YYYY')
+                            return moment(data).format('DD MMMM YYYY hh:mm')
                         }
                     }, {
                         data: 'amount',

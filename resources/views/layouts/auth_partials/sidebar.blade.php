@@ -47,7 +47,7 @@
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('class.*') ? 'here show' : ''}}">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('classes.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
                     <a href="{{route('classes.index')}}" class="menu-link menu-center">
                         <span class="menu-icon me-0">

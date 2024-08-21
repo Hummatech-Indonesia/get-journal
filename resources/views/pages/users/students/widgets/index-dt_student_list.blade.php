@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-body table-responsive">
+        <div class="alert alert-warning" role="alert">
+            Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
+        </div>
         <table class="table align-middle" id="dt-students"></table>
     </div>
 </div>
@@ -7,7 +10,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            const dt_teachers = $('#dt-students').DataTable({
+            const dt_students = $('#dt-students').DataTable({
                 language: {
                     processing: 'memuat...'
                 },
@@ -25,17 +28,17 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: ":not(:eq(2))"
                         }
                     }, {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: ":not(:eq(2))"
                         }
                     }, {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ":not(:eq(5))"
+                            columns: ":not(:eq(2))"
                         },
                         customize: function(doc) {
                             doc.content[1].table.widths =
@@ -65,7 +68,6 @@
                         data: 'name',
                         title: "Guru",
                         render: (data, type, row) => {
-                            console.log(row)
                             const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">

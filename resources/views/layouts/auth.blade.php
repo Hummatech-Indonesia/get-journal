@@ -623,6 +623,9 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('assets/plugins/custom/momentjs/moment-with-locales.min.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
         <!--begin::Custom script-->
+		<script>
+			moment.locale('id')
+		</script>
         @stack('script')
         <!--end::Custom script-->
 		<!--end::Javascript-->
