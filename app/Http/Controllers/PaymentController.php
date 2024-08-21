@@ -58,24 +58,6 @@ class PaymentController extends Controller
     public function paymentChannel(Request $request)
     {
         try{
-            $data = $this->tripayService->getPaymentChannel();
-    
-            if($data["success"]){
-                return (DefaultResource::make([
-                    'code' => 200,
-                    'message' => 'Berhasil mengambil channel pembayaran',
-                    'data' => $data["data"]
-                ]))->response()->setStatusCode(200);
-            }else {
-                $data = $this->paymentChannel->get();
-
-                return (DefaultResource::make([
-                    'code' => 200,
-                    'message' => 'Berhasil mengambil channel pembayaran',
-                    'data' => $data
-                ]))->response()->setStatusCode(200);
-            }
-        }catch(\Throwable $th){
             $data = $this->paymentChannel->get();
 
             return (DefaultResource::make([
@@ -83,6 +65,13 @@ class PaymentController extends Controller
                 'message' => 'Berhasil mengambil channel pembayaran',
                 'data' => $data
             ]))->response()->setStatusCode(200);
+        }catch(\Throwable $th){
+
+            return (DefaultResource::make([
+                'code' => 500,
+                'message' => 'Invalid dalam mengambil data channel pembayaran dikarekanakn => '. $th->getMessage(),
+                'data' => []
+            ]))->response()->setStatusCode(500);
         }
     }
 

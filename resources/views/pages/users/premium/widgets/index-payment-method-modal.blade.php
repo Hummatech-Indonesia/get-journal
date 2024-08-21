@@ -75,7 +75,7 @@
                         method_list_el += `
                             <div class="d-flex justify-content-center align-items-center" style="flex: 1 1 auto;">
                                 <!--begin::Option-->
-                                <input type="radio" class="btn-check" data-min="${data.minimum_amount}" data-max="${data.maximum_amount}" data-fee="${data.fee_customer ? data.fee_customer.flat : 0}" name="method" value="${data.code}"  id="${data.code}"/>
+                                <input type="radio" class="btn-check" data-min="${data.min_amount}" data-max="${data.max_amount}" data-fee="${data.tax}" name="method" value="${data.code}"  id="${data.code}"/>
                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-3 d-flex flex-column gap-2 align-items-center" for="${data.code}">
                                     <img src="${data.icon_url}" class="object-fit-contain" style="height: 50px; width: 100px; " />
                                     ${!data.icon_url ? '<div class="text-center">'+data.name+'</div>' : ''}

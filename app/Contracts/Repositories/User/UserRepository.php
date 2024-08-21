@@ -75,7 +75,9 @@ class UserRepository extends BaseRepository implements UserInterface
     public function customQuery(Request $request): mixed
     {
         return $this->model->query()
-        ->with(["profile", "roles"])
+        ->with(["profile" => function ($query) {
+            $query->with('classrooms','lessons');
+        }, "roles"])
         ->selectRaw('
             users.*,
             IF(profiles.is_premium = 1 AND profiles.premium_expired_at > NOW(), true, false) AS user_premium,

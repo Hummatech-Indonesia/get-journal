@@ -64,6 +64,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
                 'password' => bcrypt($data['password']),
             ]);
             $data['user_id'] = $user->id;
+            $data['code'] = $this->generateCode();
             
             $identity = null;
             try{ $identity = $data['identity_number'] ?? "0"; } catch(\Throwable $th){ }
@@ -132,5 +133,16 @@ class AuthRepository extends BaseRepository implements AuthInterface
 
         return (ProfileResource::make($profile)->response())->setStatusCode(200);
     }
-} {
+
+    private function generateCode($length = 6)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $randomString;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Contracts\Interfaces\QuotaPremiumInterface;
 use App\Contracts\Interfaces\User\AssignTeacherToSchoolInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Interfaces\User\UserInterface;
@@ -23,14 +24,16 @@ class UserController extends Controller
     private ProfileInterface $profileInterface;
     private UserService $userService;
     private AssignTeacherToSchoolInterface $assignTeacher;
+    private QuotaPremiumInterface $quotaPremium;
 
     public function __construct(UserInterface $userInterface, ProfileInterface $profileInterface, UserService $userService,
-    AssignTeacherToSchoolInterface $assignTeacher)
+    AssignTeacherToSchoolInterface $assignTeacher, QuotaPremiumInterface $quotaPremium)
     {
         $this->userInterface = $userInterface;
         $this->profileInterface = $profileInterface;
         $this->userService = $userService;
         $this->assignTeacher = $assignTeacher;
+        $this->quotaPremium = $quotaPremium;
     }
 
     /**
@@ -185,9 +188,11 @@ class UserController extends Controller
 
         foreach($request->ids as $id){
             $user = $this->profileInterface->getWhereData(["user_id" => $id])->first();
-            $user->is_premium = 1;
-            $user->is_premium_school = 1;
-            $user->used_quantity_premium += 1;
+            if($user){
+                $user->is_premium = 1;
+                $user->is_premium_school = 1;
+                $user->used_quantity_premium += 1;
+            }
             // $user->kos=
         }
     }

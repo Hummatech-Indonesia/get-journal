@@ -11,6 +11,7 @@ use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\LessonInterface;
 use App\Contracts\Interfaces\PaymentChannelInterface;
+use App\Contracts\Interfaces\QuotaPremiumInterface;
 use App\Contracts\Interfaces\ReminderInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\TransactionInterface;
@@ -26,6 +27,7 @@ use App\Contracts\Repositories\JournalRepository;
 use App\Contracts\Repositories\LessonRepository;
 use App\Contracts\Repositories\MarkRepository;
 use App\Contracts\Repositories\PaymentChannelRepository;
+use App\Contracts\Repositories\QuotaPremiumRepository;
 use App\Contracts\Repositories\ReminderRepository;
 use App\Contracts\Repositories\StudentRepository;
 use App\Contracts\Repositories\TransactionRepository;
@@ -57,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
         AssignTeacherToSchoolInterface::class => TeacherSchoolRepository::class,
         TransactionInterface::class => TransactionRepository::class,
         PaymentChannelInterface::class => PaymentChannelRepository::class,
+        QuotaPremiumInterface::class => QuotaPremiumRepository::class
     ];
 
     /**

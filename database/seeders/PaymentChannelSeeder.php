@@ -24,6 +24,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ZT91lrOEad1582929126.png'
             ],
             [
                 'code' => 'PERMATAVA',
@@ -35,6 +36,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/szezRhAALB1583408731.png'
             ],
             [
                 'code' => 'BNIVA',
@@ -46,6 +48,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png'
             ],
             [
                 'code' => 'BRIVA',
@@ -57,6 +60,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/8WQ3APST5s1579461828.png'
             ],
             [
                 'code' => 'MANDIRIVA',
@@ -68,6 +72,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/T9Z012UE331583531536.png'
             ],
             [
                 'code' => 'BCAVA',
@@ -79,6 +84,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 5500,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ytBKvaleGy1605201833.png'
             ],
             [
                 'code' => 'MUAMALATVA',
@@ -90,6 +96,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/GGwwcgdYaG1611929720.png'
             ],
             [
                 'code' => 'CIMBVA',
@@ -101,6 +108,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/WtEJwfuphn1614003973.png'
             ],
             [
                 'code' => 'BSIVA',
@@ -112,6 +120,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/tEclz5Assb1643375216.png'
             ],
             [
                 'code' => 'OCBCVA',
@@ -123,6 +132,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ysiSToLvKl1644244798.png'
             ],
             [
                 'code' => 'DANAMONVA',
@@ -134,6 +144,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/F3pGzDOLUz1644245546.png'
             ],
             [
                 'code' => 'OTHERBANKVA',
@@ -145,6 +156,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 4250,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/qQYo61sIDa1702995837.png'
             ],
             [
                 'code' => 'ALFAMART',
@@ -156,6 +168,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 3500,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/jiGZMKp2RD1583433506.png'
             ],
             [
                 'code' => 'INDOMARET',
@@ -167,6 +180,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 3500,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/zNzuO5AuLw1583513974.png'
             ],
             [
                 'code' => 'ALFAMIDI',
@@ -178,6 +192,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 3500,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/aQTdaUC2GO1593660384.png'
             ],
             [
                 'code' => 'OVO',
@@ -189,6 +204,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'redirect',
                 'tax' => 0.03,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/fH6Y7wDT171586199243.png'
             ],
             [
                 'code' => 'QRIS',
@@ -200,6 +216,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 750,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/BpE4BPVyIw1605597490.png'
             ],
             [
                 'code' => 'QRISC',
@@ -211,6 +228,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 750,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/m9FtFwaBCg1623157494.png'
             ],
             [
                 'code' => 'QRIS2',
@@ -222,6 +240,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 750,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/8ewGzP6SWe1649667701.png'
             ],
             [
                 'code' => 'DANA',
@@ -233,6 +252,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'redirect',
                 'tax' => 0.03,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/sj3UHLu8Tu1655719621.png'
             ],
             [
                 'code' => 'SHOPEEPAY',
@@ -244,6 +264,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'redirect',
                 'tax' => 0.03,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/d204uajhlS1655719774.png'
             ],
             [
                 'code' => 'QRIS_SHOPEEPAY',
@@ -255,6 +276,7 @@ class PaymentChannelSeeder extends Seeder
                 'time_expired' => 'minute',
                 'type' => 'direct',
                 'tax' => 750,
+                'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/DM8sBd1i9y1681718593.png'
             ],
         ];
 

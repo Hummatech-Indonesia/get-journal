@@ -53,4 +53,10 @@ class QuotaPremiumRepository extends BaseRepository implements QuotaPremiumInter
     {
         return $this->show($id)->update($data);
     }
+
+    public function customQuery(mixed $data, ?string $order = "asc"): mixed
+    {
+        return $this->model->query()
+        ->where('expired_date','>',date('Y-m-d'));
+    }
 }
