@@ -114,4 +114,10 @@ class Profile extends Model
     {
         return $this->hasMany(Attendance::class)->where('status', 'alpha');
     }
+
+    
+    public function getSchoolRelated()
+    {
+        return $this->belongsTo(Profile::class, 'related_code', 'code');
+    }
 }
