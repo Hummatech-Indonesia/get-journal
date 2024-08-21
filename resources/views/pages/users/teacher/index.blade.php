@@ -4,6 +4,7 @@
 
 @section('content')
     @include('components.swal')
+    @include('pages.users.teacher.widgets.index-modal-detail')
     @include('pages.users.teacher.widgets.index-dt_teacher_list')
 @endsection
 

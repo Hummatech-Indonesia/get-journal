@@ -105,9 +105,10 @@
                     {
                         title: 'Aksi',
                         mRender: (data, type, row) => {
+                            let str_teacher = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div>
-                                    <button class="btn btn-icon btn-sm btn-active-light-primary">
+                                    <button type="button" class="btn-teacher-detail btn btn-icon btn-sm btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#teacher-detail-modal" data-teacher="${str_teacher}">
                                         <i class="ki-duotone ki-eye fs-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
