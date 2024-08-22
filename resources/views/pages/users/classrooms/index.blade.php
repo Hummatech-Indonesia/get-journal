@@ -180,10 +180,10 @@
 
         function drawClassroomCard(data) {
             let classroom_cards = ''
-            const default_bg = "{{ asset('assets/media/stock/600x400/img-56.jpg') }}"
+            const default_bg = "{{ asset('assets/media/books/img-72.jpg') }}"
             data.map((d) => {
                 let class_bg = default_bg
-                if(d.background.image) class_bg = "{{asset('/storage')}}"+d.background.image
+                if(d.background.image) class_bg = "{{asset('storage')}}"+d.background.image
                 classroom_cards += `
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url(${class_bg});background-size: cover; min-height:150px;">
