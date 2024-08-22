@@ -236,7 +236,8 @@ class PaymentController extends Controller
         if(count($data) == 0){
             abort(404);
         }else {
-            return view('pages.users.transactions.detail',compact(["data" => $data[0]]));
+            $data = $data[0];
+            return view('pages.users.transactions.detail',compact("data"));
         }
     }
 

@@ -22,7 +22,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ZT91lrOEad1582929126.png'
             ],
@@ -34,7 +34,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/szezRhAALB1583408731.png'
             ],
@@ -46,7 +46,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/n22Qsh8jMa1583433577.png'
             ],
@@ -58,7 +58,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/8WQ3APST5s1579461828.png'
             ],
@@ -70,7 +70,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/T9Z012UE331583531536.png'
             ],
@@ -82,7 +82,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 5500,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ytBKvaleGy1605201833.png'
             ],
@@ -94,7 +94,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 180,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/GGwwcgdYaG1611929720.png'
             ],
@@ -106,7 +106,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/WtEJwfuphn1614003973.png'
             ],
@@ -118,7 +118,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 180,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/tEclz5Assb1643375216.png'
             ],
@@ -130,7 +130,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/ysiSToLvKl1644244798.png'
             ],
@@ -142,7 +142,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/F3pGzDOLUz1644245546.png'
             ],
@@ -154,7 +154,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'bank',
                 'tax' => 4250,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/qQYo61sIDa1702995837.png'
             ],
@@ -166,7 +166,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'other',
                 'tax' => 3500,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/jiGZMKp2RD1583433506.png'
             ],
@@ -178,7 +178,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'other',
                 'tax' => 3500,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/zNzuO5AuLw1583513974.png'
             ],
@@ -190,7 +190,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'other',
                 'tax' => 3500,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/aQTdaUC2GO1593660384.png'
             ],
@@ -202,7 +202,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 43200,
                 'time_expired' => 'minute',
-                'type' => 'redirect',
+                'type' => 'e-wallet',
                 'tax' => 0.03,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/fH6Y7wDT171586199243.png'
             ],
@@ -214,7 +214,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 60,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'e-wallet',
                 'tax' => 750,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/BpE4BPVyIw1605597490.png'
             ],
@@ -226,7 +226,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'e-wallet',
                 'tax' => 750,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/m9FtFwaBCg1623157494.png'
             ],
@@ -238,7 +238,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 60,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'e-wallet',
                 'tax' => 750,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/8ewGzP6SWe1649667701.png'
             ],
@@ -250,7 +250,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 1440,
                 'time_expired' => 'minute',
-                'type' => 'redirect',
+                'type' => 'e-wallet',
                 'tax' => 0.03,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/sj3UHLu8Tu1655719621.png'
             ],
@@ -262,7 +262,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 15,
                 'max_expired' => 60,
                 'time_expired' => 'minute',
-                'type' => 'redirect',
+                'type' => 'e-wallet',
                 'tax' => 0.03,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/d204uajhlS1655719774.png'
             ],
@@ -274,7 +274,7 @@ class PaymentChannelSeeder extends Seeder
                 'min_expired' => 60,
                 'max_expired' => 60,
                 'time_expired' => 'minute',
-                'type' => 'direct',
+                'type' => 'e-wallet',
                 'tax' => 750,
                 'icon_url' => 'https://assets.tripay.co.id/upload/payment-icon/DM8sBd1i9y1681718593.png'
             ],
