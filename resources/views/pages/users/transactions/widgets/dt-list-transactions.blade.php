@@ -48,12 +48,12 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
-                    $('.custom-container').html('<button type="submit" class="btn btn-sm btn-primary" id="submit-premium">Jadikan Premium</button>')
                 },
                 ajax: {
                     url: "{{ route('payment.v2.list-transaction') }}",
                     data: {
-                        _token: "{{csrf_token()}}"
+                        _token: "{{csrf_token()}}",
+                        user_id: "{{auth()->id()}}"
                     }
                 },
                 columns: [

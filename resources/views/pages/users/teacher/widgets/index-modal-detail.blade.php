@@ -22,8 +22,9 @@
                             <div id="is-premium"><span class="badge bg-light-warning text-warning">Non Premium</span></div>
                         </div>
                     </div>
-                    <form type="post">
-                        <button type="button" class="btn btn-sm btn-primary">Unlink</button>
+                    <form type="post" id="unlink-form" action="#">
+                        @csrf
+                        <button type="button" class="btn btn-sm btn-primary" id="unlink-btn">Unlink</button>
                     </form>
                 </div>
                 <div class="pt-3">
@@ -51,6 +52,9 @@
                 '<span class="badge badge-light-warning text-warning">Non Premium</span>'
             ))
             $('#teacher-detail-modal #class-count').text('Kelas : '+data_teacher.profile.classrooms.length)
+            let action_url = "{{route('assignments.destroy', 'selected_id')}}"
+            action_url = action_url.replace('selected_id', data_teacher.id)
+            $('#teacher-detail-modal #unlink-form').attr('action', action_url)
             
             let data_classrooms = ''
 
@@ -73,6 +77,22 @@
             $('#teacher-detail-modal #class-list').html(data_classrooms)
 
             console.log({data_teacher, data_classrooms})
+        })
+
+        $(document).on('click', '#teacher-detail-modal #unlink-btn', function() {
+            $('#teacher-detail-modal').modal('hide')
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text : 'Anda mungkin akan kehilangan beberapa data siswa dan premium dari guru premium tidak akan dikembalikan kepada anda!',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yakin',
+                cancelButtonText: 'Batal',
+            }).then((res) => {
+                if(res.isConfirmed) {
+                    $('#teacher-detail-modal #unlink-form').submit()
+                }
+            })
         })
     </script>
 @endpush
