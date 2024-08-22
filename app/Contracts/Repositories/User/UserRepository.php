@@ -101,6 +101,12 @@ class UserRepository extends BaseRepository implements UserInterface
                     $q->whereIn("name", $request->role);
                 });
             }
+
+            if($request->code) {
+                $query->whereHas('profile', function ($q) use ($request) {
+                    $q->where('related_code', $request->code);
+                });
+            }
         });
     }
 

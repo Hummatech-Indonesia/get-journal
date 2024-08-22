@@ -214,4 +214,32 @@ class UserController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function unlinkTeacher(Request $request, mixed $id)
+    {
+        $user = $this->profileInterface->getWhereData(["user_id" => $id])->first();
+
+        if(!$user && $request->app_type == "mobile"){
+            return DefaultResource::make([
+                "success" => false,
+                "message" => "Akun guru tidak ditemukan!",
+                "data" => null
+            ])->response()->setStatusCode(404); 
+        }else {
+            return redirect()->back()->with('error', 'Akun guru tidak ditemukan!');
+        }
+
+        $user->related_code = null;
+        $user->save();
+
+        if($request->app_type == "mobile"){
+            return DefaultResource::make([
+                "success" => true,
+                "message" => "Berhasil menonaktifkan guru dengan sekolah!",
+                "data" => $user
+            ])->response()->setStatusCode(200);
+        }else {
+            return redirect()->back()->with('success','Berhasil menonaktifkan guru dengan sekolah!');
+        }
+    }
 }

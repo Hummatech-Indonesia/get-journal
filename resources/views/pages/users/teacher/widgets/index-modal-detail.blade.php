@@ -22,7 +22,7 @@
                             <div id="is-premium"><span class="badge bg-light-warning text-warning">Non Premium</span></div>
                         </div>
                     </div>
-                    <form type="post" id="unlink-form" action="#">
+                    <form method="post" id="unlink-form" action="">
                         @csrf
                         <button type="button" class="btn btn-sm btn-primary" id="unlink-btn">Unlink</button>
                     </form>
@@ -52,7 +52,7 @@
                 '<span class="badge badge-light-warning text-warning">Non Premium</span>'
             ))
             $('#teacher-detail-modal #class-count').text('Kelas : '+data_teacher.profile.classrooms.length)
-            let action_url = "{{route('assignments.destroy', 'selected_id')}}"
+            let action_url = "{{route('teachers.unlink', 'selected_id')}}"
             action_url = action_url.replace('selected_id', data_teacher.id)
             $('#teacher-detail-modal #unlink-form').attr('action', action_url)
             

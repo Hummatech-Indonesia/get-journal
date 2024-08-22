@@ -62,7 +62,7 @@
                     url: "{{ route('data-table.data-user') }}",
                     data: {
                         role: 'teacher',
-                        school_id: "{{ auth()->id() }}"
+                        code: "{{ auth()->user()->profile?->code }}"
                     }
                 },
                 columns: [
