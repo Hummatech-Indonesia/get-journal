@@ -22,26 +22,7 @@ class Profile extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'user_id',
-        'identity_number',
-        'name',
-        'birthdate',
-        'address',
-        'gender',
-        'photo',
-        'is_register',
-        'is_premium',
-        'premium_expired_at',
-        'code',
-        'related_code',
-        'is_premium_private',
-        'is_premium_school',
-        'quantity_premium',
-        'used_quantity_premium',
-        'user_premium_private_id',
-        'user_premium_school_id'        
-    ];
+    protected $guarded = [];
 
     /**
      * Get the user that owns the profile.

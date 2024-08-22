@@ -183,26 +183,25 @@ class UserController extends Controller
         try{
             foreach($request->teacher_ids as $id){
                 $user = $this->profileInterface->getWhereData(["user_id" => $id, 'is_premium' => 0])->first();
-                $quota = $this->quotaPremium->customQuery(["user_id" => $id]);
+                $quota = $this->quotaPremium->customQuery(["user_id" => auth()->user()->id]);
                 
                 if($user){
-                    dd($user);
                     $expired = now();
                     foreach($quota as $q){
                         if($q->used_quantity >= $q->quantity) continue;
-    
-                        $expired = $q->exired_date;   
+                        
+                        $expired = $q->expired_date;   
                         $q->used_quantity += 1;
                         $q->save();
                         break;
                     }
-    
+                    
                     $user->is_premium = 1;
                     $user->is_premium_school = 1;
                     $user->premium_expired_at = $expired;
                     $user->user_premium_school_id = auth()->user()->id;
                     $user->save();
-    
+                    
                     $dataUser->quantity_premium -= 1;
                     $dataUser->used_quantity_premium += 1;
                     $dataUser->save();
