@@ -97,7 +97,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('teachers')->name('teachers.')->group(function () {
         Route::post('assign-teacher', [UserController::class, 'assignTeacher'])->name('assign');
-        Route::post('unlink-teacher/{user_id}', [UserController::class, 'unlinkTeacher'])->name('unlink');
     });
 
     Route::apiResources([
@@ -112,3 +111,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         'journals' => JournalController::class,
     ]);
 });
+
+Route::post('teachers/unlink-teacher/{user_id}', [UserController::class, 'unlinkTeacher'])->name('teachers.unlink');
+
