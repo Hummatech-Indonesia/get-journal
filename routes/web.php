@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\User\UserController as UserUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
@@ -61,6 +62,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/', function() {
             return view('pages.users.premium.index');
         })->name('index');
+        Route::post('/teacher', [UserUserController::class, 'premium'])->name('teacher');
     });
 
     Route::name('transactions.')->prefix('transactions')->group(function() {

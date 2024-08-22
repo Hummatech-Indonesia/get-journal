@@ -14,4 +14,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface QuotaPremiumInterface extends StoreInterface, GetInterface, ShowInterface, UpdateInterface, GetWhereInterface
 {
+    public function customQuery(array $data, string $order = "asc"): mixed;
 }

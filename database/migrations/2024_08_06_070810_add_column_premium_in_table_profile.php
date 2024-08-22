@@ -13,22 +13,22 @@ return new class extends Migration
     {
         if(!Schema::hasColumn('profiles','is_premium_private')){
             Schema::table('profiles', function (Blueprint $table) {
-                $table->tinyInteger('is_premium_private');
+                $table->tinyInteger('is_premium_private')->default(0);
             });
         }
         if(!Schema::hasColumn('profiles','is_premium_school')){
             Schema::table('profiles', function (Blueprint $table) {
-                $table->tinyInteger('is_premium_school');
+                $table->tinyInteger('is_premium_school')->default(0);
             });
         }
         if(!Schema::hasColumn('profiles','quantity_premium')){
             Schema::table('profiles', function (Blueprint $table) {
-                $table->integer('quantity_premium');
+                $table->integer('quantity_premium')->default(0);
             });
         }
         if(!Schema::hasColumn('profiles','used_quantity_premium')){
             Schema::table('profiles', function (Blueprint $table) {
-                $table->integer('used_quantity_premium');
+                $table->integer('used_quantity_premium')->default(0);
             });
         }
     }

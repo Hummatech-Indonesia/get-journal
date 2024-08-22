@@ -1,4 +1,4 @@
-<form action="#" class="card" method="POST">
+<form action="{{ route('premium.teacher') }}" class="card" method="POST">
     @csrf
     <div class="card-body table-responsive">
         <div class="alert alert-warning" role="alert">
@@ -70,7 +70,7 @@
                         data: "id",
                         title: '<div class="form-check"><input type="checkbox" class="form-check-input" id="check-all-teacher" /></div>',
                         render: (data, type, row) => {
-                            if(!row['user_premium']) return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids" /></div>`
+                            if(!row['user_premium']) return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids[]" /></div>`
                             return ''
                         },
                         orderable: false,

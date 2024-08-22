@@ -16,6 +16,7 @@ use App\Http\Resources\DefaultResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -167,33 +168,51 @@ class UserController extends Controller
 
     public function premium(Request $request)
     {
-        if(!is_array($request->ids)){
-            return DefaultResource::make([
-                "success" => true,
-                "message" => "Field 'ids' harus terisi",
-                "data" => null
-            ])->response()->setStatusCode(500);
+        if(!is_array($request->teacher_ids)){
+            return redirect()->back()->with('error', 'Field "teacher_ids" harus diisi');
         }
 
         $dataUser = auth()->user()->profile;
 
         // check quantity premium with data
-        if(count($request->ids) > $dataUser->quantity_premium){
-            return DefaultResource::make([
-                "success" => true,
-                "message" => "Jumlah guru yang ingin di premium melebihi batas!",
-                "data" => null
-            ])->response()->setStatusCode(500);
+        if(count($request->teacher_ids) > $dataUser->quantity_premium){
+            return redirect()->back()->with('error','Jumlah guru yang ingin di premium melebihi batas!');
         }
 
-        foreach($request->ids as $id){
-            $user = $this->profileInterface->getWhereData(["user_id" => $id])->first();
-            if($user){
-                $user->is_premium = 1;
-                $user->is_premium_school = 1;
-                $user->used_quantity_premium += 1;
+        DB::beginTransaction();
+        try{
+            foreach($request->teacher_ids as $id){
+                $user = $this->profileInterface->getWhereData(["user_id" => $id, 'is_premium' => 0])->first();
+                $quota = $this->quotaPremium->customQuery(["user_id" => $id]);
+                
+                if($user){
+                    dd($user);
+                    $expired = now();
+                    foreach($quota as $q){
+                        if($q->used_quantity >= $q->quantity) continue;
+    
+                        $expired = $q->exired_date;   
+                        $q->used_quantity += 1;
+                        $q->save();
+                        break;
+                    }
+    
+                    $user->is_premium = 1;
+                    $user->is_premium_school = 1;
+                    $user->premium_expired_at = $expired;
+                    $user->user_premium_school_id = auth()->user()->id;
+                    $user->save();
+    
+                    $dataUser->quantity_premium -= 1;
+                    $dataUser->used_quantity_premium += 1;
+                    $dataUser->save();
+                }
             }
-            // $user->kos=
+            DB::commit();
+            return redirect()->back()->with('success', 'Berhasil mem premium kan akun guru!');
+        }catch(\Throwable $th){
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 }

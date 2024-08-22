@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Resources\ErrorResource;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class LoginRequest extends FormRequest
 {
@@ -41,5 +43,14 @@ class LoginRequest extends FormRequest
             'password.required' => 'Password harus diisi',
             'password.string' => 'Password harus berupa string',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Invalid request, please check again',
+            'data'    => $validator->errors()
+        ], 422));
     }
 }

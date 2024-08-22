@@ -49,5 +49,6 @@ class RegisterRequest extends FormRequest
     public function prepareForValidation()
     {
         if(!$this->confirm_password) $this->merge(["confirm_password" => $this->password_confirmation]);
+        if(!$this->gender) $this->merge(['gender' => 'male']);
     }
 }
