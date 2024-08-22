@@ -43,15 +43,18 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             $merchant_ref = null;
             $method = null;
             $status = null;
+            $user_id = null;
             try{ $reference = $data['reference']; } catch (\Throwable $th){ }
             try{ $merchant_ref = $data['merchant_ref']; } catch (\Throwable $th){ }
             try{ $method = $data['method']; } catch (\Throwable $th){ }
-            try{ $status = $data['status$status']; } catch (\Throwable $th){ }
+            try{ $status = $data['status']; } catch (\Throwable $th){ }
+            try{ $user_id = $data['user_id']; } catch (\Throwable $th){ }
 
             if($reference) $query->where('reference',$reference);
             if($merchant_ref) $query->where('merchant_ref',$merchant_ref);
             if($method) $query->where('method',$method);
             if($status) $query->where('status',$status);
+            if($user_id) $query->where('user_id',$user_id);
         })
         ->get();
     }
@@ -86,6 +89,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
                 if($request->merchant_ref) $query->where('merchant_ref',$request->merchant_ref);
                 if($request->method) $query->where('method',$request->method);
                 if($request->status) $query->where('status',$request->status);
+                if($request->user_id) $query->where('user_id',$request->user_id);
             })
             ->paginate($pagination, ['*'], 'page', $page);
     }
