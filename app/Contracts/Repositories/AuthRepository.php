@@ -64,7 +64,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
                 'password' => bcrypt($data['password']),
             ]);
             $data['user_id'] = $user->id;
-            $data['code'] = $this->generateCode();
+            $data['code'] = $this->generateCode(5);
             
             $identity = null;
             try{ $identity = $data['identity_number'] ?? "0"; } catch(\Throwable $th){ }
