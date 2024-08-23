@@ -225,7 +225,7 @@ class UserController extends Controller
                 "message" => "Akun guru tidak ditemukan!",
                 "data" => null
             ])->response()->setStatusCode(404); 
-        }else {
+        }else if (!$user){
             return redirect()->back()->with('error', 'Akun guru tidak ditemukan!');
         }
 

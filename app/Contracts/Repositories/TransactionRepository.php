@@ -91,7 +91,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
                 if($request->status) $query->where('status',$request->status);
                 if($request->user_id) $query->where('user_id',$request->user_id);
             })
-            ->paginate($pagination, ['*'], 'page', $page);
+            ->cursorPaginate($pagination);
     }
 
     /**
