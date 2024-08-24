@@ -54,6 +54,10 @@ Route::prefix('auth')->group(function () {
         Route::get('classrooms', [ClassroomController::class, 'classSchool'])->name('classrooms');
     });
 
+    Route::prefix('detail')->name('detail.')->group(function() {
+        Route::get('classrooms/{id}', [ClassroomController::class, 'detailClassroom'])->name('classroom');
+    });
+
 });
 
 Route::prefix('payment')->name('payment.')->group(function() {

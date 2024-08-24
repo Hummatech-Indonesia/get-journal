@@ -248,10 +248,6 @@ class UserController extends Controller
 
     public function listStudent(Request $request)
     {
-        // $users = $this->classroom->getStudentByClass($request);
-        // $users = collect($users)->map(function($item){
-        //     return $item->students;
-        // });
         $users = $this->profileInterface->getDataStudent($request);
         return BaseDatatable::Table($users);        
     }

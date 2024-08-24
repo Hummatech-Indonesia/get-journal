@@ -142,4 +142,15 @@ class ClassroomController extends Controller
             "data" => $classrooms
         ]))->response()->setStatusCode(200);
     }
+
+    public function detailClassroom(mixed $id)
+    {
+        $classroom = $this->classroom->detailClass($id);
+
+        return DefaultResource::make([
+            'code' => 200,
+            'message' => 'Berhasil mengambil detail kelas',
+            'data' => $classroom
+        ])->response()->setStatusCode(200);
+    }
 }

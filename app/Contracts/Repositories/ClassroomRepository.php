@@ -123,4 +123,12 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         })
         ->get();
     }
+
+    public function detailClass(mixed $id): mixed
+    {
+        return $this->model->query()
+        ->with('profile')
+        ->withCount('assignments')
+        ->find($id);
+    }
 }

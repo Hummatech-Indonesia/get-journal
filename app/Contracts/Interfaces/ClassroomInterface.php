@@ -19,4 +19,6 @@ interface ClassroomInterface extends GetClassroomByUserInterface, GetAssignmentB
     public function getClassSchoolPaginate(array $ids, ?array $payload): mixed;
 
     public function getStudentByClass(Request $request): mixed;
+
+    public function detailClass(mixed $id): mixed;
 }
