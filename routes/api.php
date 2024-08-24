@@ -46,6 +46,7 @@ Route::prefix('auth')->group(function () {
     // datatable web
     Route::prefix('data-table')->name('data-table.')->group(function() {
         Route::get('list-users', [UserController::class, 'dataUser'])->name('data-user');
+        Route::get('list-students', [UserController::class, 'listStudent'])->name('data-students');
     });
 
     Route::prefix('list')->name('list.')->group(function() {

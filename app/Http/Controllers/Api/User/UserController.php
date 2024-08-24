@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Contracts\Interfaces\ClassroomInterface;
 use App\Contracts\Interfaces\QuotaPremiumInterface;
 use App\Contracts\Interfaces\User\AssignTeacherToSchoolInterface;
 use App\Contracts\Interfaces\User\ProfileInterface;
@@ -26,15 +27,17 @@ class UserController extends Controller
     private UserService $userService;
     private AssignTeacherToSchoolInterface $assignTeacher;
     private QuotaPremiumInterface $quotaPremium;
+    private ClassroomInterface $classroom;
 
     public function __construct(UserInterface $userInterface, ProfileInterface $profileInterface, UserService $userService,
-    AssignTeacherToSchoolInterface $assignTeacher, QuotaPremiumInterface $quotaPremium)
+    AssignTeacherToSchoolInterface $assignTeacher, QuotaPremiumInterface $quotaPremium, ClassroomInterface $classroom )
     {
         $this->userInterface = $userInterface;
         $this->profileInterface = $profileInterface;
         $this->userService = $userService;
         $this->assignTeacher = $assignTeacher;
         $this->quotaPremium = $quotaPremium;
+        $this->classroom = $classroom;
     }
 
     /**
@@ -241,5 +244,15 @@ class UserController extends Controller
         }else {
             return redirect()->back()->with('success','Berhasil menonaktifkan guru dengan sekolah!');
         }
+    }
+
+    public function listStudent(Request $request)
+    {
+        // $users = $this->classroom->getStudentByClass($request);
+        // $users = collect($users)->map(function($item){
+        //     return $item->students;
+        // });
+        $users = $this->profileInterface->getDataStudent($request);
+        return BaseDatatable::Table($users);        
     }
 }

@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories\User;
 use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Models\Profile;
+use Illuminate\Http\Request;
 
 class ProfileRepository extends BaseRepository implements ProfileInterface
 {
@@ -89,4 +90,17 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
         })        
         ->get();
     } 
+
+    public function getDataStudent(Request $request): mixed
+    {
+        return $this->model->query()
+        ->with(['student.classroom.profile', 'user'])
+        ->whereHas('student')
+        ->when($request->classroom_id, function ($query) use ($request){
+            $query->whereRelation('student', 'classroom_id', $request->classroom_id);
+        })
+        ->when($request->code, function ($query) use ($request){
+            $query->whereRelation('student.classroom.profile', 'related_code', $request->code);
+        });
+    }
 }

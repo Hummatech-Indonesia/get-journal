@@ -4,9 +4,12 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ClassroomInterface;
 use App\Models\Classroom;
+use App\Models\ClassroomStudent;
+use Illuminate\Http\Request;
 
 class ClassroomRepository extends BaseRepository implements ClassroomInterface
 {
+    private ClassroomStudent $classroomStudent;
 
     public function __construct(Classroom $model)
     {
@@ -106,5 +109,18 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         ->withCount('students','assignments')
         ->whereIn('profile_id',$ids)
         ->paginate($per_page, ['*'], 'page', $page);
+    }
+
+    public function getStudentByClass(Request $request): mixed
+    {
+        return $this->model->query()
+        ->with(['profile','students'])
+        ->when($request->classroom_id, function ($query) use ($request){
+            $query->where('id', $request->classroom_id);
+        })
+        ->when($request->code, function ($query) use ($request){
+            $query->whereRelation('profile','related_code', $request->code);
+        })
+        ->get();
     }
 }

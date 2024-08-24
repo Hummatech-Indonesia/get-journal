@@ -101,4 +101,9 @@ class Profile extends Model
     {
         return $this->belongsTo(Profile::class, 'related_code', 'code');
     }
+
+    public function student()
+    {
+        return $this->belongsTo(ClassroomStudent::class,'id','student_id');
+    }
 }
