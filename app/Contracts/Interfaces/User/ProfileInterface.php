@@ -13,4 +13,6 @@ interface ProfileInterface extends GetUserInfoInterface, GetProfileByEmailInterf
     public function getWhereData(array $data): mixed;
 
     public function getDataStudent(Request $request): mixed;
+
+    public function detailStudent(mixed $id): mixed;
 }

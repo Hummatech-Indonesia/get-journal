@@ -94,13 +94,26 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     public function getDataStudent(Request $request): mixed
     {
         return $this->model->query()
-        ->with(['student.classroom.profile', 'user'])
-        ->whereHas('student')
+        ->with(['oneStudent.classroom.profile', 'user'])
+        ->whereHas('oneStudent')
         ->when($request->classroom_id, function ($query) use ($request){
-            $query->whereRelation('student', 'classroom_id', $request->classroom_id);
+            $query->whereRelation('oneStudent', 'classroom_id', $request->classroom_id);
         })
         ->when($request->code, function ($query) use ($request){
-            $query->whereRelation('student.classroom.profile', 'related_code', $request->code);
+            $query->whereRelation('oneStudent.classroom.profile', 'related_code', $request->code);
         });
+    }
+
+    
+    public function detailStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+        ->with(['attendances', 'student' => function ($query) {
+            $query->with(['classroom' => function ($query2){
+                $query2->withCount('assignments');
+            }]);
+        }])
+        ->withCount('permit','sick','alpha')
+        ->find($id);
     }
 }

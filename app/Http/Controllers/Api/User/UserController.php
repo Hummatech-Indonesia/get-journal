@@ -251,4 +251,15 @@ class UserController extends Controller
         $users = $this->profileInterface->getDataStudent($request);
         return BaseDatatable::Table($users);        
     }
+
+    public function detailStudent(mixed $id)
+    {
+        $user = $this->profileInterface->detailStudent($id);
+
+        return DefaultResource::make([
+            "success" => true,
+            "message" => "Berhasil mengambil data detaul siswa!",
+            "data" => $user
+        ])->response()->setStatusCode(200);
+    }
 }

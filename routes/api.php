@@ -56,6 +56,7 @@ Route::prefix('auth')->group(function () {
 
     Route::prefix('detail')->name('detail.')->group(function() {
         Route::get('classrooms/{id}', [ClassroomController::class, 'detailClassroom'])->name('classroom');
+        Route::get('students/{profile_id}', [UserController::class, 'detailStudent'])->name('student');
     });
 
 });

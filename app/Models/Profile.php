@@ -104,6 +104,11 @@ class Profile extends Model
 
     public function student()
     {
+        return $this->hasMany(ClassroomStudent::class,'student_id','id');
+    }
+
+    public function oneStudent()
+    {
         return $this->belongsTo(ClassroomStudent::class,'id','student_id');
     }
 }
