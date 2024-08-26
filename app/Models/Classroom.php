@@ -24,6 +24,7 @@ class Classroom extends Model
         'profile_id',
         'limit',
         'background_id',
+        'is_locked'
     ];
 
     /**
