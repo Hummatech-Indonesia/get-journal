@@ -48,10 +48,10 @@
                     isCanSubmitPremium()
                 },
                 ajax: {
-                    url: "{{ route('data-table.data-user') }}",
+                    url: "{{ route('data-table.data-students') }}",
                     data: {
                         role: 'student',
-                        school_id: "{{ auth()->id() }}"
+                        code: "{{ auth()->user()->code }}"
                     }
                 },
                 columns: [
@@ -65,6 +65,7 @@
                         data: 'name',
                         title: "Siswa",
                         render: (data, type, row) => {
+                            console.log(row)
                             const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">

@@ -48,12 +48,21 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
+                    $('.custom-container').html(`
+                        <select class="form-select form-select-sm" id="status">
+                            <option value="">Semua Status</option>
+                            <option value="UNPAID">Belum Dibayar</option>
+                            <option value="PAID">Dibayarkan</option>
+                            <option value="EXPIRED">Kedaluwarsa</option>
+                        </select>
+                    `)
                 },
                 ajax: {
                     url: "{{ route('payment.v2.list-transaction') }}",
                     data: {
                         _token: "{{csrf_token()}}",
-                        user_id: "{{auth()->id()}}"
+                        user_id: "{{auth()->id()}}",
+                        status: $('#status').val()
                     }
                 },
                 columns: [
@@ -113,6 +122,11 @@
                         }
                     }
                 ]
+            })
+
+            $(document).on('change', '#status', function() {
+                const new_url = `{{ route('payment.v2.list-transaction') }}?user_id={{auth()->id()}}&status=${$('#status').val()}`
+                dt_transactions.ajax.url(new_url).load()
             })
         })
     </script>
