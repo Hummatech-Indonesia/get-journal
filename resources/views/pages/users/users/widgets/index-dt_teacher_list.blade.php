@@ -1,22 +1,26 @@
-<div class="card">
+<form action="{{ route('premium.teacher') }}" class="card" method="POST">
+    @csrf
     <div class="card-body table-responsive">
         <div class="alert alert-warning" role="alert">
             Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
         </div>
-        <table class="table align-middle" id="dt-students"></table>
+        <table class="table align-middle" id="dt-teachers"></table>
     </div>
-</div>
+</form>
 
 @push('script')
     <script>
         $(document).ready(function() {
-            const dt_students = $('#dt-students').DataTable({
+            const dt_teachers = $('#dt-teachers').DataTable({
                 language: {
                     processing: 'memuat...'
                 },
                 processing: true,
                 serverSide: true,
-                lengthMenu: 5,
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, 'Semua']
+                ],
                 dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
                 order: [
                     [1, 'asc']
@@ -25,17 +29,23 @@
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: ":not(:eq(2))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         }
                     }, {
                         extend: 'csv',
                         exportOptions: {
-                            columns: ":not(:eq(2))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         }
                     }, {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: ":not(:eq(2))"
+                            columns: function(idx, data, node) {
+                                return idx !== 0 && idx !== 3
+                            }
                         },
                         customize: function(doc) {
                             doc.content[1].table.widths =
@@ -45,25 +55,30 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
+                    $('.custom-container').html('<button type="submit" class="btn btn-sm btn-primary" id="submit-premium">Jadikan Premium</button>')
                     isCanSubmitPremium()
                 },
                 ajax: {
                     url: "{{ route('data-table.data-user') }}",
                     data: {
-                        role: 'student',
-                        school_id: "{{ auth()->id() }}"
+                        role: 'teacher',
+                        code: "{{ auth()->user()->profile?->code }}"
                     }
                 },
                 columns: [
                     {
-                        data: "DT_RowIndex",
-                        title: '#',
+                        data: "id",
+                        title: '<div class="form-check"><input type="checkbox" class="form-check-input" id="check-all-teacher" /></div>',
+                        render: (data, type, row) => {
+                            if(!row['user_premium']) return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids[]" /></div>`
+                            return ''
+                        },
                         orderable: false,
                         searchable: false
                     },
                     {
                         data: 'name',
-                        title: "Siswa",
+                        title: "Guru",
                         render: (data, type, row) => {
                             const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
@@ -80,11 +95,20 @@
                         }
                     },
                     {
+                        data: 'user_premium',
+                        title: "Premium",
+                        render: (data, type) => {
+                            if(data) return `<span class="badge bg-light-primary text-primary">Premium</span>`
+                            return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
+                        }
+                    },
+                    {
                         title: 'Aksi',
                         mRender: (data, type, row) => {
+                            let str_teacher = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div>
-                                    <button class="btn btn-icon btn-sm btn-active-light-primary">
+                                    <button type="button" class="btn-teacher-detail btn btn-icon btn-sm btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#teacher-detail-modal" data-teacher="${str_teacher}">
                                         <i class="ki-duotone ki-eye fs-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>

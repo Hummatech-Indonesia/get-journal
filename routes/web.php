@@ -58,6 +58,14 @@ Route::middleware('auth')->group(function() {
             return view('pages.users.students.detail');
         })->name('show');
     });
+    Route::name('users.')->prefix('users')->group(function() {
+        Route::get('/', function() {
+            return view('pages.users.users.index');
+        })->name('index');
+        Route::get('/profiles', function() {
+            return view('pages.users.profiles.index');
+        })->name('profile');
+    });
     Route::name('premium.')->prefix('premium')->group(function() {
         Route::get('/', function() {
             return view('pages.users.premium.index');

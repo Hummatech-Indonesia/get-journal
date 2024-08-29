@@ -31,6 +31,26 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @hasrole('admin')
+                <!--begin:Menu item-->
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('teacher.*') ? 'here show' : ''}}">
+                    <!--begin:Menu link-->
+                    <a href="{{route('users.index')}}" class="menu-link menu-center">
+                        <span class="menu-icon me-0">
+                            <i class="ki-duotone ki-profile-user fs-2x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Pengguna</span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                @endhasrole
+                @hasrole('school')
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('teacher.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
@@ -46,6 +66,8 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endhasrole
+                @hasrole('school')
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('classes.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
@@ -63,6 +85,8 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endhasrole
+                @hasrole('school')
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2  {{request()->routeIs('student.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
@@ -78,6 +102,8 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endhasrole
+                @hasrole(['school', 'admin'])
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('transactions.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
@@ -95,6 +121,8 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endhasrole
+                @hasrole('school')
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('premium.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
@@ -112,6 +140,7 @@
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
+                @endhasrole
             </div>
             <!--end::Menu-->
         </div>

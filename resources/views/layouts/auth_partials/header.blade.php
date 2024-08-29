@@ -84,7 +84,12 @@
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->profile->name }}</div>
                                     <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
+                                    @hasrole('school')
                                     <div><span class="badge bg-light-warning text-warning">{{ auth()->user()->profile->quantity_premium - auth()->user()->profile->used_quantity_premium }} kuota premium</span></div>
+                                    @endhasrole
+                                    @hasrole('admin')
+                                    <div><span class="badge bg-light-primary text-primary">admin</span></div>
+                                    @endhasrole
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -95,22 +100,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="account/overview.html" class="menu-link px-5">My Profile</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="apps/projects/list.html" class="menu-link px-5">
-                                <span class="menu-text">My Projects</span>
-                                <span class="menu-badge">
-                                    <span class="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
-                                </span>
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-5">
-                            <a href="account/statements.html" class="menu-link px-5">My Statements</a>
+                            <a href="{{ route('users.profile') }}" class="menu-link px-5">Profil Saya</a>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu separator-->

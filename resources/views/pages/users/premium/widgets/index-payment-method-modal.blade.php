@@ -11,7 +11,7 @@
             <input type="hidden" name="sku">
             <div class="modal-header py-3">
                 <h5>Pembayaran</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body d-flex flex-column flex-lg-row gap-5">
                 <div class="d-flex flex-wrap row-gap-2 justify-content-between" id="payment-method">
@@ -28,7 +28,7 @@
                             <input type="hidden" name="qty" value="1">
                         </div>
                         <div class="d-flex justify-content-between">
-                            <div>Biaya Produk</div>
+                            <div>Harga Produk</div>
                             <div class="fw-bold">Rp <span id="product-pay"></span></div>
                         </div>
                         <div class="d-flex justify-content-between">

@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="row mt-5 flex-1" id="classroom_lists">
+        <div class="row my-5 flex-1" id="classroom_lists">
             
         </div>
 
@@ -204,6 +204,15 @@
                     </div>
                 `
             })
+
+            if(classroom_cards === '') {
+                classroom_cards += `<div class="card">
+                    <div class="card-body d-flex justify-content-center">
+                        <img src="{{asset('assets/media/illustrations/sigma-1/21-dark.png')}}" class="object-fit-contain" style="height: 200px;"/>
+                    </div>
+                </div>`
+            }
+
             $('#classroom_lists').html(classroom_cards)
         }
 
