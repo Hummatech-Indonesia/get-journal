@@ -85,8 +85,8 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     {
         return $this->model->query()
             ->when(count($request->all()) > 0, function ($query) use ($request){
-                if($request->reference) $query->where('reference',$request->reference);
-                if($request->merchant_ref) $query->where('merchant_ref',$request->merchant_ref);
+                if($request->reference) $query->where('reference', 'like', '%'.$request->reference.'%');
+                if($request->merchant_ref) $query->where('merchant_ref','like', '%'.$request->merchant_ref.'%');
                 if($request->method) $query->where('method',$request->method);
                 if($request->status) $query->where('status',$request->status);
                 if($request->user_id) $query->where('user_id',$request->user_id);

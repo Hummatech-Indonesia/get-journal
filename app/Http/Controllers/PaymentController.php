@@ -134,8 +134,8 @@ class PaymentController extends Controller
     public function listTransactionV3(Request $request)
     {
         try{
-            $per_page = ($requestt->per_page ?? 10);
-            $page = ($requestt->page ?? 1);
+            $per_page = ($request->per_page ?? 10);
+            $page = ($request->page ?? 1);
 
             $data = $this->transaction->customPaginateV2($request, $per_page, $page);
             
@@ -160,6 +160,14 @@ class PaymentController extends Controller
             
             if($result["success"]){
                 $user = $this->user->getWhere(['email' => $result['data']['customer_email']]);
+
+                if(!$user){
+                    return (DefaultResource::make([
+                        'code' => 400,
+                        'message' => 'User tidak ditemukan',
+                        'data' => null
+                    ]))->response()->setStatusCode(400);
+                }
 
                 $result['data']['user_id'] = auth()->user()->id ?? $user->id;
                 $result['data']['expired_time'] = date('Y-m-d H:m:s', $result['data']['expired_time']);
