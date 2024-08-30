@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(Schema::hasColumn('classrooms','is_locked')){
+        if(!Schema::hasColumn('classrooms','is_locked')){
             Schema::table('classrooms', function (Blueprint $table) {
                 $table->tinyInteger('is_locked')->default(0);
             });

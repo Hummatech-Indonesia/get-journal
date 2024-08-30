@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/', function() {
             return view('pages.users.teacher.index');
         })->name('index');
+        Route::post('unlink-teacher/{user_id}', [UserUserController::class, 'unlinkTeacher'])->name('web.unlink');
     });
     Route::name('classes.')->prefix('classes')->group(function() {
         Route::get('/', function() {

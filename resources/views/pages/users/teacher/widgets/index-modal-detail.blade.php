@@ -52,7 +52,7 @@
                 '<span class="badge badge-light-warning text-warning">Non Premium</span>'
             ))
             $('#teacher-detail-modal #class-count').text('Kelas : '+data_teacher.profile.classrooms.length)
-            let action_url = "{{route('teachers.unlink', 'selected_id')}}"
+            let action_url = "{{route('teacher.web.unlink', 'selected_id')}}"
             action_url = action_url.replace('selected_id', data_teacher.id)
             $('#teacher-detail-modal #unlink-form').attr('action', action_url)
             
