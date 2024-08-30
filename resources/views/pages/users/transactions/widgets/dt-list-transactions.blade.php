@@ -22,7 +22,11 @@
                 ],
                 dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
                 order: [
-                    [1, 'asc']
+                    @if(Auth::user()->hasRole('admin'))
+                    [2, 'desc']
+                    @else
+                    [1, 'desc']
+                    @endif
                 ],
                 buttons: [
                     {
@@ -60,8 +64,10 @@
                 ajax: {
                     url: "{{ route('payment.v2.list-transaction') }}",
                     data: {
+                        @if(!Auth::user()->hasRole('admin'))
                         _token: "{{csrf_token()}}",
                         user_id: "{{auth()->id()}}",
+                        @endif
                         status: $('#status').val()
                     }
                 },
@@ -72,6 +78,27 @@
                         orderable: false,
                         searchable: false
                     },
+                    @if(Auth::user()->hasRole('admin'))
+                    {
+                        data: 'user.profile.name',
+                        title: 'Pengguna',
+                        render: (data, type, row) => {
+                            let img_url = "{{ asset('img_path') }}";
+                            img_url = img_url.replace('img_path', (row.user.profile.photo ? row.user.profile.photo : 'assets/media/avatars/blank.png'))
+                            return `
+                                <div class="d-flex gap-2 align-items-center">
+                                    <div class="symbol symbol-50px">
+                                        <img src="${img_url}" />
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class-"fw-semibold">${row.user.profile.name}</div>
+                                        <div class="text-muted">${row.user.email}</div>
+                                    </div>
+                                </div>
+                            `
+                        }
+                    },
+                    @endif
                     {
                         data: 'created_at',
                         title: "Tanggal",
@@ -95,6 +122,7 @@
                     }, {
                         title: "Aksi",
                         mRender: (data, type, row) => {
+                            console.log(row)
                             let url = "{{route('transactions.show', 'reference_hehe')}}"
                             url = url.replace('reference_hehe', row['merchant_ref'])
                             let return_el = '<div class="d-flex gap-2 align-items-center justify-content-center">'
@@ -125,7 +153,11 @@
             })
 
             $(document).on('change', '#status', function() {
+                @if(!Auth::user()->hasRole('admin'))
                 const new_url = `{{ route('payment.v2.list-transaction') }}?user_id={{auth()->id()}}&status=${$('#status').val()}`
+                @else
+                const new_url = `{{ route('payment.v2.list-transaction') }}?status=${$('#status').val()}`
+                @endif
                 dt_transactions.ajax.url(new_url).load()
             })
         })

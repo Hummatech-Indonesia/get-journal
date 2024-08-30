@@ -4,14 +4,14 @@
         <div class="alert alert-warning" role="alert">
             Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
         </div>
-        <table class="table align-middle" id="dt-teachers"></table>
+        <table class="table align-middle" id="dt-users"></table>
     </div>
 </form>
 
 @push('script')
     <script>
         $(document).ready(function() {
-            const dt_teachers = $('#dt-teachers').DataTable({
+            const dt_users = $('#dt-users').DataTable({
                 language: {
                     processing: 'memuat...'
                 },
@@ -55,30 +55,20 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
-                    $('.custom-container').html('<button type="submit" class="btn btn-sm btn-primary" id="submit-premium">Jadikan Premium</button>')
-                    isCanSubmitPremium()
                 },
                 ajax: {
                     url: "{{ route('data-table.data-user') }}",
-                    data: {
-                        role: 'teacher',
-                        code: "{{ auth()->user()->profile?->code }}"
-                    }
                 },
                 columns: [
                     {
-                        data: "id",
-                        title: '<div class="form-check"><input type="checkbox" class="form-check-input" id="check-all-teacher" /></div>',
-                        render: (data, type, row) => {
-                            if(!row['user_premium']) return `<div class="form-check"><input type="checkbox" class="check-teacher form-check-input" value="${data}" name="teacher_ids[]" /></div>`
-                            return ''
-                        },
+                        data: "DT_RowIndex",
+                        title: '#',
                         orderable: false,
                         searchable: false
                     },
                     {
                         data: 'name',
-                        title: "Guru",
+                        title: "Nama",
                         render: (data, type, row) => {
                             const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
@@ -95,12 +85,25 @@
                         }
                     },
                     {
-                        data: 'user_premium',
-                        title: "Premium",
-                        render: (data, type) => {
-                            if(data) return `<span class="badge bg-light-primary text-primary">Premium</span>`
-                            return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
-                        }
+                        title: 'Role',
+                        mRender: (data, type, row) => {
+                            let role_list = '<div class="d-flex gap-2">'
+                            row.roles.forEach((data) => {
+                                if(data.name == 'admin') {
+                                    role_list += `<span class="badge badge-light-success text-success">ADMIN</span>`
+                                } else if(data.name == 'school') {
+                                    role_list += `<span class="badge badge-light-warning text-warning">SEKOLAH</span>`
+                                } else if(data.name == 'teacher') {
+                                    role_list += `<span class="badge badge-light-info text-info">GURU</span>`
+                                } else if(data.name == 'student') {
+                                    role_list += `<span class="badge badge-light-primary text-primary">SISWA</span>`
+                                }
+                            })
+                            role_list += '</div>'
+                            return role_list
+                        },
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         title: 'Aksi',

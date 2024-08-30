@@ -1,11 +1,11 @@
 @extends('layouts.auth')
 
-@section('title', 'Guru')
+@section('title', 'Pengguna')
 
 @section('content')
     @include('components.swal')
-    @include('pages.users.teacher.widgets.index-modal-detail')
-    @include('pages.users.teacher.widgets.index-dt_teacher_list')
+    @include('pages.users.users.widgets.index-modal-detail')
+    @include('pages.users.users.widgets.index-dt_user_list')
 @endsection
 
 @push('style')
