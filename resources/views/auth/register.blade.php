@@ -33,7 +33,7 @@
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
         </div>
-        <div class="fv-row mb-8">
+        {{-- <div class="fv-row mb-8">
             <select name="gender" id="gender" class="form-control form-control-solid active @error('gender') is-invalid border-1 border-danger @enderror">
                 <option value="" selected disabled class="text-muted"> Jenis Kelamin </option>
                 <option value="male" @if(old('gender') == "male") selected @endif class="text-black">Laki-laki</option>
@@ -42,7 +42,7 @@
             @error('gender')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
-        </div>
+        </div> --}}
         <div class="fv-row mb-7">
             <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid active @error('name') is-invalid border-1 border-danger @enderror" />
             @error('password')
