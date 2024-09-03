@@ -13,7 +13,7 @@
 @endpush
 
 @section('content')
-    <div class="d-flex justify-content-end mb-3">
+    {{-- <div class="d-flex justify-content-end mb-3">
         <div class="d-flex gap-3">
             <select name="filter_year" id="filter_year" class="form-select form-select-sm">
                 <option value="" selected disabled>filter tahun</option>
@@ -26,7 +26,7 @@
                 <option value="2">Februari</option>
             </select>
         </div>
-    </div>
+    </div> --}}
 
     @include('pages.users.dashboard.widgets.index-score_card')
 

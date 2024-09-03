@@ -16,7 +16,10 @@
                 },
                 processing: true,
                 serverSide: true,
-                lengthMenu: 5,
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, 'Semua']
+                ],
                 dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
                 order: [
                     [1, 'asc']
@@ -66,15 +69,15 @@
                         title: "Siswa",
                         render: (data, type, row) => {
                             console.log(row)
-                            const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
+                            const img = (row.photo ? row.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">
                                     <div class="symbol symbol-50px">
                                         <img src="${img}" alt="gambar guru"/>
                                     </div>
                                     <div class="d-flex flex-column justify-content-between">
-                                        <div class="fw-bold">${row.profile.name}</div>
-                                        <div class="text-muted">${row.email}</div>
+                                        <div class="fw-bold">${row.name}</div>
+                                        <div class="text-muted">${row.user.email}</div>
                                     </div>
                                 </div>
                             `
