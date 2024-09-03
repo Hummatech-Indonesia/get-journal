@@ -208,6 +208,8 @@ class UserController extends Controller
                     $dataUser->quantity_premium -= 1;
                     $dataUser->used_quantity_premium += 1;
                     $dataUser->save();
+
+                    $user->classrooms->toQuery()->where('is_locked',1)->update(['is_locked' => 0]);
                 }
             }
             DB::commit();

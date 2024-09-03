@@ -83,6 +83,7 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
     public function getWhereData(array $data): mixed
     {
         return $this->model->query()
+        ->with('classrooms')
         ->when(count($data) > 0, function ($query) use ($data){
             foreach($data as $index => $value){
                 $query->where($index, $value);
@@ -115,5 +116,16 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
         }])
         ->withCount('permit','sick','alpha')
         ->find($id);
+    }
+
+    public function getDataHasExpiredPremium(): mixed
+    {
+        return $this->model->query()
+        ->with(['classrooms' => function ($query) {
+            $query->orderBy('created_at','asc');
+        }])
+        ->whereNotNull('premium_expired')
+        ->where('premium_expired','<',now())
+        ->get();
     }
 }

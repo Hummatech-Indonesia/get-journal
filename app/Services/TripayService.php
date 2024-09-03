@@ -256,7 +256,7 @@ class TripayService
                         
                         $invoice->update(['status' => 'PAID']);
                         //update profile 
-                        $profile = Profile::where('user_id', $invoice->user_id)->first();
+                        $profile = Profile::with('classrooms')->where('user_id', $invoice->user_id)->first();
                         if($profile && $json_items){
                             $date = new DateTime();
                             $quantity = $json_items[0]->quantity;
@@ -286,6 +286,8 @@ class TripayService
 
                                     $payload['is_premium'] = 1;
                                     $payload['is_premium_private'] = 1;
+
+                                    $profile->classrooms->toQuery()->where('is_locked',1)->update(['is_locked' => 0]);
                                     break;
                             }
                             
