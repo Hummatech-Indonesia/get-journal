@@ -15,4 +15,6 @@ interface ProfileInterface extends GetUserInfoInterface, GetProfileByEmailInterf
     public function getDataStudent(Request $request): mixed;
 
     public function detailStudent(mixed $id): mixed;
+
+    public function getDataHasExpiredPremium(): mixed;
 }

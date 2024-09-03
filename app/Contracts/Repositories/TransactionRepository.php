@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\TransactionInterface;
+use App\Enums\TransactionEnum;
 use App\Models\Assignment;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -102,5 +103,14 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     public function store(array $data): mixed
     {
         return $this->model->create($data);
+    }
+
+    public function getDataExpired(array $data): mixed
+    {
+        return $this->model->query()
+        ->where('status',TransactionEnum::UNPAID)
+        ->where('expired_time','<',now())
+        ->latest()
+        ->get();
     }
 }

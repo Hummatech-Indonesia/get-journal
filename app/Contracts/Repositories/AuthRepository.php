@@ -63,6 +63,10 @@ class AuthRepository extends BaseRepository implements AuthInterface
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
             ]);
+
+            unset($data["email"]);
+            unset($data["password"]);
+            unset($data["confirm_password"]);
             $data['user_id'] = $user->id;
             $data['code'] = $this->generateCode(5);
             
@@ -71,14 +75,14 @@ class AuthRepository extends BaseRepository implements AuthInterface
             if ($identity == null) {
                 $data['identity_number'] = '0';
             }
-            $profile = $user->profile()->create($data);
+            $user->profile()->create($data);
             
             DB::commit();
             $user->assignRole('school');
             return redirect('login')->with('success',"berhasil mendaftarkan akun sekolah");
         }catch(\Throwable $th){
             DB::rollBack();
-            return redirect()->back()->with("error", $th->getMessage());
+            return redirect()->back()->withError($th->getMessage());
         }
 
     }

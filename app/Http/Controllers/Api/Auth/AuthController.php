@@ -41,8 +41,7 @@ class AuthController extends Controller
     public function registerTeacher(RegisterRequest $request): JsonResponse|RedirectResponse
     {
         if($request->type == "school") {
-            $this->auth->registerSchool($request);
-            return redirect('login')->with('success','Berhasil membuat akun sekolah');
+            return $this->auth->registerSchool($request);
         }
         else return $this->auth->registerTeacher($request);
     }
