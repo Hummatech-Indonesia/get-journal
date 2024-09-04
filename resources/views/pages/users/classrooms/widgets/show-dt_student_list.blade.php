@@ -54,6 +54,7 @@
                     url: "{{ route('data-table.data-students') }}",
                     data: {
                         role: 'student',
+                        classroom_id: "{{ $classroom->id }}",
                         code: "{{ auth()->user()->profile->code }}"
                     }
                 },
@@ -84,9 +85,21 @@
                         }
                     },
                     {
-                        title: "Jumlah Kelas",
+                        title: "Ketidakhadiran",
                         mRender: (data, type, row) => {
-                            return '<span class="badge badge-light-success text-success">3 kelas</span>'
+                            return `
+                                <div class="d-flex gap-3">
+                                    <span class="badge badge-light-success text-success">3 Izin</span>
+                                    <span class="badge badge-light-primary text-primary">3 Sakit</span>
+                                    <span class="badge badge-light-danger text-danger">3 Tanpa Keterangan</span>
+                                </div>
+                            `
+                        }
+                    },
+                    {
+                        title: "Tugas",
+                        mRender: (data, type, row) => {
+                            return `<span class="badge badge-light-primary text-primary">3 Tugas</span>`
                         }
                     },
                     {

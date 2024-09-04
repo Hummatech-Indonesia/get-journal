@@ -47,16 +47,18 @@ Route::middleware('auth')->group(function() {
         Route::get('/', function() {
             return view('pages.users.classrooms.index');
         })->name('index');
-        Route::get('detail', function() {
-            return view('pages.users.classrooms.detail');
+        Route::get('{id}', function(string $id) {
+            $classroom = \App\Models\Classroom::with(['students', 'assignments', 'background'])->find($id);
+            return view('pages.users.classrooms.show', compact('classroom'));
         })->name('show');
     });
     Route::name('student.')->prefix('student')->group(function() {
         Route::get('/', function() {
             return view('pages.users.students.index');
         })->name('index');
-        Route::get('detail', function() {
-            return view('pages.users.students.detail');
+        Route::get('/{id}', function(string $id) {
+            $student = \App\Models\Profile::with(['user', 'classrooms', 'lessons', 'reminders', 'journals', 'attendances', 'sick', 'permit', 'alpha'])->find($id);
+            return view('pages.users.students.show', compact('student'));
         })->name('show');
     });
     Route::name('users.')->prefix('users')->group(function() {

@@ -183,6 +183,8 @@
             const default_bg = "{{ asset('assets/media/books/img-72.jpg') }}"
             data.map((d) => {
                 let class_bg = default_bg
+                let detail_url = "{{ route('classes.show', 'data_id') }}"
+                detail_url = detail_url.replace('data_id', d.id)
                 if(d.background.image) class_bg = "{{asset('storage')}}"+d.background.image
                 classroom_cards += `
                     <div class="col-12 col-md-6 col-lg-4">
@@ -190,7 +192,7 @@
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-stetch">
-                                        <div class="h1 text-white mb-0">${d.name}</div>
+                                        <a href="${detail_url}" class="h1 text-white mb-0">${d.name}</a>
                                         <div class="badge badge-xl border border-white rounded text-white">${d.code}</div>
                                     </div>
                                     <div class="text-white">oleh ${d.profile.name}</div>

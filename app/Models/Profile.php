@@ -77,7 +77,7 @@ class Profile extends Model
      */
     public function sick(): HasMany
     {
-        return $this->hasMany(Attendance::class)->where('status', 'sick');
+        return $this->attendances()->where('status', 'sick');
     }
 
     /**
@@ -85,7 +85,7 @@ class Profile extends Model
      */
     public function permit(): HasMany
     {
-        return $this->hasMany(Attendance::class)->where('status', 'permit');
+        return $this->attendances()->where('status', 'permit');
     }
 
     /**
@@ -93,7 +93,7 @@ class Profile extends Model
      */
     public function alpha(): HasMany
     {
-        return $this->hasMany(Attendance::class)->where('status', 'alpha');
+        return $this->attendances()->where('status', 'alpha');
     }
 
     
