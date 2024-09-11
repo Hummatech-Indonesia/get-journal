@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Contracts\Interfaces\User\ProfileInterface;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class CheckPremiumCommand extends Command
 {
@@ -35,6 +36,7 @@ class CheckPremiumCommand extends Command
     public function handle()
     {
         $users = $this->profile->getDataHasExpiredPremium();
+        Log::info($users);
         if(count($users) > 0){
             foreach($users as $user){
                 // Menyisakan 2 kelas yang terlama dibikin
@@ -42,6 +44,15 @@ class CheckPremiumCommand extends Command
                     unset($user->classrooms[0]);
                     unset($user->classrooms[1]);
                 }
+
+                $user->update([
+                    'premium_expired_at' => null,
+                    "is_premium" => 0,
+                    "is_premium_private" => 0,
+                    "is_premium_school" => 0,
+                    "user_premium_private_id" => null,
+                    "user_premium_school_id" => null
+                ]);
 
                 // Update kelas menjadi terkunci
                 foreach($user->classrooms as $class){

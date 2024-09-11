@@ -286,6 +286,7 @@ class TripayService
 
                                     $payload['is_premium'] = 1;
                                     $payload['is_premium_private'] = 1;
+                                    $payload['premium_expired_at'] = $date->format('Y-m-d');
 
                                     $profile->classrooms->toQuery()->where('is_locked',1)->update(['is_locked' => 0]);
                                     break;

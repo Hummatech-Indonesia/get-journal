@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable('quota_premiums')) return;
+
         Schema::create('quota_premiums', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('user_id')->constrained();
