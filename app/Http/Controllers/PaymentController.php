@@ -153,6 +153,37 @@ class PaymentController extends Controller
         }
     }
 
+    public function listTransactionV4(Request $request)
+    {
+        try{
+            $payload = [
+                "page" => $request->page ?? 1,
+                "per_page" => $request->per_page ?? 10,
+                "sort" => $request->sort ?? "desc"
+            ];
+    
+            if($request->reference) $payload["reference"] = $request->reference;
+            if($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
+            if($request->method) $payload["method"] = $request->method;
+            if($request->status) $payload["status"] = $request->status;
+            if($request->user_id) $payload["user_id"] = $request->user_id;
+    
+            $data = $this->transaction->getWhere($payload);
+            
+            return (DefaultResource::make([
+                'code' => 200,
+                'message' => 'Berhasil mengambil instruksi pembayaran',
+                'data' => $data
+            ]))->response()->setStatusCode(200);
+        }catch(\Throwable $th){
+            return (DefaultResource::make([
+                'code' => 500,
+                'message' => $th->getMessage(),
+                'data' => null
+            ]))->response()->setStatusCode(500);
+        }
+    }
+
     public function closedTransaction(ClosedTransactionRequest $request)
     {
         try{
