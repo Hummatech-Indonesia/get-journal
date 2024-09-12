@@ -39,7 +39,7 @@ class CheckExpiredCommand extends Command
     {
         $transaksi = $this->transaction->getDataExpired([]);
         if(count($transaksi) > 0){
-            $transaksi->update(['status' => TransactionEnum::EXPIRED]);
+            $transaksi->toQuery()->update(['status' => TransactionEnum::EXPIRED]);
         }
     }
 }
