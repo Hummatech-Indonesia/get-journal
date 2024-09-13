@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable('payment_channels')) return;
+
         Schema::create('payment_channels', function (Blueprint $table) {
             $table->id();
             $table->string('code');

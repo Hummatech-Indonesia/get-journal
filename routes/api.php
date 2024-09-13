@@ -67,6 +67,7 @@ Route::prefix('payment')->name('payment.')->group(function() {
     Route::get('tripay/transaction', [PaymentController::class, 'listTransaction'])->name('list-transaction');
     Route::get('web/transaction', [PaymentController::class, 'listTransactionV2'])->name('v2.list-transaction');
     Route::get('mobile/transaction', [PaymentController::class, 'listTransactionV3'])->name('v3.list-transaction');
+    Route::get('mobile/v2/transaction', [PaymentController::class, 'listTransactionV4'])->name('v4.list-transaction');
     Route::post('closed-transaction', [PaymentController::class, 'closedTransaction'])->name('closed-transaction');
     Route::post('callback-transaction', [PaymentController::class, 'callbackTransaction'])->name('callback-transaction');
     Route::post('check-status-transaction', [PaymentController::class, 'checkStatusTransaction'])->name('check-status-transaction');

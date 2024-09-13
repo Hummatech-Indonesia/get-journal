@@ -124,8 +124,8 @@ class ProfileRepository extends BaseRepository implements ProfileInterface
         ->with(['classrooms' => function ($query) {
             $query->orderBy('created_at','asc');
         }])
-        ->whereNotNull('premium_expired')
-        ->where('premium_expired','<',now())
+        ->whereNotNull('premium_expired_at')
+        ->where('premium_expired_at','<',now())
         ->get();
     }
 }
