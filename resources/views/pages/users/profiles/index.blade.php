@@ -10,21 +10,21 @@
 
     <div class="card w-100 d-flex flex-column flex-md-row overflow-hidden">
         <div class="flex-1 w-100">
-            <img src="{{ asset('assets/media/avatars/300-1.jpg') }}" alt="foto profile" class="w-100" style="object-fit: cover;">
+            <img src="{{ asset((auth()->user()->profile->photo ? 'storage/'.auth()->user()->profile->photo : 'assets/media/avatars/blank.png')) }}" alt="foto profile" class="w-100" style="object-fit: cover;">
         </div>
-        <div class="flex-1 w-100 justify-self-stretch d-flex flex-column justify-content-between p-3">
+        <div class="flex-1 w-100 justify-self-stretch d-flex flex-column justify-content-between p-12">
             <div>
                 <div class="mb-3">
                     <div class="text-muted fw-bolder">Nama</div>
-                    <div class="fw-bolder fs-5">Nama hehe</div>
+                    <div class="fw-bolder fs-5">{{ auth()->user()->profile->name }}</div>
                 </div>
                 <div class="mb-3">
                     <div class="text-muted fw-bolder">Email</div>
-                    <div class="fw-bolder fs-5">Nama hehe</div>
+                    <div class="fw-bolder fs-5">{{ auth()->user()->email }}</div>
                 </div>
                 <div class="mb-3">
                     <div class="text-muted fw-bolder">Alamat</div>
-                    <div class="fw-bolder fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis a consequatur voluptatem!</div>
+                    <div class="fw-bolder fs-5">{{ auth()->user()->profile->address ? auth()->user()->profile->address : '-' }}</div>
                 </div>
                 <div class="mb-3">
                     <div class="text-muted fw-bolder">Jenis Akun</div>
