@@ -70,14 +70,14 @@
                         data: 'name',
                         title: "Nama",
                         render: (data, type, row) => {
-                            const img = (row.profile.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
+                            const img = (row.profile?.photo ? row.profile.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">
                                     <div class="symbol symbol-50px">
                                         <img src="${img}" alt="gambar guru"/>
                                     </div>
                                     <div class="d-flex flex-column justify-content-between">
-                                        <div class="fw-bold">${row.profile.name}</div>
+                                        <div class="fw-bold">${row.profile?.name}</div>
                                         <div class="text-muted">${row.email}</div>
                                     </div>
                                 </div>
@@ -108,10 +108,10 @@
                     {
                         title: 'Aksi',
                         mRender: (data, type, row) => {
-                            let str_teacher = JSON.stringify(row).replaceAll('"', "`")
+                            let str_user = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div>
-                                    <button type="button" class="btn-teacher-detail btn btn-icon btn-sm btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#teacher-detail-modal" data-teacher="${str_teacher}">
+                                    <button type="button" class="btn-user-detail btn btn-icon btn-sm btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#user-detail-modal" data-user="${str_user}">
                                         <i class="ki-duotone ki-eye fs-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>

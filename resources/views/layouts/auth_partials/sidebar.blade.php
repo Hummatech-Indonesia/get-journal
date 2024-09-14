@@ -33,7 +33,7 @@
                 <!--end:Menu item-->
                 @hasrole('admin')
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('teacher.*') ? 'here show' : ''}}">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2 {{request()->routeIs('users.*') ? 'here show' : ''}}">
                     <!--begin:Menu link-->
                     <a href="{{route('users.index')}}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
