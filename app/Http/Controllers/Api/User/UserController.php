@@ -92,6 +92,8 @@ class UserController extends Controller
         }
 
         $profile = $this->userService->handleUpdateProfileWithPhoto($request);
+        unset($profile["email"]);
+
         $this->profileInterface->update(auth()->user()->profile->id, $profile);
 
         return DefaultResource::make([

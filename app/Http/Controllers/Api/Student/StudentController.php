@@ -62,8 +62,10 @@ class StudentController extends Controller
         $data = $request->validated();
         $classroomStudent = 0;
 
-        if ($this->profile->checkAvailableStudent($data['email'])) {
-            $profile = $this->profile->getProfileByEmail($data['email']);
+        $check_email = $this->user->getWhere(["email" => $data["email"]]);
+
+        if ($check_email) {
+            $profile = $check_email->profile;
 
             $classroomStudent = $this->student->store([
                 'student_id' => $profile->id,
@@ -75,7 +77,9 @@ class StudentController extends Controller
                 'password' => bcrypt('password'),
             ]);
             $user->assignRole('student');
+            
             $data['user_id'] = $user->id->serialize();
+            unset($data['email']);
 
             $profile = $this->profile->store($data);
 
