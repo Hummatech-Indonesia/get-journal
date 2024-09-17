@@ -18,6 +18,7 @@ use App\Models\ClassroomStudent;
 use App\Models\Mark;
 use App\Services\StudentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
@@ -64,35 +65,55 @@ class StudentController extends Controller
 
         $check_email = $this->user->getWhere(["email" => $data["email"]]);
 
-        if ($check_email) {
-            $profile = $check_email->profile;
+        DB::beginTransaction();
+        try{
+            if ($check_email) {
+                $profile = $check_email->profile;
+                
+                if(!$profile) {
+                    $data['user_id'] = $check_email->id;
+                    unset($data['email']);
+                    $classroom_id = $data["classroom_id"];
+                    unset($data["classroom_id"]);
+        
+                    $profile = $this->profile->store($data);
+                    $data["classroom_id"] = $classroom_id;
+                }
 
-            $classroomStudent = $this->student->store([
-                'student_id' => $profile->id,
-                'classroom_id' => $data['classroom_id'],
-            ]);
-        } else {
-            $user = $this->user->store([
-                'email' => $data['email'],
-                'password' => bcrypt('password'),
-            ]);
-            $user->assignRole('student');
-            
-            $data['user_id'] = $user->id->serialize();
-            unset($data['email']);
+                $classroomStudent = $this->student->store([
+                    'student_id' => $profile->id,
+                    'classroom_id' => $data['classroom_id'],
+                ]);
+            } else {
+                $user = $this->user->store([
+                    'email' => $data['email'],
+                    'password' => bcrypt('password'),
+                ]);
+                $user->assignRole('student');
+                
+                $data['user_id'] = $user->id->serialize();
+                unset($data['email']);
+                $classroom_id = $data["classroom_id"];
+                unset($data["classroom_id"]);
+    
+                $profile = $this->profile->store($data);
+                $data["classroom_id"] = $classroom_id;
 
-            $profile = $this->profile->store($data);
-
-            $classroomStudent = $this->student->store([
-                'student_id' => $profile->id->serialize(),
-                'classroom_id' => $data['classroom_id'],
-            ]);
+                $classroomStudent = $this->student->store([
+                    'student_id' => $profile->id->serialize(),
+                    'classroom_id' => $data['classroom_id'],
+                ]);
+            }
+    
+            $assignments = $this->classroom->getAssignmentByClassroom($data['classroom_id']);
+            $this->studentService->createMarkNewStudent($classroomStudent->id, $assignments->assignments);
+    
+            DB::commit();
+            return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan siswa'])->response()->setStatusCode(201);
+        }catch(\Throwable $th){
+            DB::rollBack();
+            return DefaultResource::make(['code' => 500, 'message' => $th->getMessage()])->response()->setStatusCode(500);
         }
-
-        $assignments = $this->classroom->getAssignmentByClassroom($data['classroom_id']);
-        $this->studentService->createMarkNewStudent($classroomStudent->id, $assignments->assignments);
-
-        return DefaultResource::make(['code' => 201, 'message' => 'Berhasil menambahkan siswa'])->response()->setStatusCode(201);
     }
 
     /**
