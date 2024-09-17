@@ -21,7 +21,11 @@ class ReminderRepository extends BaseRepository implements ReminderInterface
      */
     public function getReminderByUser(mixed $userId): mixed
     {
-        return $this->model->where('profile_id', $userId)->get();
+        return $this->model
+        ->where('profile_id', $userId)
+        ->where('reminder_at','>=',now())
+        ->orderBy('reminder_at','ASC')
+        ->get();
     }
 
     /**
