@@ -47,4 +47,9 @@ class StoreRequest extends FormRequest
             'classroom_id.exists' => 'Kelas tidak ditemukan',
         ];
     }
+
+    public function prepareForValidation()
+    {
+        if(!$this->email) $this->merge(["email" => $this->name . date('Ymdhms') . "@mijurnal.com"]);
+    }
 }
