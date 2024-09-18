@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Student;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRequest extends FormRequest
 {
@@ -51,5 +53,14 @@ class StoreRequest extends FormRequest
     public function prepareForValidation()
     {
         if(!$this->email) $this->merge(["email" => $this->name . date('Ymdhms') . "@mijurnal.com"]);
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Invalid request, please check again',
+            'data'    => $validator->errors()
+        ], 422));
     }
 }

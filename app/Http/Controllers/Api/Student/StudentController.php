@@ -64,7 +64,6 @@ class StudentController extends Controller
         $classroomStudent = 0;
 
         $check_email = $this->user->getWhere(["email" => $data["email"]]);
-
         DB::beginTransaction();
         try{
             if ($check_email) {
