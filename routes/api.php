@@ -74,11 +74,14 @@ Route::prefix('payment')->name('payment.')->group(function() {
     Route::get('detail-transaction/{reference}', [PaymentController::class, 'detailClosedTransactionMobile'])->name('detail-transaction');
 });
 
+Route::get('assignments/export-marks/{assignmentId}', [AssignmentController::class, 'exportMarks']);
+Route::get('classrooms/export-attendances/{classroomId}', [StudentController::class, 'exportAttendance']);
+Route::post('journals/export', [JournalController::class, 'export']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('classrooms')->group(function () {
         Route::get('{id}/generate-code', [ClassroomController::class, 'generateCode']);
         Route::post('{id}/change-background', [ClassroomController::class, 'changeBackground']);
-        Route::get('export-attendances/{classroomId}', [StudentController::class, 'exportAttendance']);
         Route::post('delete-exported-attendances', [StudentController::class, 'deleteExportedAttendance']);
     });
     Route::prefix('students')->group(function () {
@@ -91,7 +94,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::prefix('assignments')->group(function () {
         Route::get('{id}/get-all', [AssignmentController::class, 'index']);
-        Route::get('export-marks/{assignmentId}', [AssignmentController::class, 'exportMarks']);
         Route::post('delete-marks', [AssignmentController::class, 'deleteExportMarks']);
     });
     Route::prefix('backgrounds')->group(function () {
@@ -99,7 +101,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('get-free', [BackgroundController::class, 'getFree']);
     });
     Route::prefix('journals')->group(function () {
-        Route::post('export', [JournalController::class, 'export']);
         Route::post('delete-export', [JournalController::class, 'deleteExport']);
     });
     Route::prefix('teachers')->name('teachers.')->group(function () {
