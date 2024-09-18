@@ -22,7 +22,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      */
     public function getStudentByClassroom(mixed $classroom_id): mixed
     {
-        return $this->model->with('student', 'classroom')->where('classroom_id', $classroom_id)->get();
+        return $this->model->with('student.user', 'classroom')->where('classroom_id', $classroom_id)->get();
     }
 
     /**
