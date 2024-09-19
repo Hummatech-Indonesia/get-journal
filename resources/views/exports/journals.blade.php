@@ -6,7 +6,7 @@
         <title>Export Journals</title>
     </head>
     <body>
-        <h4>Data Jurnal Kelas {{ $journals[0]->classroom->name }}</h4>
+        <h4>Data Jurnal Kelas {{ $journals->first()?->classroom?->name ?? '-' }}</h4>
         <table>
             <thead>
                 <tr>
