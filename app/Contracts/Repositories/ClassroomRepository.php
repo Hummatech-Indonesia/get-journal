@@ -103,15 +103,22 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
     {
         $page = 1;
         $per_page = 10;
+        $search = null;
         try{
             $page = $payload["page"];
-            $per_page = $payload["per_page"]; 
+            $per_page = $payload["per_page"];
+            $search = $payload["search"]; 
         }catch(\Throwable $th){ }
 
         return $this->model->query()
-        ->with('profile','assignments','background')
+        ->with('profile.journals','assignments','background')
         ->withCount('students','assignments')
         ->whereIn('profile_id',$ids)
+        ->when($search, function ($query) use ($search){
+            $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('code', 'like', '%'.$search.'%')
+            ->orWhereRelation('profile','name','like','%'.$search.'%');
+        })
         ->paginate($per_page, ['*'], 'page', $page);
     }
 

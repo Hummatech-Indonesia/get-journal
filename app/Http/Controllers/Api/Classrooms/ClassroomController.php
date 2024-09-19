@@ -131,10 +131,13 @@ class ClassroomController extends Controller
         $userSchool = $this->profile->getWhereData(['related_code' => $user->profile->code]);
         $selectedIds = $userSchool->pluck('id')->toArray();
         
-        $classrooms = $this->classroom->getClassSchoolPaginate($selectedIds,[
+        $payload = [
             "page" => $request->page ?? 1,
             "per_page" => $request->per_page ?? 10
-        ]);
+        ];
+        if($request->search) $payload["search"] = $request->search;
+
+        $classrooms = $this->classroom->getClassSchoolPaginate($selectedIds,$payload);
 
         return (ClassroomResource::make([
             "success" => true,
