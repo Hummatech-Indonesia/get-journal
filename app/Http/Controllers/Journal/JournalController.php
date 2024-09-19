@@ -115,6 +115,6 @@ class JournalController extends Controller
     {
         $data = $this->journal->getWhere(["classroom_id" => $request->classroom_id])->get();
 
-        return BaseDatatable::TableV2($data);
+        return BaseDatatable::TableV2($data->toArray());
     }
 }
