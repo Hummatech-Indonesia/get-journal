@@ -152,6 +152,6 @@ class AuthRepository extends BaseRepository implements AuthInterface
 
     public function checkEmail(string $email): mixed
     {
-        return $this->model->where('email', $email)->first();
+        return $this->model->with('profile')->where('email', $email)->first();
     }
 }
