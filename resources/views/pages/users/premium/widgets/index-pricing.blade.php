@@ -75,7 +75,7 @@
                             <!--end::Title-->
                             <!--begin::Description-->
                             <div class="text-gray-600 fw-semibold mb-5">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                Cocok untuk kebutuhan profesional dengan waktu 1 semester
                             </div>
                             <!--end::Description-->
                             <!--begin::Price-->
@@ -137,8 +137,7 @@
                             <h1 class="text-gray-900 mb-5 fw-bolder">Premium 1 Tahun</h1>
                             <!--end::Title-->
                             <!--begin::Description-->
-                            <div class="text-gray-600 fw-semibold mb-5">Cocok untuk kebutuhan profesional jangka panjang
-                            </div>
+                            <div class="text-gray-600 fw-semibold mb-5">Cocok untuk kebutuhan profesional dengan waktu 1 tahun</div>
                             <!--end::Description-->
                             <!--begin::Price-->
                             <div class="text-center">

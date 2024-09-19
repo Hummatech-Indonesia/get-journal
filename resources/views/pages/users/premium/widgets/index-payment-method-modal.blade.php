@@ -23,6 +23,10 @@
                     </div>
                     <div>
                         <div class="row">
+                            <div class="col-8">No. Telp</div>
+                            <input type="text" class="col-4  border-bottom-input " value="08" name="phone"/>
+                        </div>
+                        <div class="row">
                             <div class="col-8">Kuota</div>
                             <input type="text" class="col-4 format-number border-bottom-input input-qty" data-min="1" data-target="[name=qty]" value="1"/>
                             <input type="hidden" name="qty" value="1">
@@ -54,7 +58,6 @@
             let price = $('#premium_type_price').val()
             let qty = parseFloat($('[name=qty]').val())
             let product_price = price * qty
-            console.log({price, qty})
 
             $('#product-pay').html(formatNum(product_price, true))
 
@@ -92,6 +95,10 @@
             $(document).on('change', '[name=method]', function() {
                 changePrice()
             })
+        })
+
+        $(document).on('input', '[name=phone]',function() {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''))
         })
 
         $(document).on('input', function() {
