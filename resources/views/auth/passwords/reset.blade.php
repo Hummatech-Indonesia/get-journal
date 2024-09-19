@@ -1,7 +1,44 @@
-@extends('layouts.app')
+@extends('layouts.no-auth')
 
 @section('content')
-<div class="container">
+<form class="form w-100" novalidate="novalidate" action="{{ route('password.update') }}" method="POST">
+    @csrf
+    <div class="card-body">
+        <div class="text-start mb-10">
+            <h1 class="text-gray-900 mb-3 fs-3x">Reset Password</h1>
+        </div>
+        <div class="fv-row mb-8">
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="email" placeholder="Email" name="email" value="{{ $email ?? old('email') }}" autocomplete="off" class="form-control active form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+        <div class="fv-row mb-8">
+            <input type="password" placeholder="Password" name="password" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+        <div class="fv-row mb-8">
+            <input type="password" placeholder="Password" name="password_confirmation" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            @error('password_confirmation')
+                <span class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+        <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
+            <button type="submit" class="btn btn-primary me-2 flex-shrink-0">Reset Password</button>
+        </div>
+    </div>
+</form>
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -61,5 +98,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

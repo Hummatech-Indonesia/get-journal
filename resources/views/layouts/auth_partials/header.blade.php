@@ -20,6 +20,11 @@
         <div class="d-flex align-items-stretch justify-content-between">
             <!--begin::Toolbar wrapper-->
             <div class="d-flex align-items-stretch flex-shrink-0">
+                @hasrole('school')
+                <div class="d-flex align-items-center ms-1 ms-lg-3">
+                    <div class="badge badge-lg bg-light-warning text-warning">Kode sekolah : {{ auth()->user()->profile->code }}</div>
+                </div>
+                @endhasrole
                 <!--begin::Theme mode-->
                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                     <!--begin::Menu toggle-->

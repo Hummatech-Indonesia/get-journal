@@ -35,11 +35,8 @@
             @enderror
         </div>
         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
-            <div></div>
-            {{-- <a href="#" class="link-primary">Lupa Password?</a> --}}
-        </div>
-        <div class="d-flex flex-stack">
             <button type="submit" class="btn btn-primary me-2 flex-shrink-0">Masuk</button>
+            <a href="{{route('password.request')}}" class="link-primary">Lupa Password?</a>
         </div>
     </div>
 </form>
