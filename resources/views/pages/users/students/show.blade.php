@@ -2,6 +2,8 @@
 
 @section('title', 'Siswa')
 
+{{-- @dd($student) --}}
+
 @section('content')
     @include('components.swal')
     <div class="card">

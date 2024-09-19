@@ -50,7 +50,7 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
-                    $('.custom-container-student').html(`<button type="button" class="btn btn-success btn-sm">Cetak Laporan Siswa</button>`)
+                    $('.custom-container-student').html(`<button type="button" class="btn btn-success btn-sm" id="print-student-btn">Cetak Laporan Absensi</button>`)
                     isCanSubmitPremium()
                 },
                 ajax: {
@@ -141,6 +141,18 @@
                 if(!$('.check-teacher:checked').length) $('#submit-premium').addClass('disabled')
                 else $('#submit-premium').removeClass('disabled')
             }
+
+            $(document).on('click', '#print-student-btn', function() {
+                $.ajax({
+                    url: "{{url('/api/classrooms/export-attendances/'.$classroom->id)}}",
+                    success: (res) => {
+                        window.open('{{asset("storage")}}/'+res.url, '_blank')
+                    },
+                    error: (xhr) => {
+                        console.error(xhr)
+                    }
+                })
+            })
         })
     </script>
 @endpush
