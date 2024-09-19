@@ -11,6 +11,7 @@ use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -89,7 +90,7 @@ class AuthController extends Controller
             return (DefaultResource::make(['code' => 404, 'message' => 'Email tidak terdaftar, silahkan check ulang!']))->response()->setStatusCode(404);
         }
 
-        return $this->userService->handleSendEmail($request->email, 'mobile');
+        return $this->userService->handleSendEmail($check_email, 'mobile');
     }
     /**
      * Handle a forgot password request to the application.
@@ -105,6 +106,15 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Email tidak terdaftar, silahkan check ulang!');
         }
 
-        return $this->userService->handleSendEmail($request->email);
+        return $this->userService->handleSendEmail($check_email);
+    }
+
+    public function viewForgotPassword(string $token)
+    {
+        $check = DB::table('password_resets')->where('token', $token)->first();
+
+        if(!$check) abort(404);
+
+        return view('auth.passwords.reset');
     }
 }

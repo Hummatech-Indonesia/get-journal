@@ -32,6 +32,7 @@ Route::get('/terms-conditions', function () {
 })->name('terms-conditions');
 Route::get('/delete-account', [UserController::class, 'deleteAccount']);
 Route::post('/delete-account', [UserController::class, 'processDeleteAccount'])->name('processDeleteAccount');
+Route::get('/reset-password/{token}', [AuthController::class, 'viewForgotPassword'])->name('reset-password');
 
 Route::middleware('auth')->group(function() {
     Route::post('check-logout', [AuthController::class, 'logout'])->name('web.logout');
