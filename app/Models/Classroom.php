@@ -59,4 +59,13 @@ class Classroom extends Model
         return $this->belongsTo(Profile::class);
     }
 
+     /**
+     * Get the profile that owns the classroom.
+     */
+    public function journals(): mixed
+    {
+        return $this->hasMany(Journal::class, 'classroom_id');
+    }
+
+
 }

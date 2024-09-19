@@ -149,4 +149,9 @@ class AuthRepository extends BaseRepository implements AuthInterface
 
         return $randomString;
     }
+
+    public function checkEmail(string $email): mixed
+    {
+        return $this->model->where('email', $email)->first();
+    }
 }

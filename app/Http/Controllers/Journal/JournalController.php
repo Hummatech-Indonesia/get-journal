@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Journal;
 
 use App\Contracts\Interfaces\JournalInterface;
 use App\Exports\JournalExport;
+use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Journal\ExportRequest;
 use App\Http\Requests\Journal\StoreRequest;
@@ -108,5 +109,12 @@ class JournalController extends Controller
         }
 
         return DefaultResource::make(['code' => 500, 'message' => 'Gagal menghapus file'])->response()->setStatusCode(500);
+    }
+
+    public function tableJournal(Request $request)
+    {
+        $data = $this->journal->getWhere(["classroom_id" => $request->classroom_id])->get();
+
+        return BaseDatatable::TableV2($data);
     }
 }

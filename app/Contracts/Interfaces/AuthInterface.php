@@ -17,4 +17,6 @@ interface AuthInterface extends LogoutInterface, GetuserInterface
     public function registerTeacher(RegisterRequest $request): JsonResponse;
     
     public function registerSchool(RegisterRequest $request): mixed;
+
+    public function checkEmail(string $email): mixed;
 }

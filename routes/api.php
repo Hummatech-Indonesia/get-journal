@@ -35,6 +35,8 @@ Route::get('unauthorized', function(){
 Route::prefix('auth')->group(function () {
     Route::post('login-teacher', [AuthController::class, 'loginTeacher']);
     Route::post('register-teacher', [AuthController::class, 'registerTeacher'])->name('api-register');
+    Route::post('web/forgot-password', [AuthController::class, 'forgotPasswordWeb'])->name('web.forgot-password');
+    Route::post('mobile/forgot-password', [AuthController::class, 'forgotPasswordMobile'])->name('mobile.forgot-password');
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);
         Route::post('logout', [AuthController::class, 'logout']);
@@ -47,6 +49,7 @@ Route::prefix('auth')->group(function () {
     Route::prefix('data-table')->name('data-table.')->group(function() {
         Route::get('list-users', [UserController::class, 'dataUser'])->name('data-user');
         Route::get('list-students', [UserController::class, 'listStudent'])->name('data-students');
+        Route::get('list-journals', [JournalController::class, 'tableJournal'])->name('data-journals');
     });
 
     Route::prefix('list')->name('list.')->group(function() {

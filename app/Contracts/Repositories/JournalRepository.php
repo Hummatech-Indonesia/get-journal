@@ -136,4 +136,14 @@ class JournalRepository extends BaseRepository implements JournalInterface
 
         return null;
     }
+
+    public function getWhere(array $data): mixed
+    {
+        return $this->model->query()
+        ->when(count($data) > 0, function ($query) use ($data){
+            foreach($data as $index => $value){
+                $query->where($index, $value);
+            }
+        });
+    }
 }

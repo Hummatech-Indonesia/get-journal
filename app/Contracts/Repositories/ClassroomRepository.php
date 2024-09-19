@@ -111,14 +111,14 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         }catch(\Throwable $th){ }
 
         return $this->model->query()
-        ->with('profile.journals','assignments','background')
-        ->withCount('students','assignments')
-        ->whereIn('profile_id',$ids)
+        ->with('profile','assignments','background')
+        ->withCount('students','assignments','journals')
         ->when($search, function ($query) use ($search){
             $query->where('name', 'like', '%'.$search.'%')
             ->orWhere('code', 'like', '%'.$search.'%')
             ->orWhereRelation('profile','name','like','%'.$search.'%');
         })
+        ->whereIn('profile_id',$ids)
         ->paginate($per_page, ['*'], 'page', $page);
     }
 
@@ -138,8 +138,8 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
     public function detailClass(mixed $id): mixed
     {
         return $this->model->query()
-        ->with('profile')
-        ->withCount('assignments')
+        ->with('profile', 'journals')
+        ->withCount('assignments', 'journals')
         ->find($id);
     }
 }

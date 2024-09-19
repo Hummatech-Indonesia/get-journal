@@ -20,4 +20,9 @@ class UserService
 
         return $data;
     }
+
+    public function handleSendEmail(string $email, ?string $type = 'web')
+    {
+        
+    }
 }

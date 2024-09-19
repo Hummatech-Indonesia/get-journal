@@ -6,6 +6,8 @@ use App\Contracts\Interfaces\AuthInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\DefaultResource;
+use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,10 +15,12 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     private AuthInterface $auth;
+    private UserService $userService;
 
-    public function __construct(AuthInterface $auth)
+    public function __construct(AuthInterface $auth, UserService $userService)
     {
         $this->auth = $auth;
+        $this->userService = $userService;
     }
 
     /**
@@ -69,5 +73,38 @@ class AuthController extends Controller
             auth()->logout();
             return redirect('login')->with('success','Berhasil logout');
         }else return $this->auth->logout();
+    }
+
+    /**
+     * Handle a forgot password request to the application mobile.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgotPasswordMobile(Request $request): JsonResponse
+    {
+        $check_email = $this->auth->checkEmail($request->email);
+        if($check_email) {
+            return (DefaultResource::make(['code' => 404, 'message' => 'Email tidak terdaftar, silahkan check ulang!']))->response()->setStatusCode(404);
+        }
+
+        return $this->userService->handleSendEmail($request->email, 'mobile');
+    }
+    /**
+     * Handle a forgot password request to the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgotPasswordWeb(Request $request): RedirectResponse
+    {
+        $check_email = $this->auth->checkEmail($request->email);
+        if($check_email) {
+            return redirect()->back()->with('error', 'Email tidak terdaftar, silahkan check ulang!');
+        }
+
+        return $this->userService->handleSendEmail($request->email);
     }
 }
