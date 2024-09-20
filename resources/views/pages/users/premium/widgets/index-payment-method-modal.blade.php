@@ -24,7 +24,7 @@
                     <div>
                         <div class="row">
                             <div class="col-8">No. Telp</div>
-                            <input type="text" class="col-4  border-bottom-input " value="08" name="phone"/>
+                            <input type="text" class="col-4  border-bottom-input " value="{{ auth()->user()->profile->telp ? auth()->user()->profile->telp : '08' }}" name="phone"/>
                         </div>
                         <div class="row">
                             <div class="col-8">Kuota</div>
