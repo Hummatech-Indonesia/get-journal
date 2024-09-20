@@ -207,6 +207,10 @@ class PaymentController extends Controller
                 
                 $this->transaction->store($result['data']);
 
+                try{
+                    $user->profile->toQuery()->update(["telp" => $result["data"]["customer_phone"]]);
+                }catch(\Throwable $th){}
+
                 if($request->app_type == 'web'){
                     return redirect()->route('transactions.show',['reference' => $result['data']['merchant_ref']])->with(['success' => 'Transaksi berhasil dibuat, silahkan melakukan pembayaran!', 'checkout' => true]);
                 } else {
