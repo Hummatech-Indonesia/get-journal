@@ -58,4 +58,10 @@ class UpdateProfileRequest extends FormRequest
             'photo.max' => 'Foto maksimal 2MB',
         ];
     }
+
+    public function prepareForValidation()
+    {
+        if(!$this->gender) $this->merge(["gender" => "male"]);
+        if(!$this->identity_number) $this->merge(["identity_number" => (int)date('Ymdhms')]);
+    }
 }

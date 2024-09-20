@@ -63,14 +63,26 @@ class UserController extends Controller
         $data = $request->validated();
 
         if (Hash::check($data['password'], auth()->user()->password) === false) {
+            if($request->type == "web") return redirect()->back()->with('error','Password lama tidak sesuai');
+
             return DefaultResource::make([
                 'code' => 400,
                 'message' => 'Password lama tidak sesuai',
             ], 400);
         }
 
-        $this->userInterface->updatePassword(auth()->id(), $data);
+        $user_id = auth()?->id() ?? $request->user_id;
+        if(!$user_id){
+            if($request->type == "web") return redirect()->back()->with('error','Akun tidak ditemukan');
 
+            return DefaultResource::make([
+                'code' => 404,
+                'message' => 'Akun tidak diteumkan',
+            ], 404);   
+        }
+        $this->userInterface->updatePassword($user_id, $data);
+
+        if($request->type == "web") return redirect()->back()->with('error','Password lama tidak sesuai');
         return DefaultResource::make([
             'code' => 200,
             'message' => 'Password berhasil diubah',
@@ -94,8 +106,10 @@ class UserController extends Controller
         $profile = $this->userService->handleUpdateProfileWithPhoto($request);
         unset($profile["email"]);
 
-        $this->profileInterface->update(auth()->user()->profile->id, $profile);
+        $profile_id = auth()?->user()?->profile?->id ?? $request->user_id;
+        $this->profileInterface->update($profile_id, $profile);
 
+        if($request->type == "web") return redirect()->back()->with('success', 'Profile berhasil diubah');
         return DefaultResource::make([
             'code' => 200,
             'message' => 'Profile berhasil diubah',
