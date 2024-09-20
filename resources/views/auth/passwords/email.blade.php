@@ -9,14 +9,14 @@
 
 @section('content')
 @include('components.swal')
-<form class="form w-100" novalidate="novalidate" action="{{ route('password.email') }}" method="POST">
+<form class="form w-100" novalidate="novalidate" action="{{ route('web.forgot-password') }}" method="POST">
     @csrf
     <div class="card-body">
         <div class="text-start mb-10">
             <h1 class="text-gray-900 mb-3 fs-3x">Reset Password</h1>
         </div>
         <div class="fv-row mb-8">
-            <input type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="off" class="form-control active form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
+            <input type="email" required placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="off" class="form-control active form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
             @error('email')
                 <span class="invalid-feedback" role="alert">
                     {{ $message }}

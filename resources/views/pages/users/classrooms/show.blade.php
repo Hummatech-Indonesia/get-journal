@@ -17,6 +17,7 @@
             <div class="table-responsive d-flex gap-2 flex-nowrap">
                 <span class="badge border border-white rounded text-white">{{$classroom->students->count()}} / {{$classroom->limit}} Siswa</span>
                 <span class="badge border border-white rounded text-white">{{$classroom->assignments->count()}} Tugas</span>
+                <span class="badge border border-white rounded text-white">{{$classroom->journals->count()}} Jurnal</span>
             </div>
         </div>
     </div>

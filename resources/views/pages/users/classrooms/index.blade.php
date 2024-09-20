@@ -185,7 +185,7 @@
                 let class_bg = default_bg
                 let detail_url = "{{ route('classes.show', 'data_id') }}"
                 detail_url = detail_url.replace('data_id', d.id)
-                if(d.background.image) class_bg = "{{asset('storage')}}"+d.background.image
+                if(d.background.image) class_bg = "{{asset('storage')}}/"+d.background.image
                 classroom_cards += `
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url(${class_bg});background-size: cover; min-height:150px;">
@@ -200,6 +200,7 @@
                                 <div class="table-responsive d-flex gap-2 flex-nowrap">
                                     <span class="badge border border-white rounded text-white">${d.students_count} / ${d.limit} Siswa</span>
                                     <span class="badge border border-white rounded text-white">${d.assignments_count} Tugas</span>
+                                    <span class="badge border border-white rounded text-white">${d.journals_count} Jurnal</span>
                                 </div>
                             </div>
                         </div>
