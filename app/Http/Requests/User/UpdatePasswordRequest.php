@@ -45,4 +45,8 @@ class UpdatePasswordRequest extends FormRequest
             'confirm_password.min' => 'Konfirmasi password minimal 8 karakter',
         ];
     }
+
+    public function prepareForValidation(){
+        if($this->type == "web" && !$this->password) $this->merge(["password" => "password"]);
+    }
 }

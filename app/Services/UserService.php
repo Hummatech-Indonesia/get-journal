@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Http\Resources\DefaultResource;
 use App\Mail\SendingEmail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -29,9 +30,11 @@ class UserService
     {
         $token = $this->generateCode(32);
 
-        DB::table('password_resets')->create([
+        DB::table('password_resets')->insert([
             "email" => $data?->email ?? "test@gmail.com",
-            "token" => $token
+            "token" => $token,
+            "user_id" => $data?->id,
+            "expired_at" => Carbon::now()->addMinutes(15)
         ]);
 
         $url = route('reset-password', ['token' => $token]);

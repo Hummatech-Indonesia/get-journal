@@ -30,6 +30,7 @@ class UpdateProfileRequest extends FormRequest
             'gender' => 'required',
             'address' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'telp' => 'nullable'
         ];
     }
 

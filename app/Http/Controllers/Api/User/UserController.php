@@ -89,6 +89,29 @@ class UserController extends Controller
         ]);
     }
 
+    public function updateForgotPassword(UpdatePasswordRequest $request): mixed
+    {
+        $data = $request->validated();
+        $check = DB::table('password_resets')->where('token', $request->token)->where('expired_at','>',now())->first();
+        
+        $user_id = auth()?->id() ?? $check->user_id;
+        if(!$user_id){
+            if($request->type == "web") return redirect()->back()->with('error','Akun tidak ditemukan');
+
+            return DefaultResource::make([
+                'code' => 404,
+                'message' => 'Akun tidak diteumkan',
+            ], 404);   
+        }
+        $this->userInterface->updatePassword($user_id, $data);
+
+        if($request->type == "web") return redirect()->route('login')->with('success','Password berhasil dirubah');
+        return DefaultResource::make([
+            'code' => 200,
+            'message' => 'Password berhasil diubah',
+        ]);
+    }
+
     /**
      * Update profile
      *

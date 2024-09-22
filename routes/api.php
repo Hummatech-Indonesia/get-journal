@@ -38,6 +38,7 @@ Route::prefix('auth')->group(function () {
     Route::post('web/forgot-password', [AuthController::class, 'forgotPasswordWeb'])->name('web.forgot-password');
     Route::post('mobile/forgot-password', [AuthController::class, 'forgotPasswordMobile'])->name('mobile.forgot-password');
     Route::post('web/update-password', [UserController::class, 'updatePassword'])->name('web.update-password');
+    Route::post('web/update-forgot-password', [UserController::class, 'updateForgotPassword'])->name('web.update-forgot-password');
     Route::post('web/update-profile', [UserController::class, 'updateProfile'])->name('web.update-profile');
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('profile', [AuthController::class, 'profile']);

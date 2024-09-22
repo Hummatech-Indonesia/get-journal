@@ -85,8 +85,10 @@ class AuthController extends Controller
      */
     public function forgotPasswordMobile(Request $request): JsonResponse
     {
+        if(!$request->email)  return (DefaultResource::make(['code' => 403, 'message' => 'Email harus diisi!']))->response()->setStatusCode(403);
+
         $check_email = $this->auth->checkEmail($request->email);
-        if($check_email) {
+        if(!$check_email) {
             return (DefaultResource::make(['code' => 404, 'message' => 'Email tidak terdaftar, silahkan check ulang!']))->response()->setStatusCode(404);
         }
 
@@ -101,8 +103,10 @@ class AuthController extends Controller
      */
     public function forgotPasswordWeb(Request $request): RedirectResponse
     {
+        if(!$request->email) return redirect()->back()->with('error', 'Email harus diisi!');
+
         $check_email = $this->auth->checkEmail($request->email);
-        if($check_email) {
+        if(!$check_email) {
             return redirect()->back()->with('error', 'Email tidak terdaftar, silahkan check ulang!');
         }
 
@@ -111,10 +115,10 @@ class AuthController extends Controller
 
     public function viewForgotPassword(string $token)
     {
-        $check = DB::table('password_resets')->where('token', $token)->first();
+        $check = DB::table('password_resets')->where('token', $token)->where('expired_at','>',now())->first();
 
         if(!$check) abort(404);
 
-        return view('auth.passwords.reset');
+        return view('auth.passwords.reset', compact('check'));
     }
 }

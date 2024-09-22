@@ -1,23 +1,16 @@
 @extends('layouts.no-auth')
 
 @section('content')
-<form class="form w-100" novalidate="novalidate" action="{{ route('password.update') }}" method="POST">
+<form class="form w-100" novalidate="novalidate" action="{{ route('web.update-forgot-password') }}" method="POST">
     @csrf
     <div class="card-body">
         <div class="text-start mb-10">
             <h1 class="text-gray-900 mb-3 fs-3x">Reset Password</h1>
         </div>
+        <input type="hidden" name="type" value="web">   
+        <input type="hidden" name="token" value="{{ $check->token }}">   
         <div class="fv-row mb-8">
-            <input type="hidden" name="token" value="{{ $token }}">
-            <input type="email" placeholder="Email" name="email" value="{{ $email ?? old('email') }}" autocomplete="off" class="form-control active form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-            @enderror
-        </div>
-        <div class="fv-row mb-8">
-            <input type="password" placeholder="Password" name="password" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            <input type="password" placeholder="Password" name="new_password" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
             @error('password')
                 <span class="invalid-feedback" role="alert">
                     {{ $message }}
@@ -25,7 +18,7 @@
             @enderror
         </div>
         <div class="fv-row mb-8">
-            <input type="password" placeholder="Password" name="password_confirmation" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
+            <input type="password" placeholder="Konfirmasi Password" name="confirm_password" value="" autocomplete="off" class="form-control active form-control-solid @error('password') is-invalid border-1 border-danger @enderror" />
             @error('password_confirmation')
                 <span class="invalid-feedback" role="alert">
                     {{ $message }}

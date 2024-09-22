@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Mi Jurnal</h1>
-    <a href="">Rubah Password</a>
+    <a href="{{ $url }}">Rubah Password</a>
 </body>
 </html>
