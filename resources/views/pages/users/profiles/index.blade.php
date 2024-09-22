@@ -23,16 +23,28 @@
                     <div class="fw-bolder fs-5">{{ auth()->user()->email }}</div>
                 </div>
                 <div class="mb-3">
+                    <div class="text-muted fw-bolder">No. Telp</div>
+                    <div class="fw-bolder fs-5">{{ auth()->user()->profile->telp ? auth()->user()->profile->telp : '-' }}</div>
+                </div>
+                <div class="mb-3">
                     <div class="text-muted fw-bolder">Alamat</div>
                     <div class="fw-bolder fs-5">{{ auth()->user()->profile->address ? auth()->user()->profile->address : '-' }}</div>
                 </div>
                 <div class="mb-3">
                     <div class="text-muted fw-bolder">Jenis Akun</div>
                     <div class="d-flex gap-2">
+                        @if(auth()->user()->hasRole('student'))
                         <span class="badge bg-light-primary text-primary">Siswa</span>
+                        @endif
+                        @if(auth()->user()->hasRole('teacher'))
                         <span class="badge bg-light-info text-info">Guru</span>
+                        @endif
+                        @if(auth()->user()->hasRole('school'))
                         <span class="badge bg-light-warning text-warning">Sekolah</span>
+                        @endif
+                        @if(auth()->user()->hasRole('admin'))
                         <span class="badge bg-light-success text-success">Admin</span>
+                        @endif
                     </div>
                 </div>
             </div>

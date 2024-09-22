@@ -5,7 +5,7 @@
 @section('content')
     @include('components.swal')
 
-    <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url({{ $classroom->background->image ? asset('profile').$classroom->background->image : asset('assets/media/books/img-72.jpg') }});background-size: cover; min-height:150px;">
+    <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url({{ $classroom->background->image ? asset('storage').'/'.$classroom->background->image : asset('assets/media/books/img-72.jpg') }});background-size: cover; min-height:150px;">
         <div class="card-body d-flex flex-column justify-content-between">
             <div class="mb-3">
                 <div class="d-flex justify-content-between align-items-stetch">
