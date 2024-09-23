@@ -140,7 +140,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     public function getWhere(array $data): mixed
     {
         return $this->model->query()
-        ->with('profile','lesson','classroom','attendances','permit','sick','alpha')
+        ->with('profile','lesson','classroom','permit.profile','sick.profile','alpha.profile')
         ->when(count($data) > 0, function ($query) use ($data){
             foreach($data as $index => $value){
                 $query->where($index, $value);
