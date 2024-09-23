@@ -34,6 +34,7 @@ Route::get('unauthorized', function(){
 
 Route::prefix('auth')->group(function () {
     Route::post('login-teacher', [AuthController::class, 'loginTeacher']);
+    Route::post('login', [AuthController::class, 'loginWeb'])->name('api-login');
     Route::post('register-teacher', [AuthController::class, 'registerTeacher'])->name('api-register');
     Route::post('web/forgot-password', [AuthController::class, 'forgotPasswordWeb'])->name('web.forgot-password');
     Route::post('mobile/forgot-password', [AuthController::class, 'forgotPasswordMobile'])->name('mobile.forgot-password');

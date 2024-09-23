@@ -9,10 +9,13 @@ use App\Contracts\Interfaces\Auth\RegisterInterface;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 interface AuthInterface extends LogoutInterface, GetuserInterface
 {
     public function loginTeacher(LoginRequest $request): JsonResponse;
+
+    public function loginWeb(LoginRequest $request): RedirectResponse;
 
     public function registerTeacher(RegisterRequest $request): JsonResponse;
     

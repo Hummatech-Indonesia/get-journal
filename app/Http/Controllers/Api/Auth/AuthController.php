@@ -37,6 +37,18 @@ class AuthController extends Controller
     }
 
     /**
+     * Handle a login request to the application.
+     *
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loginWeb(LoginRequest $request): RedirectResponse
+    {
+        return $this->auth->loginWeb($request);
+    }
+
+    /**
      * Handle a register request to the application.
      *
      * @param \App\Http\Requests\Auth\RegisterRequest $request

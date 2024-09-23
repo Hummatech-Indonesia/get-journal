@@ -10,6 +10,7 @@ use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 class AuthRepository extends BaseRepository implements AuthInterface
@@ -43,6 +44,28 @@ class AuthRepository extends BaseRepository implements AuthInterface
         }
 
         return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
+    }
+
+    public function loginWeb(LoginRequest $request): RedirectResponse
+    {
+        $credentials = $request->validated();
+
+        $user = $this->model->with('profile','roles')->where('email', $request->email)->first();
+
+        if(!$user){
+            return redirect()->back()->with('error','Email pengguna tidak ditemukan!');
+        }
+
+        if ($user->roles->pluck('name')[0] != 'school' && $user->roles->pluck('name')[0] != 'admin') {
+            return redirect()->back()->with('error','Akun ini tidak memiliki akses kedalam aplikasi!');
+        }
+
+        if ($user) {
+            auth()->attempt($credentials);
+            return redirect()->route('dashboard')->with('success','Berhasil login!');
+        }
+
+        return redirect()->back()->with('error','Akun ini tidak memiliki akses kedalam aplikasi!');
     }
 
     /**
