@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+@section('title', 'Reset Password')
 @include('components.swal')
 <form class="form w-100" novalidate="novalidate" action="{{ route('web.forgot-password') }}" method="POST">
     @csrf

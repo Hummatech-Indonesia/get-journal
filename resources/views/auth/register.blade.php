@@ -1,6 +1,6 @@
 @extends('layouts.no-auth')
 
-@section('title', 'Login')
+@section('title', 'Daftar')
 
 @section('top-text')
 

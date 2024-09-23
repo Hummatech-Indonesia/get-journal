@@ -1,6 +1,7 @@
 @extends('layouts.no-auth')
 
 @section('content')
+@section('title', 'Ubah Password')
 @include('components.swal')
 <form class="form w-100" novalidate="novalidate" action="{{ route('web.update-forgot-password') }}" method="POST">
     @csrf
