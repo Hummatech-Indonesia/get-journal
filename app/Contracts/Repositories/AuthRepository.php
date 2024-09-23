@@ -125,7 +125,12 @@ class AuthRepository extends BaseRepository implements AuthInterface
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        unset($data["email"]);
+        unset($data["password"]);
+        unset($data["confirm_password"]);
         $data['user_id'] = $user->id;
+
         if ($data['identity_number'] == null) {
             $data['identity_number'] = '0';
         }
