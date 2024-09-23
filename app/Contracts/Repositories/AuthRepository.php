@@ -60,7 +60,6 @@ class AuthRepository extends BaseRepository implements AuthInterface
         }
         
         if (auth()->attempt($credentials)) {
-            dd(auth()->user());
             return redirect()->route('dashboard')->with('success','Berhasil login!');
         }
 
