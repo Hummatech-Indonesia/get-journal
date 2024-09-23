@@ -188,11 +188,11 @@
                 if(d.background.image) class_bg = "{{asset('storage')}}/"+d.background.image
                 classroom_cards += `
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url(${class_bg});background-size: cover; min-height:150px;">
+                        <a href="${detail_url}" class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url(${class_bg});background-size: cover; min-height:150px;">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between align-items-stetch">
-                                        <a href="${detail_url}" class="h1 text-white mb-0">${d.name}</a>
+                                        <div class="h1 text-white mb-0">${d.name}</div>
                                         <div class="badge badge-xl border border-white rounded text-white">${d.code}</div>
                                     </div>
                                     <div class="text-white">oleh ${d.profile.name}</div>
@@ -203,7 +203,7 @@
                                     <span class="badge border border-white rounded text-white">${d.journals_count} Jurnal</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 `
             })

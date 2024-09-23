@@ -9,14 +9,33 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-description" tabindex="-1">
+<div class="modal fade" id="modal-detail" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Deskripsi Jurnal</h5>
+                <h5 class="modal-title">Detail Jurnal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body">
+                <div class="d-flex flex-column gap-3">
+                    <div class="p-3 rounded bg-light-dark text-dark">
+                        <h6 class="text-dark">Deskripsi</h6>
+                        <p id="description"></p>
+                    </div>
+                    <div class="p-3 rounded bg-light-primary text-primary">
+                        <h6 class="text-primary">Izin</h6>
+                        <p id="permit"></p>
+                    </div>
+                    <div class="p-3 rounded bg-light-warning text-warning">
+                        <h6 class="text-warning">Sakit</h6>
+                        <p id="sick"></p>
+                    </div>
+                    <div class="p-3 rounded bg-light-danger text-danger">
+                        <h6 class="text-danger">Alpha</h6>
+                        <p id="alpha"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -129,7 +148,6 @@
                         title: 'Kehadiran',
                         mRender: (data, type, row) => {
                             return `<div>
-                                <span class="badge bg-light-success text-success">${row.attendances.length} Hadir</span>
                                 <span class="badge bg-light-primary text-primary">${row.permit.length} Izin</span>
                                 <span class="badge bg-light-warning text-warning">${row.sick.length} Sakit</span>
                                 <span class="badge bg-light-danger text-danger">${row.alpha.length} Alpha</span>
@@ -146,9 +164,10 @@
                     {
                         title: "Aksi",
                         mRender: function(data, type, row) {
+                            const data_str = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" class="btn btn-icon btn-sm btn-active-light-primary btn-show-description" data-bs-toggle="modal" data-bs-target="#modal-description" data-description="${row.description}">
+                                    <button type="button" class="btn btn-icon btn-sm btn-active-light-primary btn-show-description" data-bs-toggle="modal" data-bs-target="#modal-detail" data-detail="${data_str}">
                                         <i class="ki-duotone ki-eye fs-1">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
@@ -157,12 +176,6 @@
                                     </button>
                                 </div>
                             `
-                                    // <button type="button" class="btn btn-icon btn-sm btn-active-light-success btn-print-journal" data-journal="">
-                                    //     <i class="ki-duotone ki-file-down fs-1">
-                                    //         <span class="path1"></span>
-                                    //         <span class="path2"></span>
-                                    //     </i>
-                                    // </button>
                         }
                     }
                 ]
@@ -189,9 +202,14 @@
             })
 
             $(document).on('click', '.btn-show-description', function() {
-                const description = $(this).data('description')
-                console.log({description})
-                $('#modal-description .modal-body').html(description)
+                const detail = JSON.parse($(this).data('detail').replaceAll('`', '"'))
+                $('#modal-detail .modal-body #description').html(detail.description)
+                const list_permit = detail.permit.map((item) => item.profile.name).join(', ')
+                const list_sick = detail.sick.map((item) => item.profile.name).join(', ')
+                const list_alpha = detail.alpha.map((item) => item.profile.name).join(', ')
+                $('#modal-detail .modal-body #permit').html(list_permit ? list_permit : '-')
+                $('#modal-detail .modal-body #sick').html(list_sick ? list_sick : '-')
+                $('#modal-detail .modal-body #alpha').html(list_alpha ? list_alpha : '-')
             })
 
             $(document).on('change', '#check-all-teacher', function() {
