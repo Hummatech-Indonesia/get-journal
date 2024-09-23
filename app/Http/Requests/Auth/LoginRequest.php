@@ -47,10 +47,12 @@ class LoginRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'success' => false,
-            'message' => 'Invalid request, please check again',
-            'data'    => $validator->errors()
-        ], 422));
+        if($this->type != "web"){
+            throw new HttpResponseException(response()->json([
+                'success' => false,
+                'message' => 'Invalid request, please check again',
+                'data'    => $validator->errors()
+            ], 422));
+        }
     }
 }
