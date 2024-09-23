@@ -51,7 +51,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
         $credentials = $request->validated();
 
         $user = $this->model->with('profile','roles')->where('email', $credentials['email'])->first();
-        
+        dd($user);
         if(!$user){
             return redirect()->back()->with('error','Email pengguna tidak ditemukan!')->withInput();
         }
