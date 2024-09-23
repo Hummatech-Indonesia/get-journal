@@ -59,8 +59,8 @@ class AuthRepository extends BaseRepository implements AuthInterface
             return redirect()->back()->with('error','Akun ini tidak memiliki akses kedalam aplikasi!');
         }
         
-        dd(auth()->attempt($credentials), $user);
         if (auth()->attempt($credentials)) {
+            dd(auth()->user());
             return redirect()->route('dashboard')->with('success','Berhasil login!');
         }
 
