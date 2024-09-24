@@ -50,7 +50,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->guard('web')->attempt($credentials)) {
-            return redirect()->route('dasboard');
+            return redirect()->route('dashboard');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
