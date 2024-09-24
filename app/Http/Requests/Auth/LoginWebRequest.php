@@ -35,7 +35,7 @@ class LoginWebRequest extends FormRequest
      *
      * @return array<string, string>
      */
-    public function messages(): array
+    public function message(): array
     {
         return [
             'email.required' => 'Email harus diisi',
