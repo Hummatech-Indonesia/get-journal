@@ -46,17 +46,14 @@ class AuthController extends Controller
      */
     public function loginWeb(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ],[
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Email tidak valid',
-            'password.required' => 'Password harus diisi',
-            'password.string' => 'Password harus berupa string',
-        ]);
+    
+        $credentials = $request->only('email', 'password');
 
-        return redirect()->back()->with('success', 'Testing');
+        if (auth()->guard('web')->attempt($credentials)) {
+            return redirect()->route('dasboard');
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
         // return $this->auth->loginWeb($request);
     }
 
