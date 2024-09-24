@@ -14,7 +14,7 @@
 
 @include('components.swal')
 
-<form class="form w-100" novalidate="novalidate" action="{{ route('api-login') }}" method="POST">
+<form class="form w-100" novalidate="novalidate" action="{{ route('login') }}" method="POST">
     @csrf
     <div class="card-body">
         <div class="text-start mb-10">
