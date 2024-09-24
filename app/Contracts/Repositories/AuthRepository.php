@@ -59,7 +59,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
             return redirect()->back()->with('error','Akun ini tidak memiliki akses kedalam aplikasi!');
         }
         
-        if (auth()->attempt($credentials)) {
+        if (auth()->guard('web')->attempt($credentials)) {
             return redirect()->route('dashboard')->with('success','Berhasil login!');
         }
 
