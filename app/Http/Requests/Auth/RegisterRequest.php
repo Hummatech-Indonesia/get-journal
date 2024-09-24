@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegisterRequest extends FormRequest
 {
@@ -50,5 +52,14 @@ class RegisterRequest extends FormRequest
     {
         if(!$this->confirm_password) $this->merge(["confirm_password" => $this->password_confirmation]);
         if(!$this->gender) $this->merge(['gender' => 'male']);
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Invalid request, please check again',
+            'data'    => $validator->errors()
+        ], 422));
     }
 }

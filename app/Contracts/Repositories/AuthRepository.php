@@ -51,7 +51,6 @@ class AuthRepository extends BaseRepository implements AuthInterface
         $credentials = $request->validated();
 
         $user = $this->model->with('profile','roles')->where('email', $credentials['email'])->first();
-        
         if(!$user){
             return redirect()->back()->with('error','Email pengguna tidak ditemukan!')->withInput();
         }
@@ -59,7 +58,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
         if ($user->roles->pluck('name')[0] != 'school' && $user->roles->pluck('name')[0] != 'admin') {
             return redirect()->back()->with('error','Akun ini tidak memiliki akses kedalam aplikasi!');
         }
-
+        
         if (auth()->attempt($credentials)) {
             return redirect()->route('dashboard')->with('success','Berhasil login!');
         }
@@ -125,7 +124,12 @@ class AuthRepository extends BaseRepository implements AuthInterface
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        unset($data["email"]);
+        unset($data["password"]);
+        unset($data["confirm_password"]);
         $data['user_id'] = $user->id;
+
         if ($data['identity_number'] == null) {
             $data['identity_number'] = '0';
         }

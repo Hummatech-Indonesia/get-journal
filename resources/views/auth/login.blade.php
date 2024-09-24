@@ -21,6 +21,7 @@
             <h1 class="text-gray-900 mb-3 fs-3x">Masuk</h1>
         </div>
         <div class="fv-row mb-8">
+            <input type="hidden" name="type" value="web">
             <input type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="off" class="form-control active form-control-solid @error('email') is-invalid border-1 border-danger @enderror" />
             @error('email')
                 <span class="invalid-feedback" role="alert">
