@@ -21,7 +21,6 @@
             <h1 class="text-gray-900 mb-3 fs-3x">Daftar</h1>
             <input type="hidden" name="type" value="school">
         </div>
-        <input type="hidden" name="type" value="web">
         <div class="fv-row mb-8">
             <input type="text" placeholder="Nama" value="{{ old('name') }}" name="name" autocomplete="off" class="form-control form-control-solid active @error('name') is-invalid border-1 border-danger @enderror" />
             @error('name')
