@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Contracts\Interfaces\AuthInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginWebRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\DefaultResource;
 use App\Services\UserService;
@@ -43,7 +44,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loginWeb(LoginRequest $request): RedirectResponse
+    public function loginWeb(LoginWebRequest $request): RedirectResponse
     {
         return $this->auth->loginWeb($request);
     }

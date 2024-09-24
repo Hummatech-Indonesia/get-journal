@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories;
 use App\Contracts\Interfaces\AuthInterface;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginWebRequest;
 use App\Http\Resources\Auth\ProfileResource;
 use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\DefaultResource;
@@ -46,7 +47,7 @@ class AuthRepository extends BaseRepository implements AuthInterface
         return (DefaultResource::make(['code' => 401, 'message' => 'Unauthorized']))->response()->setStatusCode(401);
     }
 
-    public function loginWeb(LoginRequest $request): RedirectResponse
+    public function loginWeb(LoginWebRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
 
