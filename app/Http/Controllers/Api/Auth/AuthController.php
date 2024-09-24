@@ -44,9 +44,20 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loginWeb(LoginWebRequest $request): RedirectResponse
+    public function loginWeb(Request $request): RedirectResponse
     {
-        return $this->auth->loginWeb($request);
+        $request->validate(        [
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ],[
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Email tidak valid',
+            'password.required' => 'Password harus diisi',
+            'password.string' => 'Password harus berupa string',
+        ]);
+
+        return redirect()->back()->with('success', 'Testing');
+        // return $this->auth->loginWeb($request);
     }
 
     /**
