@@ -1,8 +1,6 @@
 @extends('layouts.no-auth')
 
 @section('content')
-@section('title', 'Konfirmasi Password')
-@include('components.swal')
 <form class="form w-100" novalidate="novalidate" action="{{ route('password.confirm') }}" method="POST">
     @csrf
     <div class="card-body">
