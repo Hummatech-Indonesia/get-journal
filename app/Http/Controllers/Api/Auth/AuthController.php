@@ -46,7 +46,6 @@ class AuthController extends Controller
      */
     public function loginWeb(Request $request): RedirectResponse
     {
-        dd($request->all());
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
