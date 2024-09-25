@@ -46,7 +46,7 @@ class AuthController extends Controller
      */
     public function loginWeb(Request $request): RedirectResponse
     {
-        $validator = Validator::make($request, [
+        $validator = Validator::make($request->all(), [
             'email' =>'required|email',
             'password' => 'required|string',
         ]);
