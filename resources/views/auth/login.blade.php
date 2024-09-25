@@ -2,6 +2,8 @@
 
 @section('title', 'Login')
 
+@dd(session()->all())
+
 @section('top-text')
 
     <span class="text-gray-500 fw-bold fs-5 me-2">Belum memiliki akun?
