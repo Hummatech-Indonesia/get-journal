@@ -45,7 +45,7 @@ class AuthController extends Controller
      */
     public function loginWeb(LoginRequest $request): RedirectResponse
     {
-        dd($request->all());
+        dd($request->validated());
         return $this->auth->loginWeb($request);
     }
 
