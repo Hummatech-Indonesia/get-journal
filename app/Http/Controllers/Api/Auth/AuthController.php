@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -43,9 +44,17 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loginWeb(LoginRequest $request): RedirectResponse
+    public function loginWeb(Request $request): RedirectResponse
     {
-        dd($request->validated());
+        $validator = Validator::make($request, [
+            'email' =>'required|email',
+            'password' => 'required|string',
+        ]);
+        
+        if($validator->fails()) {
+            dd($validator);
+        }
+
         return $this->auth->loginWeb($request);
     }
 
