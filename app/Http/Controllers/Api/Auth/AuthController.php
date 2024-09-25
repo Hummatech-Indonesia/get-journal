@@ -52,7 +52,7 @@ class AuthController extends Controller
         ]);
         
         if($validator->fails()) {
-            dd($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         return $this->auth->loginWeb($request);
