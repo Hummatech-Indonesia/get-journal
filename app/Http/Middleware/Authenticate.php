@@ -13,10 +13,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        dd($request, $request->expectsJson);
         if (strpos($request->url(), "/api/") !== false) {
             return $request->expectsJson() ? null : route('unauthorized');
         } else {
+            dd($request, $request->expectsJson(), $request->all(), auth()->user());
             // if(auth()->user()) {
             //     $roles = auth()->user->roles->pluck('name')->toArray();
             //     if (in_array('admin',$roles) || in_array('school', $roles)) {
