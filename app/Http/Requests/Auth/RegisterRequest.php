@@ -57,7 +57,9 @@ class RegisterRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        if($this->type != "school"){
+        if($this->type == "school"){
+            return redirect()->back()->withError($validator)->withInput();
+        }else {
             throw new HttpResponseException(response()->json([
                 'success' => false,
                 'message' => 'Invalid request, please check again',
