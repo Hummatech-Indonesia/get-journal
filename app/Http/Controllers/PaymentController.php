@@ -18,9 +18,12 @@ class PaymentController extends Controller
     private TransactionInterface $transaction;
     private UserInterface $user;
 
-    public function __construct(TripayService $tripayService, PaymentChannelInterface $paymentChannel,
-    TransactionInterface $transaction, UserInterface $user)
-    {
+    public function __construct(
+        TripayService $tripayService,
+        PaymentChannelInterface $paymentChannel,
+        TransactionInterface $transaction,
+        UserInterface $user
+    ) {
         $this->tripayService = $tripayService;
         $this->paymentChannel = $paymentChannel;
         $this->transaction = $transaction;
@@ -29,35 +32,34 @@ class PaymentController extends Controller
 
     public function instruction(Request $request)
     {
-        if(!$request->code) return (DefaultResource::make([
+        if (!$request->code) return (DefaultResource::make([
             'code' => 400,
             'message' => 'Field "code" harus diisi ',
         ]))->response()->setStatusCode(400);
-        
+
         $data = $this->tripayService->getPaymentInstruction([
             "code" => $request->code,
             "pay_code" => $request->pay_code ?? "-"
         ]);
-        
-        if($data["success"]){
+
+        if ($data["success"]) {
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil instruksi pembayaran',
                 'data' => $data["data"]
             ]))->response()->setStatusCode(200);
-        }else {
+        } else {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $data["message"] ?? "Invalid payment instruction",
                 'data' => null
             ]))->response()->setStatusCode(500);
         }
-    
     }
 
     public function paymentChannel(Request $request)
     {
-        try{
+        try {
             $data = $this->paymentChannel->get();
 
             return (DefaultResource::make([
@@ -65,11 +67,11 @@ class PaymentController extends Controller
                 'message' => 'Berhasil mengambil channel pembayaran',
                 'data' => $data
             ]))->response()->setStatusCode(200);
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
 
             return (DefaultResource::make([
                 'code' => 500,
-                'message' => 'Invalid dalam mengambil data channel pembayaran dikarekanakn => '. $th->getMessage(),
+                'message' => 'Invalid dalam mengambil data channel pembayaran dikarekanakn => ' . $th->getMessage(),
                 'data' => []
             ]))->response()->setStatusCode(500);
         }
@@ -77,21 +79,21 @@ class PaymentController extends Controller
 
     public function listTransaction(Request $request)
     {
-        try{
+        try {
             $payload = [
                 "page" => $request->page ?? 1,
                 "per_page" => $request->per_page ?? 10,
                 "sort" => $request->sort ?? "desc"
             ];
-    
-            if($request->reference) $payload["reference"] = $request->reference;
-            if($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
-            if($request->method) $payload["method"] = $request->method;
-            if($request->status) $payload["status"] = $request->status;
-    
+
+            if ($request->reference) $payload["reference"] = $request->reference;
+            if ($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
+            if ($request->method) $payload["method"] = $request->method;
+            if ($request->status) $payload["status"] = $request->status;
+
             $data = $this->tripayService->getPaymentInstruction($payload);
-            
-            if($data["success"]){
+
+            if ($data["success"]) {
                 return (DefaultResource::make([
                     'code' => 200,
                     'message' => 'Berhasil mengambil instruksi pembayaran',
@@ -100,14 +102,14 @@ class PaymentController extends Controller
                         "data" => $data["data"]
                     ]
                 ]))->response()->setStatusCode(200);
-            }else {
+            } else {
                 return (DefaultResource::make([
                     'code' => 500,
                     'message' => $data["message"] ?? "Invalid payment instruction",
                     'data' => null
                 ]))->response()->setStatusCode(500);
             }
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $th->getMessage(),
@@ -115,14 +117,14 @@ class PaymentController extends Controller
             ]))->response()->setStatusCode(500);
         }
     }
-    
+
     public function listTransactionV2(Request $request)
     {
-        try{
+        try {
             $data = $this->transaction->getWhere($request->all());
-            
+
             return BaseDatatable::TableV2($data->toArray());
-        }catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $th->getMessage(),
@@ -133,18 +135,18 @@ class PaymentController extends Controller
 
     public function listTransactionV3(Request $request)
     {
-        try{
+        try {
             $per_page = ($request->per_page ?? 10);
             $page = ($request->page ?? 1);
 
             $data = $this->transaction->customPaginateV2($request, $per_page, $page);
-            
+
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil instruksi pembayaran',
                 'data' => $data
             ]))->response()->setStatusCode(200);
-        }catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $th->getMessage(),
@@ -155,27 +157,27 @@ class PaymentController extends Controller
 
     public function listTransactionV4(Request $request)
     {
-        try{
+        try {
             $payload = [
                 "page" => $request->page ?? 1,
                 "per_page" => $request->per_page ?? 10,
                 "sort" => $request->sort ?? "desc"
             ];
-    
-            if($request->reference) $payload["reference"] = $request->reference;
-            if($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
-            if($request->method) $payload["method"] = $request->method;
-            if($request->status) $payload["status"] = $request->status;
-            if($request->user_id) $payload["user_id"] = $request->user_id;
-    
+
+            if ($request->reference) $payload["reference"] = $request->reference;
+            if ($request->merchant_ref) $payload["merchant_ref"] = $request->merchant_ref;
+            if ($request->method) $payload["method"] = $request->method;
+            if ($request->status) $payload["status"] = $request->status;
+            if ($request->user_id) $payload["user_id"] = $request->user_id;
+
             $data = $this->transaction->getWhere($payload);
-            
+
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil instruksi pembayaran',
                 'data' => $data
             ]))->response()->setStatusCode(200);
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $th->getMessage(),
@@ -186,13 +188,14 @@ class PaymentController extends Controller
 
     public function closedTransaction(ClosedTransactionRequest $request)
     {
-        try{
+        // dd($request->all());
+        try {
             $result = $this->tripayService->closedTransaction($request->all());
-            
-            if($result["success"]){
+
+            if ($result["success"]) {
                 $user = $this->user->getWhere(['email' => $result['data']['customer_email']]);
 
-                if(!$user){
+                if (!$user) {
                     return (DefaultResource::make([
                         'code' => 400,
                         'message' => 'User tidak ditemukan',
@@ -204,15 +207,16 @@ class PaymentController extends Controller
                 $result['data']['expired_time'] = date('Y-m-d H:m:s', $result['data']['expired_time']);
                 $result['data']['order_items'] = json_encode($result['data']['order_items']);
                 $result['data']['instructions'] = json_encode($result['data']['instructions']);
-                
+
                 $this->transaction->store($result['data']);
 
-                try{
+                try {
                     $user->profile->toQuery()->update(["telp" => $result["data"]["customer_phone"]]);
-                }catch(\Throwable $th){}
+                } catch (\Throwable $th) {
+                }
 
-                if($request->app_type == 'web'){
-                    return redirect()->route('transactions.show',['reference' => $result['data']['merchant_ref']])->with(['success' => 'Transaksi berhasil dibuat, silahkan melakukan pembayaran!', 'checkout' => true]);
+                if ($request->app_type == 'web') {
+                    return redirect()->route('transactions.show', ['reference' => $result['data']['merchant_ref']])->with(['success' => 'Transaksi berhasil dibuat, silahkan melakukan pembayaran!', 'checkout' => true]);
                 } else {
                     return (DefaultResource::make([
                         'code' => 200,
@@ -220,8 +224,8 @@ class PaymentController extends Controller
                         'data' => $result['data']
                     ]))->response()->setStatusCode(200);
                 }
-            }else {
-                if($request->app_type == 'web'){
+            } else {
+                if ($request->app_type == 'web') {
                     return redirect()->back()->with('error', $result['message']);
                 } else {
                     return (DefaultResource::make([
@@ -231,8 +235,8 @@ class PaymentController extends Controller
                     ]))->response()->setStatusCode(500);
                 }
             }
-        }catch(\Throwable $th) {
-            if($request->app_type == 'web'){
+        } catch (\Throwable $th) {
+            if ($request->app_type == 'web') {
                 return redirect()->back()->with('error', $th->getMessage());
             } else {
                 return (DefaultResource::make([
@@ -246,25 +250,25 @@ class PaymentController extends Controller
 
     public function callbackTransaction(Request $request)
     {
-        return $this->tripayService->callback($request);   
+        return $this->tripayService->callback($request);
     }
 
     public function checkStatusTransaction(Request $request)
     {
-        if(!$request->reference) return (DefaultResource::make([
+        if (!$request->reference) return (DefaultResource::make([
             'code' => 400,
             'message' => 'Field "reference" harus di isi',
             'data' => null
         ]))->response()->setStatusCode(400);
 
         $result = $this->tripayService->closedTransactionCheckStatus($request->reference);
-        if($result["success"]){
+        if ($result["success"]) {
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil instruksi pembayaran',
                 'data' => $result["data"]
             ]))->response()->setStatusCode(200);
-        }else {
+        } else {
             return (DefaultResource::make([
                 'code' => 500,
                 'message' => $result["message"] ?? "Failed check status",
@@ -276,24 +280,24 @@ class PaymentController extends Controller
     public function detailClosedTransaction(mixed $merchant_reference)
     {
         $data = $this->transaction->getWhere(["merchant_ref" => $merchant_reference]);
-        if(count($data) == 0){
+        if (count($data) == 0) {
             abort(404);
-        }else {
+        } else {
             $data = $data->first();
-            return view('pages.users.transactions.detail',compact("data"));
+            return view('pages.users.transactions.detail', compact("data"));
         }
     }
 
     public function detailClosedTransactionMobile(mixed $merchant_reference)
     {
         $data = $this->transaction->getWhere(["merchant_ref" => $merchant_reference]);
-        if(count($data) == 0){
+        if (count($data) == 0) {
             return (DefaultResource::make([
                 'code' => 404,
                 'message' => "Detail transaksi tidak ditemukan",
                 'data' => null
             ]))->response()->setStatusCode(404);
-        }else {
+        } else {
             return (DefaultResource::make([
                 'code' => 200,
                 'message' => 'Berhasil mengambil detail transaksi',
