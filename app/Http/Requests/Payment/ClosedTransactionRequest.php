@@ -40,7 +40,7 @@ class ClosedTransactionRequest extends FormRequest
             'return_url' => 'nullable',
             'expired_time' => 'nullable',
             'signature' => 'required|string',
-            'tax' => 'sometimes|numeric|min:0',
+            // 'tax' => 'sometimes|numeric|min:0',
         ];
     }
 
@@ -61,6 +61,8 @@ class ClosedTransactionRequest extends FormRequest
             'sku.required' => 'SKU item harus diisi',
             'premium_name.required' => 'Nama item harus diisi',
             'qty.required' => 'Jumlah item harus diisi',
+            // 'tax.numeric' => 'Pajak harus berupa angka',
+            // 'tax.min' => 'Pajak minimal adalah 0'
         ];
     }
 
