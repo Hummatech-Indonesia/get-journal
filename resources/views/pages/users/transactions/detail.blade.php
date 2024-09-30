@@ -38,10 +38,12 @@
                 </div>
             </div>
             <div class="d-flex flex-column gap-3">
+                @if($data->status == "UNPAID")
                 <a href="{{ $data->checkout_url }}" target="_blank"
                     class="btn btn-sm btn-primary d-flex gap-2 justify-content-center align-items-center"><i
                         class="ki-duotone ki-credit-cart fs-1"><span class="path1"></span><span class="path2"></span></i>
                     Bayar</a>
+                @endif
                 <a href="{{ route('transactions.index') }}"
                     class="btn btn-sm btn-dark d-flex gap-2 justify-content-center align-items-center"><i
                         class="ki-duotone ki-double-left fs-1"><span class="path1"></span><span class="path2"></span></i>
