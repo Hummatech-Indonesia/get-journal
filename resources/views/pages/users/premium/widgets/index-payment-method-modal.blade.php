@@ -1,6 +1,6 @@
 <div class="modal modal-lg fade" tabindex="-1" id="pay-modal">
     <div class="modal-dialog">
-        <form class="modal-content" action="{{route('payment.closed-transaction')}}" method="post">
+        <form id="pay-premium-form" class="modal-content" action="{{route('payment.closed-transaction')}}" method="post">
             @csrf
             <input type="hidden" id="premium_type_price">
             <input type="hidden" id="premium_type_name" name="premium_name">
@@ -24,7 +24,7 @@
                     <div>
                         <div class="row">
                             <div class="col-8">No. Telp</div>
-                            <input type="text" class="col-4  border-bottom-input " value="{{ auth()->user()->profile->telp ? auth()->user()->profile->telp : '08' }}" name="phone"/>
+                            <input type="text" class="col-4  border-bottom-input " value="{{ auth()->user()->profile->telp ? auth()->user()->profile->telp : '08' }}" name="customer_phone"/>
                         </div>
                         <div class="row">
                             <div class="col-8">Kuota</div>
@@ -45,7 +45,7 @@
                         <div class="fs-1">Total</div>
                         <div class="fs-2x fw-bold">Rp <span id="total-pay"></span></div>
                     </div>
-                    <button class="btn btn-sm btn-primary w-100">Bayar</button>
+                    <button type="button" id="btn-pay-premium" class="btn btn-sm btn-primary w-100">Bayar</button>
                 </div>
             </div>
         </form>
@@ -97,8 +97,13 @@
             })
         })
 
-        $(document).on('input', '[name=phone]',function() {
+        $(document).on('input', '[name=customer_phone]',function() {
             $(this).val($(this).val().replace(/[^0-9]/g, ''))
+        })
+
+        $(document).on('click', '#btn-pay-premium', function(e) {
+            if(!$('[name=method]:checked').length) Toaster('error', 'Metode pembayaran belum dipilih')
+            else $('#pay-premium-form').submit()
         })
 
         $(document).on('input', function() {
