@@ -39,7 +39,8 @@ class ClosedTransactionRequest extends FormRequest
             'product_url' => 'nullable',
             'return_url' => 'nullable',
             'expired_time' => 'nullable',
-            'signature' => 'required|string'
+            'signature' => 'required|string',
+            'tax' => 'sometimes|numeric|min:0',
         ];
     }
 
@@ -71,9 +72,9 @@ class ClosedTransactionRequest extends FormRequest
         if(!$this->amount) $this->merge(['amount' => 0]);
         if($this->order_items) {
             $price = 0;
-            if(strtolower($this->sku) == 'prem-smt') $price = 149999;
-            else if(strtolower($this->sku) == 'prem-thn') $price = 279999;
-            else if(strtolower($this->sku) == 'prem-bln') $price =29999;
+            if (strtolower($this->sku) == 'prem-smt') $price = 149999;
+            else if (strtolower($this->sku) == 'prem-thn') $price = 279999;
+            else if (strtolower($this->sku) == 'prem-bln') $price = 29999;
 
             $this->merge([
                 'order_items' => [
