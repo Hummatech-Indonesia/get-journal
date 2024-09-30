@@ -68,7 +68,7 @@ class ClosedTransactionRequest extends FormRequest
     {
         if(!$this->signature) $this->merge(['signature' => '-']);
         if(!$this->merchant_ref) $this->merge(['merchant_ref' => '-']);
-        if(!$this->customer_phone) $this->merge(['customer_phone' => $this->phone ?? '-']);
+        if(!$this->customer_phone) $this->merge(['customer_phone' => $this->phone ?? '00000000']);
         if(!$this->amount) $this->merge(['amount' => 0]);
         if($this->order_items) {
             $price = 0;
