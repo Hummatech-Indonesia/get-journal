@@ -66,11 +66,11 @@ class ClosedTransactionRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        if (!$this->signature) $this->merge(['signature' => '-']);
-        if (!$this->merchant_ref) $this->merge(['merchant_ref' => '-']);
-        if (!$this->customer_phone) $this->merge(['customer_phone' => '-']);
-        if (!$this->amount) $this->merge(['amount' => 0]);
-        if ($this->order_items) {
+        if(!$this->signature) $this->merge(['signature' => '-']);
+        if(!$this->merchant_ref) $this->merge(['merchant_ref' => '-']);
+        if(!$this->customer_phone) $this->merge(['customer_phone' => $this->phone ?? '-']);
+        if(!$this->amount) $this->merge(['amount' => 0]);
+        if($this->order_items) {
             $price = 0;
             if (strtolower($this->sku) == 'prem-smt') $price = 149999;
             else if (strtolower($this->sku) == 'prem-thn') $price = 279999;
@@ -94,10 +94,14 @@ class ClosedTransactionRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'success' => false,
-            'message' => 'Invalid request, please check again',
-            'data'    => $validator->errors()
-        ], 422));
+        if($this->type == "mobile"){
+            throw new HttpResponseException(response()->json([
+                'success' => false,
+                'message' => 'Invalid request, please check again',
+                'data'    => $validator->errors()
+            ], 422));
+        } else {
+            return redirect()->back()->withError($validator)->withInput();
+        }
     }
 }
