@@ -280,6 +280,7 @@ class TripayService
                                     $payload['quantity_premium'] = $profile->quota_premium + $total;
                                     break;
                                 case 'prem-bln':
+                                    if($profile->expired_at) $date = new DateTime($profile->expired_at);
                                     $date->add(new DateInterval('P' . $json_items[0]->quantity . 'M'));
                                     $quantity = 1;
                                     $times = $json_items[0]->quantity;
@@ -288,7 +289,7 @@ class TripayService
                                     $payload['is_premium_private'] = 1;
                                     $payload['premium_expired_at'] = $date->format('Y-m-d');
 
-                                    $profile->classrooms->toQuery()->where('is_locked',1)->update(['is_locked' => 0]);
+                                    if(count($profile?->classrooms) > 0) $profile->classrooms->toQuery()->where('is_locked',1)->update(['is_locked' => 0]);
                                     break;
                             }
                             
