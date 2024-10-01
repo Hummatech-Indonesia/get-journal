@@ -57,6 +57,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
             if($status) $query->where('status',$status);
             if($user_id) $query->where('user_id',$user_id);
         })
+        ->latest()
         ->get();
     }
 
