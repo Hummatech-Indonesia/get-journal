@@ -122,6 +122,24 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         ->paginate($per_page, ['*'], 'page', $page);
     }
 
+    public function getClassSchoolNoPaginate(array $ids, ?array $payload): mixed
+    {
+        try{
+            $search = $payload["search"]; 
+        }catch(\Throwable $th){ }
+
+        return $this->model->query()
+        ->with('profile','assignments','background')
+        ->withCount('students','assignments','journals')
+        ->when($search, function ($query) use ($search){
+            $query->where('name', 'like', '%'.$search.'%')
+            ->orWhere('code', 'like', '%'.$search.'%')
+            ->orWhereRelation('profile','name','like','%'.$search.'%');
+        })
+        ->whereIn('profile_id',$ids)
+        ->get();
+    }
+
     public function getStudentByClass(Request $request): mixed
     {
         return $this->model->query()

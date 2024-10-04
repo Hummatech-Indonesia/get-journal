@@ -59,6 +59,7 @@ Route::prefix('auth')->group(function () {
     Route::prefix('list')->name('list.')->group(function() {
         Route::get('users', [UserController::class, 'listUser'])->name('user');
         Route::get('classrooms', [ClassroomController::class, 'classSchool'])->name('classrooms');
+        Route::get('classrooms-no-paginate', [ClassroomController::class, 'classSchoolNoPaginate'])->name('classrooms.no-paginate');
     });
 
     Route::prefix('detail')->name('detail.')->group(function() {

@@ -128,7 +128,10 @@ class ClassroomController extends Controller
 
         $user = $this->user->show($request->user_id);
 
-        $userSchool = $this->profile->getWhereData(['related_code' => $user->profile->code]);
+        $query = ['related_code' => $user?->profile?->code];
+        if($request->teacher_id) $query["id"] = $request->teacher_id;
+        
+        $userSchool = $this->profile->getWhereData($query);
         $selectedIds = $userSchool->pluck('id')->toArray();
         
         $payload = [
@@ -138,6 +141,31 @@ class ClassroomController extends Controller
         if($request->search) $payload["search"] = $request->search;
 
         $classrooms = $this->classroom->getClassSchoolPaginate($selectedIds,$payload);
+
+        return (ClassroomResource::make([
+            "success" => true,
+            "message" => "Berhasil mengambil data kelas",
+            "data" => $classrooms
+        ]))->response()->setStatusCode(200);
+    }
+
+    public function classSchoolNoPaginate(Request $request)
+    {
+        if(!$request->user_id) return (DefaultResource::make([
+            'code' => 400,
+            'message' => 'Field "user_id" harus di isi',
+            'data' => null
+        ]))->response()->setStatusCode(400);
+
+        $user = $this->user->show($request->user_id);
+
+        $userSchool = $this->profile->getWhereData(['related_code' => $user->profile->code]);
+        $selectedIds = $userSchool->pluck('id')->toArray();
+        
+        $payload = [];
+        if($request->search) $payload["search"] = $request->search;
+
+        $classrooms = $this->classroom->getClassSchoolNoPaginate($selectedIds,$payload);
 
         return (ClassroomResource::make([
             "success" => true,
