@@ -167,12 +167,8 @@
                             const data_str = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" class="btn btn-icon btn-sm btn-active-light-primary btn-show-description" data-bs-toggle="modal" data-bs-target="#modal-detail" data-detail="${data_str}">
-                                        <i class="ki-duotone ki-eye fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                        </i>
+                                    <button type="button" class="btn btn-sm btn-light-primary btn-show-description" data-bs-toggle="modal" data-bs-target="#modal-detail" data-detail="${data_str}">
+                                        Detail
                                     </button>
                                 </div>
                             `

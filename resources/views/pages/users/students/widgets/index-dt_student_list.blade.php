@@ -96,12 +96,8 @@
                             detail_url = detail_url.replace('data_id', row.id)
                             return `
                                 <div>
-                                    <a href="${detail_url}" class="btn btn-icon btn-sm btn-active-light-primary">
-                                        <i class="ki-duotone ki-eye fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                        </i>
+                                    <a href="${detail_url}" class="btn btn-sm btn-light-primary">
+                                        Detail
                                     </a>
                                 </div>
                             `

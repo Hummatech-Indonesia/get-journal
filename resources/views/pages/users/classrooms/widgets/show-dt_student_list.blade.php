@@ -1,13 +1,13 @@
-<div class="d-flex justify-content-between align-items-center">
-    <a href="{{ route('classes.index') }}" class="btn btn-primary btn-sm">&LeftArrow; Kembali</a>
-    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x fw-bolder">
         <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#pane_siswa">Siswa</a>
+            <a class="nav-link text-primary active" data-bs-toggle="tab" href="#pane_siswa">Siswa</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#pane_jurnal">Jurnal</a>
+            <a class="nav-link text-primary" data-bs-toggle="tab" href="#pane_jurnal">Jurnal</a>
         </li>
     </ul>
+    <a href="{{ route('classes.index') }}" class="btn btn-dark btn-sm">&LeftArrow; Kembali</a>
 </div>
 
 <div class="tab-content" id="myTabContent">

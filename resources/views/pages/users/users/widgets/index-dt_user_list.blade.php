@@ -111,12 +111,8 @@
                             let str_user = JSON.stringify(row).replaceAll('"', "`")
                             return `
                                 <div>
-                                    <button type="button" class="btn-user-detail btn btn-icon btn-sm btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#user-detail-modal" data-user="${str_user}">
-                                        <i class="ki-duotone ki-eye fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                        </i>
+                                    <button type="button" class="btn-user-detail btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#user-detail-modal" data-user="${str_user}">
+                                        Detail
                                     </button>
                                 </div>
                             `
