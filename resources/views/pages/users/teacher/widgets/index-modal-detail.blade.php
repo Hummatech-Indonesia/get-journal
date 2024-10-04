@@ -58,25 +58,25 @@
             
             let data_classrooms = ''
 
-            console.log({data_teacher})
             data_teacher.profile.classrooms.forEach((room, index) => {
+                let class_url = "{{route('classes.show', 'selected_id')}}"
+                class_url = class_url.replace('selected_id', room.id)
+
                 data_classrooms += `
                     <div class="col-12 col-lg-6 pb-5">
-                        <div class="card bg-light-primary w-100">
+                        <a href="${class_url}" class="card bg-light-primary w-100">
                             <div class="card-body p-4 d-flex gap-0 flex-column justify-content-between">
                                 <div class="lead mb-0 text-primary fs-3">${room.name}</div>
                                 <div>
                                     <span class="badge badge-xl bg-primary text-white rounded">${room.code}</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 `
             })
 
             $('#teacher-detail-modal #class-list').html(data_classrooms)
-
-            console.log({data_teacher, data_classrooms})
         })
 
         $(document).on('click', '#teacher-detail-modal #unlink-btn', function() {
