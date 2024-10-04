@@ -147,4 +147,19 @@ class JournalRepository extends BaseRepository implements JournalInterface
             }
         });
     }
+
+    public function getJournalSchool(array $ids, ?array $payload): mixed
+    {
+        $date = null;
+        try{
+            $date = $payload["date"]; 
+        }catch(\Throwable $th){ }
+
+        return $this->model->query()
+        ->with('profile','lesson','classroom','permit.profile','sick.profile','alpha.profile')
+        ->when($date, function ($query) use ($date){
+            $query->whereDate('date', $date);
+        })
+        ->whereIn('profile_id',$ids);
+    }
 }

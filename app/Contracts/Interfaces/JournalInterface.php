@@ -14,4 +14,5 @@ use App\Contracts\Interfaces\Journal\GetJournalByUserInterface;
 
 interface JournalInterface extends GetJournalByUserInterface, GetJournalByClassroomInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface, ExportJournalInterface, GetWhereInterface
 {
+    public function getJournalSchool(array $ids, ?array $payload): mixed;
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Journal;
 
 use App\Contracts\Interfaces\JournalInterface;
+use App\Contracts\Interfaces\User\ProfileInterface;
 use App\Exports\JournalExport;
 use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
@@ -18,10 +19,12 @@ use Maatwebsite\Excel\Excel as ExcelExcel;
 class JournalController extends Controller
 {
     private JournalInterface $journal;
+    private ProfileInterface $profile;
 
-    public function __construct(JournalInterface $journal)
+    public function __construct(JournalInterface $journal, ProfileInterface $profile)
     {
         $this->journal = $journal;
+        $this->profile = $profile;
     }
 
     /**
@@ -116,5 +119,21 @@ class JournalController extends Controller
         $data = $this->journal->getWhere(["classroom_id" => $request->classroom_id])->get();
 
         return BaseDatatable::TableV2($data->toArray());
+    }
+
+    public function tableJournalV2(Request $request)
+    {
+        $query = ['related_code' => $request->code];
+        
+        $userSchool = $this->profile->getWhereData($query);
+        $selectedIds = $userSchool->pluck('id')->toArray();
+
+        $payload = [];
+        if($request->date) $payload["date"] = $request->date;
+
+        $classrooms = $this->journal->getJournalSchool($selectedIds,$payload);
+        $data = $this->journal->getWhere(["classroom_id" => $request->classroom_id]);
+
+        return BaseDatatable::Table($data);
     }
 }

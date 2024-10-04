@@ -114,9 +114,11 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         ->with('profile','assignments','background')
         ->withCount('students','assignments','journals')
         ->when($search, function ($query) use ($search){
-            $query->where('name', 'like', '%'.$search.'%')
-            ->orWhere('code', 'like', '%'.$search.'%')
-            ->orWhereRelation('profile','name','like','%'.$search.'%');
+            $query->where(function($query2) use ($search) {
+                $query2->where('name', 'like', '%'.$search.'%')
+                      ->orWhere('code', 'like', '%'.$search.'%')
+                      ->orWhereRelation('profile','name','like','%'.$search.'%');
+            });
         })
         ->whereIn('profile_id',$ids)
         ->paginate($per_page, ['*'], 'page', $page);
@@ -124,6 +126,7 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
 
     public function getClassSchoolNoPaginate(array $ids, ?array $payload): mixed
     {
+        $search = null;
         try{
             $search = $payload["search"]; 
         }catch(\Throwable $th){ }
@@ -132,9 +135,11 @@ class ClassroomRepository extends BaseRepository implements ClassroomInterface
         ->with('profile','assignments','background')
         ->withCount('students','assignments','journals')
         ->when($search, function ($query) use ($search){
-            $query->where('name', 'like', '%'.$search.'%')
-            ->orWhere('code', 'like', '%'.$search.'%')
-            ->orWhereRelation('profile','name','like','%'.$search.'%');
+            $query->where(function($query2) use ($search) {
+                $query2->where('name', 'like', '%'.$search.'%')
+                      ->orWhere('code', 'like', '%'.$search.'%')
+                      ->orWhereRelation('profile','name','like','%'.$search.'%');
+            });
         })
         ->whereIn('profile_id',$ids)
         ->get();

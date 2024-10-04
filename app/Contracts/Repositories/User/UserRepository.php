@@ -107,6 +107,14 @@ class UserRepository extends BaseRepository implements UserInterface
                     $q->where('related_code', $request->code);
                 });
             }
+
+            if($request->classrrom_id){
+                $query->whereRelation('profile.classroom','id',$request->classroom_id);
+            }
+
+            if($request->teacher_id) {
+                $query->whereRelation('profile','id',$request->teacher_id);
+            }
         });
     }
 

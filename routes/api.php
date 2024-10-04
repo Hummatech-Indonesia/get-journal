@@ -54,6 +54,7 @@ Route::prefix('auth')->group(function () {
         Route::get('list-users', [UserController::class, 'dataUser'])->name('data-user');
         Route::get('list-students', [UserController::class, 'listStudent'])->name('data-students');
         Route::get('list-journals', [JournalController::class, 'tableJournal'])->name('data-journals');
+        Route::get('v2/list-journals', [JournalController::class, 'tableJournalV2'])->name('v2.data-journals');
     });
 
     Route::prefix('list')->name('list.')->group(function() {
