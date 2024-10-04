@@ -159,7 +159,10 @@ class ClassroomController extends Controller
 
         $user = $this->user->show($request->user_id);
 
-        $userSchool = $this->profile->getWhereData(['related_code' => $user->profile->code]);
+        $query = ['related_code' => $user?->profile?->code];
+        if($request->teacher_id) $query["id"] = $request->teacher_id;
+        
+        $userSchool = $this->profile->getWhereData($query);
         $selectedIds = $userSchool->pluck('id')->toArray();
         
         $payload = [];
