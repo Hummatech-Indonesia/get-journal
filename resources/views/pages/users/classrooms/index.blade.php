@@ -6,17 +6,22 @@
     @include('components.swal')
     <div class="d-flex h-100 flex-column align-self-stretch">
         <div class="row">
-            <div class="col-9 col-md-6 col-lg-4 col-xl-3">
-                <div class="input-group">
+            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="input-group mb-2">
                     <input type="text" class="form-control" placeholder="cari..." name="search">
                     <div class="input-group-text">
                         <i class="fa-duotone fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
             </div>
-            <div class="d-none d-md-block col-md-3 col-lg-6 col-xl-7"></div>
+            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                <select name="teacher" id="teacher" class="form-select mb-2">
+                    <option value="">Filter Guru</option>
+                </select>
+            </div>
+            <div class="d-none col-md-1 col-lg-2 col-xl-4"></div>
             <div class="col-3 col-md-3 col-lg-2">
-                <select name="per_page" id="per_page" class="form-select">
+                <select name="per_page" id="per_page" class="form-select mb-2">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -147,6 +152,7 @@
 
 @push('script')
     <script>
+        getTeacher()
         getSchool()
 
         function getSchool(url = "{{ route('list.classrooms') }}") {
@@ -158,6 +164,7 @@
                     _token: "{{ csrf_token() }}",
                     user_id: "{{ auth()->id() }}",
                     per_page: $('[name=per_page]').val(),
+                    teacher_id: $('#teacher').val()
                 },
                 success: (res) => {
                     drawClassroomCard(res.data.data)
@@ -166,6 +173,30 @@
                 }
             })
         }
+
+        function getTeacher() {
+            $.ajax({
+                url: "/api/auth/list/users",
+                data: {
+                    role: 'teacher',
+                    code: "{{ auth()->user()->profile?->code }}"
+                },
+                success: (row) => {
+                    const teachers = row.data
+                    let teacher_option = `<option value="">Filter Guru</option>`
+                    teachers.forEach((item, index) => {
+                        teacher_option += `<option value="${item.profile.id}">${item.name}</option>`
+                    })
+                    $('#teacher').html(teacher_option)
+                }, error: (xhr) => {
+                    console.error(xhr)
+                }
+            })
+        }
+
+        $(document).on('change', '#teacher', function() {
+            getSchool()
+        })
 
         $(document).on('change', '[name=per_page]', function() {getSchool()})
 

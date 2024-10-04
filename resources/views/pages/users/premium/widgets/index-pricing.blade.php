@@ -32,7 +32,16 @@
                         <div class="w-100 mb-10">
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
-                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Hingga 2 kelas</span>
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Hingga 2 guru</span>
+                                <i class="ki-duotone ki-minus-circle fs-1 text-primary">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Hingga 2 kelas / guru</span>
                                 <i class="ki-duotone ki-minus-circle fs-1 text-primary">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -50,8 +59,26 @@
                             <!--end::Item-->
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Unduh jurnal terbatas</span>
+                                <i class="ki-duotone ki-minus-circle fs-1 text-primary">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Unduh nilai terbatas</span>
+                                <i class="ki-duotone ki-minus-circle fs-1 text-primary">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
                                 <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Tanpa Iklan</span>
-                                <i class="ki-duotone ki-cross-circle fs-1">
+                                <i class="ki-duotone ki-cross-circle fs-1 text-danger">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
@@ -92,6 +119,15 @@
                         <div class="w-100 mb-10">
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Guru tanpa batas</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
                                 <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Kelas tanpa batas</span>
                                 <i class="ki-duotone ki-check-circle fs-1 text-success">
                                     <span class="path1"></span>
@@ -102,6 +138,24 @@
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
                                 <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Siswa tanpa batas</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Untuh jurnal sepuasnya</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Unduh nilai sepuasnya</span>
                                 <i class="ki-duotone ki-check-circle fs-1 text-success">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -153,6 +207,15 @@
                         <div class="w-100 mb-10">
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Guru tanpa batas</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
                                 <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Kelas tanpa batas</span>
                                 <i class="ki-duotone ki-check-circle fs-1 text-success">
                                     <span class="path1"></span>
@@ -163,6 +226,24 @@
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-5">
                                 <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Siswa tanpa batas</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Untuh jurnal sepuasnya</span>
+                                <i class="ki-duotone ki-check-circle fs-1 text-success">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </div>
+                            <!--end::Item-->
+                            <!--begin::Item-->
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">Unduh nilai sepuasnya</span>
                                 <i class="ki-duotone ki-check-circle fs-1 text-success">
                                     <span class="path1"></span>
                                     <span class="path2"></span>

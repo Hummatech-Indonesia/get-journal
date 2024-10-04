@@ -2,6 +2,8 @@
 
 @section('title', 'Detail Transaksi')
 
+@inject('carbon', 'Carbon\Carbon')
+
 @section('content')
     @include('components.swal')
     <div class="row">
@@ -20,6 +22,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="text-muted">Metode Pembayaran</div>
                         <div>{{ $data->payment_name }}</div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="text-muted">Tanggal Pembelian</div>
+                        <div>{{ $carbon::parse($data->created_at)->format('Y-m-d H:i:s') }}</div>
                     </div>
                 </div>
             </div>
@@ -59,7 +65,6 @@
         const transaction = @json($data);
         const instruction = JSON.parse({!! json_encode($data->instructions) !!});
         const items = JSON.parse({!! json_encode($data->order_items) !!});
-        console.log(items)
 
         
         $(function(){

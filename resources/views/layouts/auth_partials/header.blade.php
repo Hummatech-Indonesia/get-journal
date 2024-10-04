@@ -13,7 +13,9 @@
         <!--end::Aside mobile toggle-->
         <!--begin::Navbar-->
         <div class="d-flex align-items-stretch" id="kt_header_nav">
-            <div class="d-flex justify-content-start align-items-center fw-bolder text-gray-900 fw-bold h1">@yield('title')</div>
+            <div class="d-flex justify-content-start align-items-center fw-bolder text-gray-900 fw-bold h1">
+                {{ trim($__env->yieldContent('alt-title')) ? $__env->yieldContent('alt-title') : $__env->yieldContent('title') }}
+            </div>
         </div>
         <!--end::Navbar-->
         <!--begin::Wrapper-->

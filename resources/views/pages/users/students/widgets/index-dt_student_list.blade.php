@@ -3,6 +3,18 @@
         <div class="alert alert-warning" role="alert">
             Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
         </div>
+        <div class="d-flex gap-2 align-items-center" id="filter">
+            <div class="form-group" id="filter-teacher">
+                <select name="teacher" id="teacher" class="form-select form-select-sm">
+                    <option value="">Filter Guru</option>
+                </select>
+            </div>
+            <div class="form-group" id="filter-class" style="display: none">
+                <select name="class" id="class" class="form-select form-select-sm">
+                    <option value="">Filter Kelas</option>
+                </select>
+            </div>
+        </div>
         <table class="table align-middle" id="dt-students"></table>
     </div>
 </div>
@@ -48,13 +60,18 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
+                    const filter = $('#filter').detach()
+                    $('.custom-container').append(filter)
+                    getTeacher()
                     isCanSubmitPremium()
                 },
                 ajax: {
                     url: "{{ route('data-table.data-students') }}",
-                    data: {
-                        role: 'student',
-                        code: "{{ auth()->user()->profile->code }}"
+                    data: function(d){
+                        d.role = 'student',
+                        d.code = "{{ auth()->user()->profile->code }}",
+                        d.teacher_id = $('#teacher').val(),
+                        d.classroom_id = $('#class').val()
                     }
                 },
                 columns: [
@@ -68,7 +85,6 @@
                         data: 'name',
                         title: "Siswa",
                         render: (data, type, row) => {
-                            console.log(row)
                             const img = (row.photo ? row.photo : '/assets/media/avatars/blank.png')
                             return `
                                 <div class="d-flex align-items-center gap-1">
@@ -124,9 +140,67 @@
                 isCanSubmitPremium()
             })
 
+            function getTeacher() {
+                $.ajax({
+                    url: "/api/auth/list/users",
+                    data: {
+                        role: 'teacher',
+                        code: "{{ auth()->user()->profile?->code }}"
+                    },
+                    success: (row) => {
+                        const teachers = row.data
+                        let teacher_option = `<option value="">Filter Guru</option>`
+                        teachers.forEach((item, index) => {
+                            teacher_option += `<option value="${item.profile.id}">${item.name}</option>`
+                        })
+                        $('#teacher').html(teacher_option)
+                    }, error: (xhr) => {
+                        console.error(xhr)
+                    }
+                })
+            }
+
+            function getClass() {
+                $('#class').val('')
+                if($('#teacher').val()) $('#filter-class').show()
+                else $('#filter-class').hide()
+
+                $.ajax({
+                    url: "/api/auth/list/classrooms-no-paginate",
+                    data: {
+                        teacher_id: $('#teacher').val(),
+                        _token: "{{ csrf_token() }}",
+                        user_id: "{{ auth()->id() }}"
+                    },
+                    success: (row) => {
+                        const classrooms = row.data
+                        let class_option = `<option value="">Filter Kelas</option>`
+                        classrooms.forEach((item, index) => {
+                            class_option += `<option value="${item.id}">${item.name}</option>`
+                        })
+                        $('#class').html(class_option)
+                    }, error: (xhr) => {
+                        console.error(xhr)
+                    }
+                })
+            }
+
+            $(document).on('change', '#teacher', function() {
+                getClass()
+                reloadData()
+            })
+
+            $(document).on('change', '#class', function() {
+                reloadData()
+            })
+
             function isCanSubmitPremium() {
                 if(!$('.check-teacher:checked').length) $('#submit-premium').addClass('disabled')
                 else $('#submit-premium').removeClass('disabled')
+            }
+
+            function reloadData() {
+                dt_students.ajax.reload()
             }
         })
     </script>

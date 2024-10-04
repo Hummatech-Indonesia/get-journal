@@ -120,9 +120,15 @@
                             else return '<div class="badge bg-light-danger text-danger">Kedaluwarsa</div>'
                         }
                     }, {
+                        title: "Item",
+                        mRender: (data, type, row) => {
+                            const data_premium = JSON.parse(row.order_items.replaceAll('&quot;', '"'))[0]
+
+                            return data_premium.sku == "PREM-SMT" ? `<div class="badge bg-light-primary text-primary">${data_premium.name}</div>` : `<div class="badge bg-light-success text-success">${data_premium.name}</div>`
+                        }
+                    }, {
                         title: "Aksi",
                         mRender: (data, type, row) => {
-                            console.log(row)
                             let url = "{{route('transactions.show', 'reference_hehe')}}"
                             url = url.replace('reference_hehe', row['merchant_ref'])
                             let return_el = '<div class="d-flex gap-2 align-items-center justify-content-center">'

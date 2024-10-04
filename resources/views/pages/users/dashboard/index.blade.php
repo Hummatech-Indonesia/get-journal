@@ -1,6 +1,7 @@
 @extends('layouts.auth')
 
 @section('title', 'Dashboard')
+@section('alt-title', ('Selamat Datang '.Auth::user()->profile->name))
 
 @push('style')
     <link rel="stylesheet" href="{{asset('assets/plugins/custom/datatablesnet/datatables.min.css')}}">
