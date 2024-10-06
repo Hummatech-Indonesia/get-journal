@@ -31,7 +31,17 @@
 
     @include('pages.users.dashboard.widgets.index-score_card')
 
-    @include('pages.users.dashboard.widgets.index-dt_newest_teacher')
+    <div class="row">
+        <div class="mb-5 col-12 col-lg-6">
+            @include('pages.users.dashboard.widgets.index-dt_newest_teacher')
+        </div>
+        <div class="mb-5 col-12 col-lg-6">
+            @include('pages.users.dashboard.widgets.index-dt_newest_journal')
+        </div>
+        <div class="col-12">
+            @include('pages.users.dashboard.widgets.index-dt_premium')
+        </div>
+    </div>
 
     @include('components.swal')
 @endsection

@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function() {
         })->name('index');
         Route::get('{id}', function(string $id) {
             $classroom = \App\Models\Classroom::with(['students', 'assignments', 'background'])->find($id);
-            return view('pages.users.classrooms.show', compact('classroom'));
+            $all_classrooms = $classroom->profile->classrooms;
+            return view('pages.users.classrooms.show', compact('classroom', 'all_classrooms'));
         })->name('show');
     });
     Route::name('student.')->prefix('student')->group(function() {

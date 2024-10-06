@@ -48,7 +48,7 @@
             $('#teacher-detail-modal #teacher-id').text(data_teacher.profile.identity_number)
             $('#teacher-detail-modal #is-premium').html((
                 parseInt(data_teacher.profile.is_premium) ?
-                '<span class="badge badge-light-primary text-primary">Premium</span>' :
+                `<span class="badge badge-light-primary text-primary">Premium hingga ${moment(data_teacher.profile.premium_expired_at).locale('id').format('DD MMMM YYYY')}</span>` :
                 '<span class="badge badge-light-warning text-warning">Non Premium</span>'
             ))
             $('#teacher-detail-modal #class-count').text('Kelas : '+data_teacher.profile.classrooms.length)

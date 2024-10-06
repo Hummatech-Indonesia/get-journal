@@ -5,6 +5,14 @@
 @section('content')
     @include('components.swal')
 
+    <div class="d-flex justify-content-end">
+        <div class="btn-group btn-group-sm mb-3">
+            @foreach($all_classrooms as $room)
+            <a href="{{ route('classes.show', $room->id) }}" class="btn btn-light-info {{ $room->id == $classroom->id ? 'active' : '' }}">{{ $room->name }}</a>
+            @endforeach
+        </div>
+    </div>
+
     <div class="card mb-5" style="background-image: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.8)), url({{ $classroom->background->image ? asset('storage').'/'.$classroom->background->image : asset('assets/media/books/img-72.jpg') }});background-size: cover; min-height:150px;">
         <div class="card-body d-flex flex-column justify-content-between">
             <div class="mb-3">

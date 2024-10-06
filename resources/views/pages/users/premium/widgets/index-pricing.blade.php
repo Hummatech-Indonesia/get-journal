@@ -107,8 +107,9 @@
                             <!--end::Description-->
                             <!--begin::Price-->
                             <div class="text-center">
+                                <div class="opacity-50 text-decoration-line-through">Rp 180.000</div>
                                 <span class="mb-2 text-primary">Rp</span>
-                                <span class="fs-3x fw-bold text-primary">149.999</span>
+                                <span class="fs-3x fw-bold text-primary">160.000</span>
                                 <span class="fs-7 fw-semibold opacity-50">/
                                     <span data-kt-element="period">smt</span></span>
                             </div>
@@ -173,7 +174,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Bulan" data-price="149999" data-name="Premium 1 Semester" data-duration="1" data-sku="PREM-SMT" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
+                        <button type="button" data-type="1 Bulan" data-price="160000" data-name="Premium 1 Semester" data-duration="1" data-sku="PREM-SMT" class="btn-select-premium btn btn-sm btn-primary">Pilih</butt>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->
@@ -195,8 +196,9 @@
                             <!--end::Description-->
                             <!--begin::Price-->
                             <div class="text-center">
+                                <div class="opacity-50 text-decoration-line-through">Rp 360.000</div>
                                 <span class="mb-2 text-primary">Rp</span>
-                                <span class="fs-3x fw-bold text-primary">279.999</span>
+                                <span class="fs-3x fw-bold text-primary">300.000</span>
                                 <span class="fs-7 fw-semibold opacity-50">/
                                     <span data-kt-element="period">Thn</span></span>
                             </div>
@@ -261,7 +263,7 @@
                         </div>
                         <!--end::Features-->
                         <!--begin::Select-->
-                        <button type="button" data-type="1 Tahun" data-name="Premium 1 Tahun" data-price="279999" data-duration="12" data-sku='PREM-THN' class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
+                        <button type="button" data-type="1 Tahun" data-name="Premium 1 Tahun" data-price="300000" data-duration="12" data-sku='PREM-THN' class="btn-select-premium btn btn-sm btn-primary">Pilih</button>
                         <!--end::Select-->
                     </div>
                     <!--end::Option-->

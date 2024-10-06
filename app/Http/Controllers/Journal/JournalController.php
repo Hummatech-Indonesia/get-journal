@@ -123,6 +123,7 @@ class JournalController extends Controller
 
     public function tableJournalV2(Request $request)
     {
+        return $request->all();
         $query = ['related_code' => $request->code];
         
         $userSchool = $this->profile->getWhereData($query);

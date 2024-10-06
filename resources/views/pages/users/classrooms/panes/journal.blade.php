@@ -199,7 +199,7 @@
 
             $(document).on('click', '.btn-show-description', function() {
                 const detail = JSON.parse($(this).data('detail').replaceAll('`', '"'))
-                $('#modal-detail .modal-body #description').html(detail.description)
+                $('#modal-detail .modal-body #description').html(detail.description.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2'))
                 const list_permit = detail.permit.map((item) => item.profile.name).join(', ')
                 const list_sick = detail.sick.map((item) => item.profile.name).join(', ')
                 const list_alpha = detail.alpha.map((item) => item.profile.name).join(', ')

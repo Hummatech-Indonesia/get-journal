@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card h-100 mb-3">
     <div class="card-body">
         <h4>Guru Terbaru</h4>
         <div class="table-responsive">
@@ -22,7 +22,7 @@
                 ],
                 dom: "rt",
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
@@ -64,8 +64,8 @@
                     {
                         data: 'user_premium',
                         title: "Premium",
-                        render: (data, type) => {
-                            if(data) return `<span class="badge bg-light-primary text-primary">Premium</span>`
+                        render: (data, type, row) => {
+                            if(data) return `<span class="badge bg-light-primary text-primary">Premium hingga ${moment(row.profile.premium_expired_at).locale('id').format('DD MMMM YYYY')}</span>`
                             return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
                         },
                         orderable: false,

@@ -97,8 +97,8 @@
                     {
                         data: 'user_premium',
                         title: "Premium",
-                        render: (data, type) => {
-                            if(data) return `<span class="badge bg-light-primary text-primary">Premium</span>`
+                        render: (data, type, row) => {
+                            if(data) return `<span class="badge bg-light-primary text-primary">Premium hingga ${moment(row.profile.premium_expired_at).locale('id').format("DD MMMM YYYY")}</span>`
                             return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
                         }
                     },
