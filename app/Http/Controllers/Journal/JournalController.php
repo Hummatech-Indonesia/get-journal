@@ -123,7 +123,6 @@ class JournalController extends Controller
 
     public function tableJournalV2(Request $request)
     {
-        return $request->all();
         $query = ['related_code' => $request->code];
         
         $userSchool = $this->profile->getWhereData($query);
@@ -133,8 +132,7 @@ class JournalController extends Controller
         if($request->date) $payload["date"] = $request->date;
 
         $classrooms = $this->journal->getJournalSchool($selectedIds,$payload);
-        $data = $this->journal->getWhere(["classroom_id" => $request->classroom_id]);
 
-        return BaseDatatable::Table($data);
+        return BaseDatatable::Table($classrooms);
     }
 }
