@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Lesson;
 
 use App\Contracts\Interfaces\LessonInterface;
+use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Lesson\StoreRequest;
 use App\Http\Requests\Lesson\UpdateRequest;
@@ -74,5 +75,12 @@ class LessonController extends Controller
             return DefaultResource::make(['code' => 200, 'message' => 'Data berhasil dihapus'])->response()->setStatusCode(200);
         }
         return DefaultResource::make(['code' => 500, 'message' => 'Data gagal dihapus'])->response()->setStatusCode(500);
+    }
+
+    public function tableLessonInClassroom(Request $request)
+    {
+        $data = $this->lesson->get($reqquest->classroom_id ?? '-');
+
+        return BaseDatatable::TableV2($data->toArray());
     }
 }

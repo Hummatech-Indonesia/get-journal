@@ -30,8 +30,7 @@ class QuotaPremiumRepository extends BaseRepository implements QuotaPremiumInter
             foreach($data as $index => $value){
                 $query->where($index, $value);
             }
-        })
-        ->first();
+        });
     }
 
     /**

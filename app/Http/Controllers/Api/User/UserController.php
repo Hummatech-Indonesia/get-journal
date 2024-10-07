@@ -303,4 +303,13 @@ class UserController extends Controller
             "data" => $user
         ])->response()->setStatusCode(200);
     }
+
+    public function tableListQuota(Request $request)
+    {
+        $payload = [];
+        if($request->user_id) $payload["user_id"] = $request->user_id;
+
+        $data = $this->quotaPremium->getWhere($payload);
+        return BaseDatatable::Table($data);
+    }
 }
