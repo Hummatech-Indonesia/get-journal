@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Assignment;
 use App\Contracts\Interfaces\Assignment\MarkAssignmentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Repositories\StudentRepository;
+use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Assignment\MarkRequest;
 use App\Http\Resources\DefaultResource;
@@ -63,5 +64,16 @@ class MarkController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function tableMarks(Request $request)
+    {
+        $payload = [];
+
+        if($request->student_id) $payload["student_id"] = $request->student_id;
+
+        $data = $this->mark->customQuery($payload);
+
+        return BaseDatatable::Table($data);
     }
 }

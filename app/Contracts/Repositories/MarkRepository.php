@@ -62,4 +62,24 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
             return false;
         }
     }
+
+    public function customQuery(array $data): mixed
+    {
+        $student_id = null;
+        try{
+            $student_id = $data["student_id"];
+            unset($data["student_id"]);
+        }catch(\Throwable $th){ }
+
+        return $this->model->query()
+        ->with('assignment','classroomStudent')
+        ->when(count($data) > 0, function ($query) use ($data){
+            foreach($data as $key => $value) {
+                $query->where($key, $value);
+            }
+        })
+        ->when($student_id, function ($query) use ($student_id) {
+            $query->whereRelation('classroomStudent','student_id', $student_id);
+        });
+    }
 }

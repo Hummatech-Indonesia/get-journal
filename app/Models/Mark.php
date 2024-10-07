@@ -24,4 +24,9 @@ class Mark extends Model
     {
         return $this->belongsTo(ClassroomStudent::class, 'classroom_student_id');
     }
+
+    public function assignment(): BelongsTo
+    {
+        return $this->belongsTo(Assignment::class);
+    }
 }
