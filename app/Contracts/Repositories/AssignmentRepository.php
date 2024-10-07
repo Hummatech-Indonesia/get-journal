@@ -96,4 +96,11 @@ class AssignmentRepository extends BaseRepository implements AssignmentInterface
 
         return false;
     }
+
+    public function customQuery(array $ids): mixed
+    {
+        return $this->model
+            ->with('marks')
+            ->whereIn('lesson_id', $ids);
+    }
 }

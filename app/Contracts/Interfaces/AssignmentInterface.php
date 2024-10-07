@@ -12,4 +12,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface AssignmentInterface extends GetByLessonInterface, StoreInterface, ShowInterface, UpdateInterface, DeleteInterface, ExportMarkInterface
 {
+    public function customQuery(array $ids): mixed;
 }

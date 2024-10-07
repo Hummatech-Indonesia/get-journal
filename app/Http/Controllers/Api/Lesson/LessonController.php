@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Lesson;
 
+use App\Contracts\Interfaces\AssignmentInterface;
 use App\Contracts\Interfaces\LessonInterface;
 use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
@@ -15,10 +16,12 @@ class LessonController extends Controller
 {
 
     private LessonInterface $lesson;
+    private AssignmentInterface $assignment;
 
-    public function __construct(LessonInterface $lesson)
+    public function __construct(LessonInterface $lesson, AssignmentInterface $assignment)
     {
         $this->lesson = $lesson;
+        $this->assignment = $assignment;
     }
 
     /**
@@ -79,8 +82,11 @@ class LessonController extends Controller
 
     public function tableLessonInClassroom(Request $request)
     {
-        $data = $this->lesson->get($reqquest->classroom_id ?? '-');
+        $lesson = $this->lesson->get($reqquest->classroom_id ?? '-');
+        $selectedIds = $lesson->pluck('id')->toArray();
 
-        return BaseDatatable::TableV2($data->toArray());
+        $data = $this->assignment->customQuery($selectedIds);
+
+        return BaseDatatable::Table($data);
     }
 }
