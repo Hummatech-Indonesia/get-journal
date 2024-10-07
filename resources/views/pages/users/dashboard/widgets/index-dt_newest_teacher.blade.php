@@ -22,7 +22,7 @@
                 ],
                 dom: "rt",
                 order: [
-                    [4, 'desc']
+                    [3, 'desc']
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
@@ -39,7 +39,8 @@
                         data: "DT_RowIndex",
                         title: '#',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: '50px'
                     },
                     {
                         data: 'name',
@@ -59,7 +60,8 @@
                             `
                         },
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: '400px'
                     },
                     {
                         data: 'user_premium',
@@ -69,14 +71,16 @@
                             return `<span class="badge bg-light-warning text-warning">Non-Premium</span>`
                         },
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: '100px'
                     },
                     {
                         data: 'created_at',
                         title: 'Tanggal Pendaftaran',
                         render: (data) => {
                             return moment(data).format('LL')
-                        }, orderable: false
+                        },
+                        width: '100px'
                     }
                 ]
             })

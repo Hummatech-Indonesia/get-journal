@@ -28,9 +28,9 @@
                     $('.dt-buttons').addClass('btn-group-sm')
                 },
                 ajax: {
-                    url: "{{ route('data-table.v2.data-journals') }}",
+                    url: "{{ route('data-table.data-quota-premium') }}",
                     data: {
-                        related_code: "{{ auth()->user()->profile?->code }}",
+                        user_id: "{{ auth()->id() }}",
                     }
                 },
                 columns: [
@@ -41,29 +41,33 @@
                         searchable: false
                     },
                     {
-                        data: 'title',
-                        title: "Tanggal Pembelian"
+                        data: 'created_at',
+                        title: "Tanggal Pembelian",
+                        orderable: false
                     },
                     {
-                        data: 'lesson.name',
-                        title: 'Tanggal Kedaluarsa'
+                        data: 'time',
+                        title: 'Durasi',
+                        render: (data) => {
+                            return data+' bulan'
+                        },
+                        orderable: false
                     },
                     {
-                        title: 'Kehadiran',
-                        mRender: (data, type, row) => {
-                            return `<div>
-                                <span class="badge bg-light-primary text-primary">${row.permit.length} Izin</span>
-                                <span class="badge bg-light-warning text-warning">${row.sick.length} Sakit</span>
-                                <span class="badge bg-light-danger text-danger">${row.alpha.length} Alpha</span>
-                            </div>`
+                        data: 'expired_date',
+                        title: 'Tanggal Kedaluwarsa',
+                        render: (data, type, row) => {
+                            return moment(data),locale('id').format('DD MMMM YYYY')
                         }
                     },
                     {
-                        data: 'date', 
-                        title: 'Tanggal',
-                        render: function(data) {
-                            return moment(data).format('DD MMMM YYYY')
-                        }
+                        title: 'Dibeli',
+                        data: 'quantity',
+                        orderable: false
+                    }, {
+                        title: 'Digunakan',
+                        data: 'used_quantity',
+                        orderable: false
                     }
                 ]
             })

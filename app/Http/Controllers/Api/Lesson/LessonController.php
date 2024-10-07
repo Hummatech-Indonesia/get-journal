@@ -82,7 +82,7 @@ class LessonController extends Controller
 
     public function tableLessonInClassroom(Request $request)
     {
-        $lesson = $this->lesson->get($reqquest->classroom_id ?? '-');
+        $lesson = $this->lesson->get($request->classroom_id ?? '-');
         $selectedIds = $lesson->pluck('id')->toArray();
 
         $data = $this->assignment->customQuery($selectedIds);

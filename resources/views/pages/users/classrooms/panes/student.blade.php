@@ -1,11 +1,9 @@
-<div class="tab-pane fade show active" id="pane_siswa" role="tabpanel">
-    <div class="card">
-        <div class="card-body table-responsive">
-            <div class="alert alert-warning" role="alert">
-                Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
-            </div>
-            <table class="table align-middle" id="dt-students"></table>
+<div class="card">
+    <div class="card-body table-responsive">
+        <div class="alert alert-warning" role="alert">
+            Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
         </div>
+        <table class="table align-middle" id="dt-students"></table>
     </div>
 </div>
 

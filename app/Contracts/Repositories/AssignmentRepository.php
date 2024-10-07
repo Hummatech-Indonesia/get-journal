@@ -100,7 +100,7 @@ class AssignmentRepository extends BaseRepository implements AssignmentInterface
     public function customQuery(array $ids): mixed
     {
         return $this->model
-            ->with('marks')
+            ->with('marks', 'lesson')
             ->whereIn('lesson_id', $ids);
     }
 }
