@@ -72,7 +72,7 @@ class MarkRepository extends BaseRepository implements MarkAssignmentInterface
         }catch(\Throwable $th){ }
 
         return $this->model->query()
-        ->with('assignment','classroomStudent')
+        ->with('assignment.lesson','classroomStudent')
         ->when(count($data) > 0, function ($query) use ($data){
             foreach($data as $key => $value) {
                 $query->where($key, $value);
