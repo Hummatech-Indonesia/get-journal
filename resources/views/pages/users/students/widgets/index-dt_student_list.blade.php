@@ -99,12 +99,13 @@
                             `
                         }
                     },
-                    {
-                        title: "Jumlah Kelas",
-                        mRender: (data, type, row) => {
-                            return '<span class="badge badge-light-success text-success">3 kelas</span>'
-                        }
-                    },
+                    // {
+                    //     title: "Jumlah Kelas",
+                    //     mRender: (data, type, row) => {
+                    //         console.log({row})
+                    //         return '<span class="badge badge-light-success text-success">3 kelas</span>'
+                    //     }
+                    // },
                     {
                         title: 'Aksi',
                         mRender: (data, type, row) => {
