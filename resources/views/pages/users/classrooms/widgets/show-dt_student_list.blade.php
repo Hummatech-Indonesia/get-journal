@@ -6,6 +6,9 @@
         <li class="nav-item">
             <a class="nav-link text-primary" data-bs-toggle="tab" href="#pane_jurnal">Jurnal</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-primary" data-bs-toggle="tab" href="#pane_assignments">Tugas</a>
+        </li>
     </ul>
     <a href="{{ route('classes.index') }}" class="btn btn-dark btn-sm">&LeftArrow; Kembali</a>
 </div>
@@ -16,5 +19,8 @@
     </div>
     <div class="tab-pane fade show" id="pane_jurnal" role="tabpanel">
         @include('pages.users.classrooms.panes.journal')
+    </div>
+    <div class="tab-pane fade show" id="pane_assignments" role="tabpanel">
+        @include('pages.users.classrooms.panes.assignments')
     </div>
 </div>

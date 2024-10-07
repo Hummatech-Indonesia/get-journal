@@ -3,7 +3,7 @@
         <div class="alert alert-warning" role="alert">
             Jika ingin melakukan cetak data, pastikan kolom "entries per page" bernilai "semua"
         </div>
-        <table class="table align-middle" id="dt-journals"></table>
+        <table class="table align-middle" id="dt-assignments"></table>
     </div>
 </div>
 
@@ -80,7 +80,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            const dt_journals = $('#dt-journals').DataTable({
+            const dt_assignments = $('#dt-assignments').DataTable({
                 language: {
                     processing: 'memuat...'
                 },
@@ -90,9 +90,9 @@
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, 'Semua']
                 ],
-                dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container-journal'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
+                dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container-assignment'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
                 order: [
-                    [1, 'asc']
+                    [4, 'desc']
                 ],
                 buttons: [
                     {
@@ -118,11 +118,9 @@
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
-                    $('.custom-container-journal').html(`<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal-download-journal">Cetak Laporan Jurnal</button>`)
-                    isCanSubmitPremium()
                 },
                 ajax: {
-                    url: "{{ route('data-table.data-journals') }}",
+                    url: "{{ route('data-table.data-lessons') }}",
                     data: {
                         classroom_id: "{{ $classroom->id }}",
                     }
@@ -132,41 +130,36 @@
                         data: "DT_RowIndex",
                         title: '#',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
                     },
                     {
-                        data: 'title',
-                        title: "Judul Jurnal"
+                        data: 'name',
+                        title: "Judul",
+                    },
+                    {
+                        data: 'description',
+                        title: 'Deskripsi'
                     },
                     {
                         data: 'lesson.name',
                         title: 'Pelajaran'
                     },
                     {
-                        title: 'Kehadiran',
-                        mRender: (data, type, row) => {
-                            return `<div>
-                                <span class="badge bg-light-primary text-primary">${row.permit.length} Izin</span>
-                                <span class="badge bg-light-warning text-warning">${row.sick.length} Sakit</span>
-                                <span class="badge bg-light-danger text-danger">${row.alpha.length} Alpha</span>
-                            </div>`
-                        }
-                    },
-                    {
-                        data: 'date', 
-                        title: 'Tanggal',
+                        data: 'due_date',
+                        title: 'Tenggat',
                         render: function(data) {
-                            return moment(data).format('DD MMMM YYYY')
+                            return moment(data).locale('id').format('DD MMMM YYYY')
                         }
                     },
                     {
+                        data: 'id',
                         title: "Aksi",
-                        mRender: function(data, type, row) {
-                            const data_str = JSON.stringify(row).replaceAll('"', "`")
+                        render: function(data, type, row) {
+                            const data_url = "/api/assignments/export-marks/"+data
                             return `
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" class="btn btn-sm btn-light-primary btn-show-description" data-bs-toggle="modal" data-bs-target="#modal-detail" data-detail="${data_str}">
-                                        Detail
+                                    <button type="button" class="btn btn-sm btn-light-primary btn-print-assignment" data-url="${data_url}">
+                                        Export Nilai
                                     </button>
                                 </div>
                             `
@@ -175,59 +168,19 @@
                 ]
             })
 
-            $(document).on('click', '#btn-submit-download-journal', function() {
+            $(document).on('click', '.btn-print-assignment', function() {
+                const data_url = $(this).data('url')
                 $.ajax({
-                    url: "{{ url('api/journals/export') }}",
-                    method: "POST",
-                    data: {
-                        classroom_id: "{{ $classroom->id }}",
-                        start_date: $('#start_date').val(),
-                        end_date: $('#end_date').val(),
-                        filename: $('#filename').val(),
-                        _token: "{{ csrf_token() }}"
-                    },
+                    url: data_url,
+                    method: "GET",
                     success: function(res) {
-                        window.open('{{asset("storage")}}/' + res.url, '_blank')
+                        window.open('{{asset("storage")}}/' + res.path, '_blank')
                     },
                     error: function(xhr) {
                         console.error(xhr)
                     }
                 })
             })
-
-            $(document).on('click', '.btn-show-description', function() {
-                const detail = JSON.parse($(this).data('detail').replaceAll('`', '"'))
-                $('#modal-detail .modal-body #description').html(detail.description.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2'))
-                const list_permit = detail.permit.map((item) => item.profile.name).join(', ')
-                const list_sick = detail.sick.map((item) => item.profile.name).join(', ')
-                const list_alpha = detail.alpha.map((item) => item.profile.name).join(', ')
-                $('#modal-detail .modal-body #permit').html(list_permit ? list_permit : '-')
-                $('#modal-detail .modal-body #sick').html(list_sick ? list_sick : '-')
-                $('#modal-detail .modal-body #alpha').html(list_alpha ? list_alpha : '-')
-            })
-
-            $(document).on('change', '#check-all-teacher', function() {
-                $('.check-teacher').prop('checked', $(this).prop('checked'))
-                isCanSubmitPremium()
-            })
-
-            $(document).on('change', '.check-teacher', function() {
-                const checked = $('.check-teacher:checked').length
-                const all_check_teacher = $('.check-teacher').length
-
-                if(checked == 0) $('#check-all-teacher').prop('checked', false)
-                else if(checked == all_check_teacher) $('#check-all-teacher').prop('checked', true)
-                else {
-                    $('#check-all-teacher').prop('checked', false)
-                    $('#check-all-teacher').prop('indeterminate', true)
-                }
-                isCanSubmitPremium()
-            })
-
-            function isCanSubmitPremium() {
-                if(!$('.check-teacher:checked').length) $('#submit-premium').addClass('disabled')
-                else $('#submit-premium').removeClass('disabled')
-            }
         })
     </script>
 @endpush

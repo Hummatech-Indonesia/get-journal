@@ -1,6 +1,6 @@
 <div class="card h-100 mb-3">
     <div class="card-body">
-        <h4>Jurnal Hari Ini</h4>
+        <h4>Jurnal Terbaru</h4>
         <div class="table-responsive">
             <table class="table align-middle" id="dt-newest-journals"></table>
         </div>
@@ -22,7 +22,7 @@
                 ],
                 dom: "rt",
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ],
                 initComplete: function() {
                     $('.dt-buttons').addClass('btn-group-sm')
@@ -30,7 +30,7 @@
                 ajax: {
                     url: "{{ route('data-table.v2.data-journals') }}",
                     data: {
-                        related_code: "{{ auth()->user()->profile?->code }}",
+                        code: "{{ auth()->user()->profile?->code }}",
                     }
                 },
                 columns: [
@@ -38,15 +38,17 @@
                         data: "DT_RowIndex",
                         title: '#',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
                     },
                     {
                         data: 'title',
-                        title: "Judul Jurnal"
+                        title: "Judul Jurnal",
+                        orderable: false
                     },
                     {
                         data: 'lesson.name',
-                        title: 'Pelajaran'
+                        title: 'Pelajaran',
+                        orderable: false
                     },
                     {
                         title: 'Kehadiran',
@@ -56,7 +58,8 @@
                                 <span class="badge bg-light-warning text-warning">${row.sick.length} Sakit</span>
                                 <span class="badge bg-light-danger text-danger">${row.alpha.length} Alpha</span>
                             </div>`
-                        }
+                        },
+                        orderable: false
                     },
                     {
                         data: 'date', 
