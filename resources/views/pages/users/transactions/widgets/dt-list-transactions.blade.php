@@ -20,7 +20,7 @@
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, 'Semua']
                 ],
-                dom: "<'row mt-2 justify-content-between'<'col-md-auto me-auto'B><'col-md-auto ms-auto custom-container'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
+                dom: "<'row mt-2 justify-content-between'<'col-auto me-auto'B><'col-auto ms-auto custom-container'>><'row mt-2 justify-content-between'<'col-sm-auto me-auto'l><'col-sm-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
                 order: [
                     @if(Auth::user()->hasRole('admin'))
                     [2, 'desc']
