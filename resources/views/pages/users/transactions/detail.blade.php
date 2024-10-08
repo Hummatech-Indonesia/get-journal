@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column gap-3">
-                @if($data->status == "UNPAID")
+                @if($data->status == "UNPAID" && !auth()->user()->hasRole('admin'))
                 <a href="{{ $data->checkout_url }}" target="_blank"
                     class="btn btn-sm btn-primary d-flex gap-2 justify-content-center align-items-center"><i
                         class="ki-duotone ki-credit-cart fs-1"><span class="path1"></span><span class="path2"></span></i>

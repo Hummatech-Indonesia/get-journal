@@ -137,11 +137,13 @@
                                     Detail
                                 </a>
                             `
+                            @if(!auth()->user()->hasRole('admin'))
                             if(row['status'] == 'UNPAID') return_el += `
                                 <a href="${row['checkout_url']}" target="_blank" class="btn btn-sm btn-light-success">
                                     Bayar
                                 </a>
                             `
+                            @endif
                             return_el += '</div>'
 
                             return return_el
