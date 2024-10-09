@@ -27,6 +27,8 @@
             </div>
         </div>
     </div>
+
+    @include('pages.users.students.widgets.show-dt_mark')
     
 @endsection
 

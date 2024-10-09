@@ -1,25 +1,31 @@
 <div id="kt_header" style="" class="header align-items-stretch">
     <!--begin::Container-->
-    <div class="container-fluid d-flex align-items-stretch justify-content-between">
+    <div class="container-fluid d-flex align-items-stretch">
         <!--begin::Aside mobile toggle-->
         <div class="d-flex align-items-center d-lg-none ms-n1 me-2" title="Show aside menu">
             <div class="btn btn-icon btn-active-color-danger w-30px h-30px w-md-40px h-md-40px" id="kt_aside_mobile_toggle">
                 <i class="ki-outline ki-abstract-14 fs-1"></i>
             </div>
-            <a href="index.html" class="d-lg-none">
+            <a href="/" class="d-lg-none">
                 <img alt="Logo" src="{{ asset('assets/logo/logo.png') }}" class="h-25px" />
             </a>
         </div>
         <!--end::Aside mobile toggle-->
         <!--begin::Navbar-->
         <div class="d-flex align-items-stretch" id="kt_header_nav">
-            <div class="d-flex justify-content-start align-items-center fw-bolder text-gray-900 fw-bold h1">
-                {{ trim($__env->yieldContent('alt-title')) ? $__env->yieldContent('alt-title') : $__env->yieldContent('title') }}
+            @if(trim($__env->yieldContent('alt-title')))
+            <div class="d-none d-lg-flex justify-content-start align-items-center fw-bolder text-gray-900 fw-bold h1 m-0">
+                {{ $__env->yieldContent('alt-title') }}
             </div>
+            @else
+            <div class="d-flex justify-content-start align-items-center fw-bolder text-gray-900 fw-bold h1 m-0 me-auto">
+                {{ $__env->yieldContent('title') }}
+            </div>
+            @endif
         </div>
         <!--end::Navbar-->
         <!--begin::Wrapper-->
-        <div class="d-flex align-items-stretch justify-content-between">
+        <div class="d-flex align-items-stretch justify-content-between ms-auto">
             <!--begin::Toolbar wrapper-->
             <div class="d-flex align-items-stretch flex-shrink-0">
                 @hasrole('school')
@@ -75,7 +81,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ auth()->user()->profile->photo ? auth()->user()->profile->photo : asset('assets/media/avatars/blank.png') }}" alt="image" />
+                        <img src="{{ asset((auth()->user()->profile->photo ? 'storage/'.auth()->user()->profile->photo : 'assets/media/avatars/blank.png')) }}" alt="image" class="object-fit-cover" />
                     </div>
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -84,7 +90,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{ auth()->user()->profile->photo ? auth()->user()->profile->photo : asset('assets/media/avatars/blank.png') }}    " />
+                                    <img alt="Logo" src="{{ asset((auth()->user()->profile->photo ? 'storage/'.auth()->user()->profile->photo : 'assets/media/avatars/blank.png')) }}" class="object-fit-cover" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->

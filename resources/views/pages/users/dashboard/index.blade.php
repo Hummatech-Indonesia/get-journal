@@ -10,6 +10,9 @@
             bottom: -20px;
             right: 0px
         }
+        th {
+            text-wrap: nowrap;
+        }
     </style>
 @endpush
 

@@ -10,7 +10,7 @@
 
     <div class="card w-100 d-flex flex-column flex-md-row overflow-hidden">
         <div class="flex-1 w-100">
-            <img src="{{ asset((auth()->user()->profile->photo ? 'storage/'.auth()->user()->profile->photo : 'assets/media/avatars/blank.png')) }}" alt="foto profile" class="w-100" style="object-fit: cover;">
+            <img src="{{ asset((auth()->user()->profile->photo ? 'storage/'.auth()->user()->profile->photo : 'assets/media/avatars/blank.png')) }}" alt="foto profile" class="w-100 h-100" style="object-fit: cover;">
         </div>
         <div class="flex-1 w-100 justify-self-stretch d-flex flex-column justify-content-between p-12">
             <div>

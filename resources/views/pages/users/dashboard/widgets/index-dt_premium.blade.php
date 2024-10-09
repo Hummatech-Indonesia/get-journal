@@ -16,6 +16,7 @@
                 },
                 processing: true,
                 serverSide: true,
+                pageLength: 5,
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, 'Semua']
@@ -43,6 +44,9 @@
                     {
                         data: 'created_at',
                         title: "Tanggal Pembelian",
+                        render: (data) => {
+                            return moment(data).locale('id').format('DD MMMM YYYY')
+                        },
                         orderable: false
                     },
                     {
@@ -57,7 +61,7 @@
                         data: 'expired_date',
                         title: 'Tanggal Kedaluwarsa',
                         render: (data, type, row) => {
-                            return moment(data),locale('id').format('DD MMMM YYYY')
+                            return moment(data).locale('id').format('DD MMMM YYYY')
                         }
                     },
                     {
