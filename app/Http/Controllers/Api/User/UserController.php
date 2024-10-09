@@ -81,7 +81,11 @@ class UserController extends Controller
         }
         $this->userInterface->updatePassword($user_id, $data);
 
-        if($request->type == "web") return redirect()->back()->with('success','Password berhasil di ubah');
+        if($request->type == "web"){
+            auth()->login(auth()->user()); 
+            return redirect()->back()->with('success','Password berhasil di ubah'); 
+        }
+
         return DefaultResource::make([
             'code' => 200,
             'message' => 'Password berhasil diubah',

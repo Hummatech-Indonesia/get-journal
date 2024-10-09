@@ -47,6 +47,6 @@ class UpdatePasswordRequest extends FormRequest
     }
 
     public function prepareForValidation(){
-        if($this->type == "web" && !$this->password) $this->merge(["password" => "password"]);
+
     }
 }
