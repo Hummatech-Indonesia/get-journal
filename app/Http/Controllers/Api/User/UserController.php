@@ -61,7 +61,6 @@ class UserController extends Controller
     public function updatePassword(UpdatePasswordRequest $request): mixed
     {
         $data = $request->validated();
-
         if (Hash::check($data['password'], auth()->user()->password) === false) {
             if($request->type == "web") return redirect()->back()->with('error','Password lama tidak sesuai');
 
@@ -70,7 +69,7 @@ class UserController extends Controller
                 'message' => 'Password lama tidak sesuai',
             ], 400);
         }
-
+        
         $user_id = auth()?->id() ?? $request->user_id;
         if(!$user_id){
             if($request->type == "web") return redirect()->back()->with('error','Akun tidak ditemukan');
@@ -82,7 +81,7 @@ class UserController extends Controller
         }
         $this->userInterface->updatePassword($user_id, $data);
 
-        if($request->type == "web") return redirect()->back()->with('error','Password lama tidak sesuai');
+        if($request->type == "web") return redirect()->back()->with('success','Password berhasil di ubah');
         return DefaultResource::make([
             'code' => 200,
             'message' => 'Password berhasil diubah',
